@@ -28,7 +28,7 @@ jobs:
         cp -r public/* ./  # 复制生成的静态文件到仓库根目录
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v3.8.0
       with:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}  # 你的个人访问令牌
         EXTERNAL_REPOSITORY: molij/molij.github.io  # 你的GitHub Pages仓库
