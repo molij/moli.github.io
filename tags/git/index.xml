@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/git/</link>
+    <description>Recent content in git on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git Bash 更改初始目录</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/git/2016-04-14-git-bash-change-initial-directory/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/git/2016-04-14-git-bash-change-initial-directory/</guid>
+      <description>每次打开Git Bash时，默认的初始目录是/c/Windows/system,切换工作目录还需要手动敲cd /../..，太过麻烦。&#xA;右键点击Git Bash启动项，打开属性，找到快捷方式的起始位置一栏，改为自己的工作目录路径就可以了。&#xA;如图所示：</description>
+    </item>
+    <item>
+      <title>svn与git的一些区别</title>
+      <link>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-03-29-svn-git-diff/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-03-29-svn-git-diff/</guid>
+      <description>git是分布式的，svn不是 内容存储方式，git是按元数据，svn是按文件 分支不同 git没有一个全局版本号，svn有 git内容完整性要优于svn </description>
+    </item>
+    <item>
+      <title>git常用的一些命令</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-09-01-git-do/</link>
+      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-09-01-git-do/</guid>
+      <description>查看状态 $ git status 添加修改 $ git add . 提交修改 $ git commit -m &amp;#34;...&amp;#34; 自动追踪文件，包括你已经手动删除的，状态为Deleted的文件 $ git add -u $ git rm .../... -r -f $ git checkout . $ git commit -m &amp;#34;...&amp;#34; $ git push origin master 发布文章 rake post title=&amp;#34;文章标题&amp;#34; rake page name=&amp;#34;页面名称.md&amp;#34; rake page name=&amp;#34;pages/页面名称.md&amp;#34; </description>
+    </item>
+  </channel>
+</rss>

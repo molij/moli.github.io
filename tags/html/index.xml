@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>html on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/html/</link>
+    <description>Recent content in html on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 10 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>各种常见的UI元素</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/htmlcss/2015-12-10-ui-elements/</link>
+      <pubDate>Thu, 10 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/htmlcss/2015-12-10-ui-elements/</guid>
+      <description>##按钮&#xA;####色块按钮&#xA;&amp;lt;a class=&amp;quot;btn&amp;quot;&amp;gt;按钮&amp;lt;/a&amp;gt; &amp;lt;style&amp;gt; .btn {background-color: #c2c2c2;color: #fff;border-radius: 3px; border: 1px solid transparent; border-radius: 4px; cursor: pointer; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1.5; margin-bottom: 0; padding: 6px 12px; text-align: center; vertical-align: middle; white-space: nowrap; text-decoration: none; } .btn:active,.btn:hover {background-color:#bababa; border-color:#bababa;} &amp;lt;/style&amp;gt; ####线框按钮&#xA;&amp;lt;a class=&amp;quot;btn&amp;quot;&amp;gt;按钮&amp;lt;/a&amp;gt; &amp;lt;style&amp;gt; .btn {color: #c2c2c2;border-radius: 3px; border: 1px solid #c2c2c2; border-radius: 4px; cursor: pointer; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1.5; margin-bottom: 0; padding: 6px 12px; text-align: center; vertical-align: middle; white-space: nowrap; text-decoration: none; } .</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM on 莫离君的博客</title>
+    <link>https://moli.github.io/categories/llm/</link>
+    <description>Recent content in LLM on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 18 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/categories/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>手把手教你认识学会LangChain</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-learn-lang-chain/</link>
+      <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-learn-lang-chain/</guid>
+      <description>什么是LangChain LangChain: 一个让你的LLM变得更强大的开源框架。LangChain 就是一个 LLM 编程框架，你想开发一个基于 LLM 应用，需要什么组件它都有，直接使用就行；甚至针对常规的应用流程，它利用链(LangChain中Chain的由来)这个概念已经内置标准化方案了。下面我们从新兴的大语言模型（LLM）技术栈的角度来看看为何它的理念这么受欢迎。&#xA;LangChain起源 LangChain 的作者是 Harrison Chase，最初是于 2022 年 10 月开源的一个项目，在 GitHub 上获得大量关注之后迅速转变为一家初创公司。2017 年 Harrison Chase 还在哈佛上大学，如今已是硅谷的一家热门初创公司的 CEO，这对他来说是一次重大而迅速的跃迁。Insider 独家报道，人工智能初创公司 LangChain 在种子轮一周后，再次获得红杉领投的 2000 万至 2500 万美元融资，估值达到 2 亿美元。&#xA;LangChain六大主要领域 管理和优化prompt。不同的任务使用不同prompt，如何去管理和优化这些prompt是langchain的主要功能之一。 链，初步理解为一个具体任务中不同子任务之间的一个调用。 数据增强的生成，数据增强生成涉及特定类型的链，它首先与外部数据源交互以获取数据用于生成步骤。这方面的例子包括对长篇文字的总结和对特定数据源的提问/回答。 代理，根据不同的指令采取不同的行动，直到整个流程完成为止。 评估，生成式模型是出了名的难以用传统的指标来评估。评估它们的一个新方法是使用语言模型本身来进行评估。LangChain提供了一些提示/链来协助这个工作。 内存：在整个流程中帮我们管理一些中间状态。 总的来说LangChain可以理解为：在一个流程的整个生命周期中，管理和优化prompt，根据prompt使用不同的代理进行不同的动作，在这期间使用内存管理中间的一些状态，然后使用链将不同代理之间进行连接起来，最终形成一个闭环。&#xA;LangChain的主要价值组件 组件：用于处理语言模型的抽象概念，以及每个抽象概念的实现集合。无论你是否使用LangChain框架的其他部分，组件都是模块化的，易于使用。&#xA;现成的链：用于完成特定高级任务的组件的结构化组合。现成的链使人容易上手。对于更复杂的应用和细微的用例，组件使得定制现有链或建立新链变得容易。&#xA;LangChain组件 model I/O：语言模型接口 data connection：与特定任务的数据接口 chains：构建调用序列 agents：给定高级指令，让链选择使用哪些工具 memory：在一个链的运行之间保持应用状态 callbacks：记录并流式传输任何链的中间步骤 indexes：索引指的是结构化文件的方法，以便LLM能够与它们进行最好的交互 数据连接组件data connection LLM应用需要用户特定的数据，这些数据不属于模型的训练集。LangChain通过以下方式提供了加载、转换、存储和查询数据的构建模块：&#xA;文档加载器：从许多不同的来源加载文档 文档转换器：分割文档，删除多余的文档等 文本嵌入模型：采取非结构化文本，并把它变成一个浮点数的列表 矢量存储：存储和搜索嵌入式数据 检索器：查询你的数据&#xA;data connection整体流程 data connection——文档加载器 python安装包命令：&#xA;pip install langchain pip install unstructured pip install jq CSV基本用法 import os from pathlib import Path from langchain.</description>
+    </item>
+    <item>
+      <title>文本向量化</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-text-to-vec/</link>
+      <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-text-to-vec/</guid>
+      <description>一、文本向量化 文本向量化：将文本信息表示成能够表达文本语义的向量，是用数值向量来表示文本的语义。&#xA;词嵌入(Word Embedding)：一种将文本中的词转换成数字向量的方法，属于文本向量化处理的范畴。&#xA;向量嵌入操作面临的挑战包括：&#xA;信息丢失：向量表达需要保留信息结构和节点间的联系。 可扩展性：嵌入方法应具有可扩展性，能够处理可变长文本信息。 维数优化：高维数会提高精度，但时间和空间复杂性也被放大。低维度虽然时间、空间复杂度低，但以损失原始信息为代价，因此需要权衡最佳维度的选择。 常见的文本向量和词嵌入方法包括独热模型（One Hot Model），词袋模型（Bag of Words Model）、词频-逆文档频率（TF-IDF）、N元模型（N-Gram）、单词-向量模型（Word2vec）、文档-向量模型（Doc2vec）&#xA;二、独热编码 One-hot编码采用N位状态寄存器来对N个状态进行编码，是分类变量作为二进制向量的表述。&#xA;首先根据提供的文本构建词典，其中的数字可以视作对应词语的标签信息或者事物的分类信息。&#xA;然后基于独热编码表达法，构造一个N维向量，该向量的维度与词典的长度一直，对于给定词语进行向量表达时，其在词典中出现的响应位置的寄存器赋值为1，其余为0示例如下：&#xA;三、词袋模型 词袋模型(Bag-of-words model：BOW)假定对于给定文本，忽略单词出现的顺序和语法等因素，将其视为词汇的简单集合，文档中每个单词的出现属于独立关系，不依赖于其它单词。先将句子向量化，句子维度和字典维度一致，第 i 维上的数字代表 ID 为 i 的词语在该句子里出现的频率。&#xA;四、词频-逆文档频率模型 TF-IDF（term frequency-inverse document frequency）是数据信息挖掘的常用统计技术。TF(Term Frequency)中文含义是词频，IDF(Inverse Document Frequency)中文含义是逆文本频率指数。&#xA;词频统计的是词语在特定文档中出现的频率，而逆文档频率统计的是词语在其他文章中出现的频率，其处理基本逻辑是词语的重要性随着其在特定文档中出现的次数呈现递增趋势，但同时会随着其在语料库中其他文档中出现的频率递减下降 数学表达式如下：&#xA;五、N元模型 N-Gram语言模型基本思路是基于给定文本信息，预测下一个最可能出现的词语。N=1称为unigram，表示下一词的出现不依赖于前面的任何词；N=2称为bigram，表示下一词仅依赖前面紧邻的一个词语，依次类推。&#xA;六、单词-向量模型 将不可计算、非结构化的词语转化为可计算、结构化的向量。word2vec模型假设不关注词的出现顺序。Word2Vec包含连续词袋模型CBOW（Continues Bag of Words）和Skip-gram模型两种网络结构。训练完成之后，模型可以针对词语和向量建立映射关系，因此可用来表示词语跟词语之间的关系&#xA;CBOW模型如下：</description>
+    </item>
+  </channel>
+</rss>

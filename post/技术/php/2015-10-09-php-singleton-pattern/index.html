@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>PHP设计模式之单例模式</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >PHP设计模式之单例模式</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Oct 9, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>单例模式（职责模式）：</p>
+<p>简单的说，一个对象（在学习设计模式之前，需要比较了解面向对象思想）只负责一个特定的任务；</p>
+<!-- raw HTML omitted -->
+<p>单例类：</p>
+<p>1、构造函数需要标记为private（访问控制：防止外部代码使用new操作符创建对象），单例类不能在其他类中实例化，只能被其自身实例化；</p>
+<p>2、拥有一个保存类的实例的静态成员变量</p>
+<p>3、拥有一个访问这个实例的公共的静态方法（常用getInstance()方法进行实例化单例类，通过instanceof操作符可以检测到类是否已经被实例化）</p>
+<p>另外，需要创建__clone()方法防止对象被复制（克隆）</p>
+<p>为什么要使用PHP单例模式？</p>
+<p>1、php的应用主要在于数据库应用, 所以一个应用中会存在大量的数据库操作, 使用单例模式, 则可以避免大量的new 操作消耗的资源。</p>
+<p>2、如果系统中需要有一个类来全局控制某些配置信息, 那么使用单例模式可以很方便的实现. 这个可以参看ZF的FrontController部分。</p>
+<p>3、在一次页面请求中, 便于进行调试, 因为所有的代码(例如数据库操作类db)都集中在一个类中, 我们可以在类中设置钩子, 输出日志，从而避免到处var_dump, echo。</p>
+<p>代码实现：</p>
+<pre><code>&lt;?php
+
+/*
+
+* 设计模式之单例模式
+
+* $_instance必须声明为静态的私有变量
+
+* 构造函数和析构函数必须声明为私有,防止外部程序new
+
+* 类从而失去单例模式的意义
+
+* getInstance()方法必须设置为公有的,必须调用此方法
+
+* 以返回实例的一个引用
+
+* ::操作符只能访问静态变量和静态函数
+
+* new对象都会消耗内存
+
+* 使用场景:最常用的地方是数据库连接。 
+
+* 使用单例模式生成一个对象后，
+
+* 该对象可以被其它众多对象所使用。 
+
+*/
+
+class Danli {
+
+ 
+
+//保存类实例的静态成员变量
+
+private static $_instance;
+
+ 
+
+//private标记的构造方法
+
+private function __construct(){
+
+echo 'This is a Constructed method;';
+
+}
+
+ 
+
+//创建__clone方法防止对象被复制克隆
+
+public function __clone(){
+
+trigger_error('Clone is not allow!',E_USER_ERROR);
+
+}
+
+ 
+
+//单例方法,用于访问实例的公共的静态方法
+
+public static function getInstance(){
+
+if(!(self::$_instance instanceof self)){
+
+self::$_instance = new self;
+
+}
+
+return self::$_instance;
+
+}
+
+ 
+
+public function test(){
+
+echo '调用方法成功';
+
+}
+
+ 
+
+}
+
+ 
+
+//用new实例化private标记构造函数的类会报错
+
+//$danli = new Danli();
+
+ 
+
+//正确方法,用双冒号::操作符访问静态方法获取实例
+
+$danli = Danli::getInstance();
+
+$danli-&gt;test();
+
+ 
+
+//复制(克隆)对象将导致一个E_USER_ERROR
+
+$danli_clone = clone $danli; </code></pre>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2015-09-21-phpexcel/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

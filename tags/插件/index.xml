@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>插件 on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/%E6%8F%92%E4%BB%B6/</link>
+    <description>Recent content in 插件 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jQuery插件模板</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</link>
+      <pubDate>Wed, 02 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</guid>
+      <description>此 jQuery 插件模板出自：jQuery Plugin Boilerplate, revisited&#xA;// jQuery Plugin Boilerplate // A boilerplate for jumpstarting jQuery plugins development // version 1.1, May 14th, 2011 // by Stefan Gabos // remember to change every instance of &amp;quot;pluginName&amp;quot; to the name of your plugin! (function($) { // here we go! $.pluginName = function(element, options) { // plugin&#39;s default options // this is private property and is accessible only from inside the plugin var defaults = { foo: &#39;bar&#39;, // if your plugin is event-driven, you may provide callback capabilities // for its events.</description>
+    </item>
+    <item>
+      <title>Firefox域名重定向插件——Mason</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</link>
+      <pubDate>Fri, 09 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</guid>
+      <description>工具： Mason 0.3.7.9.18 https://addons.mozilla.org/zh-CN/firefox/addon/mason/&#xA;描述：Fonts.googleapis.com 包含地址：https?://fonts.googleapis.com 重定向：http://&amp;gt;*^https?://fonts.googleapis.com&amp;gt;*http://fonts.useso.com&#xA;描述：Ajax.googleapis.com 包含地址：https?://ajax.googleapis.com 重定向：http://&amp;gt;*^https?://ajax.googleapis.com&amp;gt;*http://ajax.useso.com&#xA;描述：Themes.googleusercontent.com 包含地址：https?://themes.googleusercontent.com 重定向：http://&amp;gt;*^https?://themes.googleusercontent.com&amp;gt;*http://google-themes.lug.ustc.edu.cn&#xA;描述：Fonts.gstatic.com 包含地址：https?://fonts.gstatic.com 重定向：http://&amp;gt;*^https?://fonts.gstatic.com&amp;gt;*fonts-gstatic.lug.ustc.edu.cn</description>
+    </item>
+  </channel>
+</rss>

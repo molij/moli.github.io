@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>session opened/closed for user root by (uid=0)</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Session Opened/Closed for User Root by (Uid=0)</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>May 25, 2018</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>服务器出现大量这种日志使得 <code>/var/</code> 目录占用磁盘空间巨大：</p>
+<pre tabindex="0"><code># tail -f /var/log/auth.log
+May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session opened for user www-data by (uid=0)
+May 25 14:40:01 1204developer CRON[2193]: pam_unix(cron:session): session opened for user www-data by (uid=0)
+May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session opened for user www-data by (uid=0)
+May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session closed for user www-data
+May 25 14:40:01 1204developer CRON[2190]: pam_unix(cron:session): session closed for user www-data
+May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session closed for user www-data
+May 25 14:41:01 1204developer CRON[2189]: pam_unix(cron:session): session closed for user smmsp
+May 25 14:41:01 1204developer CRON[12928]: pam_unix(cron:session): session opened for user www-data by (uid=0)
+May 25 14:41:02 1204developer CRON[12928]: pam_unix(cron:session): session closed for user www-data
+May 25 14:41:09 1204developer CRON[2193]: pam_unix(cron:session): session closed for user www-data
+</code></pre><!-- raw HTML omitted -->
+<p>解决方案：</p>
+<ul>
+<li>进入到目录 <code>/etc/pam.d</code></li>
+<li>打开文件 <code>common-session-noninteractive</code></li>
+<li>找到这一行</li>
+</ul>
+<pre tabindex="0"><code>session required        pam_unix.so
+</code></pre><ul>
+<li>在这行上方，添加如下一行</li>
+</ul>
+<pre tabindex="0"><code>session     [success=1 default=ignore] pam_succeed_if.so service in cron quiet use_uid
+</code></pre><ul>
+<li>保存后，使用命令 <code>service cron restart</code> 重启 <code>crond</code></li>
+</ul>
+<p><a href="http://languor.us/cron-pam-unix-cron-session-session-opened-closed-user-root-uid0">http://languor.us/cron-pam-unix-cron-session-session-opened-closed-user-root-uid0</a></p>
+<blockquote>
+<p>原文出处：<a href="http://languor.us/cron-pam-unix-cron-session-session-opened-closed-user-root-uid0">Cron: pam_unix (cron:session): session opened/closed for user root by (uid=0)</a></p>
+</blockquote>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2017-07-17-anonymous-function/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-text-to-vec/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

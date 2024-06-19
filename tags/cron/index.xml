@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cron on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/cron/</link>
+    <description>Recent content in Cron on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 May 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/cron/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>session opened/closed for user root by (uid=0)</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/</link>
+      <pubDate>Fri, 25 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/</guid>
+      <description>服务器出现大量这种日志使得 /var/ 目录占用磁盘空间巨大：&#xA;# tail -f /var/log/auth.log May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2193]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session closed for user www-data May 25 14:40:01 1204developer CRON[2190]: pam_unix(cron:session): session closed for user www-data May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session closed for user www-data May 25 14:41:01 1204developer CRON[2189]: pam_unix(cron:session): session closed for user smmsp May 25 14:41:01 1204developer CRON[12928]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:41:02 1204developer CRON[12928]: pam_unix(cron:session): session closed for user www-data May 25 14:41:09 1204developer CRON[2193]: pam_unix(cron:session): session closed for user www-data 解决方案：</description>
+    </item>
+  </channel>
+</rss>

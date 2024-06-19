@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/react/</link>
+    <description>Recent content in React on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Mar 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>React学习 之 Dangerously Set innerHTML</title>
+      <link>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-03-02-dangerously-set-innerhtml/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-03-02-dangerously-set-innerhtml/</guid>
+      <description>在学习React的过程中看到 dangerouslySetInnerHTML 这样奇怪的prop命名。&#xA;React特意设计这样的，以此提醒开发者，它的prop值应该是净化后的安全数据。&#xA;官网给出的原因是：&#xA;不合时宜的使用 innerHTML 可能会导致 cross-site scripting (XSS) 攻击。 净化用户的输入来显示的时候，经常会出现错误，不合适的净化也是导致网页攻击 的原因之一。&#xA;在彻底的理解安全问题后果并正确地净化数据之后，生成只包含唯一 key __html 的对象，并且对象的值是净化后的数据。&#xA;使用dangerouslySetInnerHTML：&#xA;function createMarkup() { return {__html: &#39;First &amp;amp;middot; Second&#39;}; }; &amp;lt;div dangerouslySetInnerHTML={createMarkup()} /&amp;gt; 这么做的意义在于，当你不是有意地使用 &amp;lt;div dangerouslySetInnerHTML={getUsername()} /&amp;gt;时候，它并不会被渲染，因为 getUsername() 返回的格式是 字符串 而不是一个 {__html: &#39;&#39;} 对象。&#xA;{__html:...} 背后的目的是表明它会被当成 &amp;quot;type/taint&amp;quot; 类型处理。 这种包裹对象，可以通过方法调用返回净化后的数据，随后这种标记过的数据可以被传递给 dangerouslySetInnerHTML。 基于这种原因，我们不推荐写这种形式的代码：&amp;lt;div dangerouslySetInnerHTML={{__html: getMarkup()}} /&amp;gt;.&#xA;这个功能主要被用来与 DOM 字符串操作类库一起使用，所以提供的 HTML 必须要格式清晰（例如：传递 XML 校验 ）</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>PHP代码之使用引用</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >PHP代码之使用引用</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Jul 17, 2017</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>在PHP 中引用的意思是：不同的名字访问同一个变量内容。php的引用（就是在变量或者函数、对象等前面加上&amp;符号）最重要就是删除引用的变量，只是引用的变量访问不了，但是内容并没有销毁。</p>
+<!-- raw HTML omitted -->
+<h2 id="场景一遍历一个数组获取新的数据结构">场景一：遍历一个数组获取新的数据结构</h2>
+<p>也许你会这样写：</p>
+<pre><code>// 申明一个新的数组,组装成你想要的数据
+$tmp = [];
+foreach ($arr as $k =&gt; $v) {
+    // 取出你想要的数据
+    $tmp[$k]['youwant'] = $v['youwant'];
+    ...
+    // 一系列判断得到你想要的数据
+    if (...) {
+        $tmp[$k]['youwantbyjudge'] = 'TIGERB';
+    }
+    ...
+}
+// 最后得要你想要的数组$tmp
+-------------------------------------------------------
+// 也许你觉着上面的写法不是很好，那我们下面换种写法
+foreach ($arr as $k =&gt; $v) {
+    // 一系列判断得到你想要的数据
+    if (...) {
+        // 复写值为你想要的
+        $arr[$k]['youwantbyjudge'] = 'TIGERB'
+    }
+    ...
+    // 干掉你不想要的结构
+    unset($arr[$k]['youwantdel']);
+}
+// 最后我们得到我们的目标数组$arr
+</code></pre>
+<p>接下来我们使用引用值：</p>
+<pre><code>foreach ($arr as ＆$v) {
+    // 一系列判断得到你想要的数据
+    if (...) {
+        // 复写值为你想要的
+        $v['youwantbyjudge'] = 'TIGERB'
+    }
+    ...
+    // 干掉你不想要的结构
+    unset($v['youwantdel']);
+}
+unset($v);
+// 最后我们得到我们的目标数组$arr
+</code></pre>
+<p>使用引用是不是使我们的代码更加的简洁，除此之外相对于第一种写法，我们节省了内存空间，尤其是再操作一个大数组时效果是及其明显的。</p>
+<h2 id="场景二传递一个值到一个函数中获取新的值">场景二：传递一个值到一个函数中获取新的值</h2>
+<p>基本和数组遍历一致，我们只需要声明这个函数的这个参数为引用即可，如下：</p>
+<pre><code>function decorate(&amp;$arr = []) {
+    # code...
+}
+$arr = [
+    ....
+];
+// 调用函数
+decorate($arr);
+// 如上即得到新的值$arr，好处还是节省内存空间
+</code></pre>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2017-07-17-interface/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2017-07-17-anonymous-function/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

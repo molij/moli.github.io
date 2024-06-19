@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OS X on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/os-x/</link>
+    <description>Recent content in OS X on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 29 Feb 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/os-x/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac下安装composer遇到的问题</title>
+      <link>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-02-29-mac-composer-install-problem/</link>
+      <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E8%8D%89%E7%A8%BF/2016-02-29-mac-composer-install-problem/</guid>
+      <description>##安装composer&#xA;cd /usr/local/bin curl -sS https://getcomposer.org/installer | php 执行发现失败了，提示如下：&#xA;Some settings on your machine may cause stability issues with Composer. If you encounter issues, try to change the following: The OpenSSL library (0.9.8zc) used by PHP does not support TLSv1.2 or TLSv1.1. If possible you should upgrade OpenSSL to version 1.0.1 or above. Downloading... Could not create file /usr/local/bin/composer.phar: fopen(/usr/local/bin/composer.phar): failed to open stream: Permission denied Download failed: fopen(/usr/local/bin/composer.phar): failed to open stream: Permission denied fwrite() expects parameter 1 to be resource, boolean given 原来是Composer 依赖于 PHP，</description>
+    </item>
+  </channel>
+</rss>

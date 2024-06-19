@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PHPExcel on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/phpexcel/</link>
+    <description>Recent content in PHPExcel on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 03 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/phpexcel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>测试phpexcel后报错Class &#39;ZipArchive&#39; not found解决方法</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-03-php-zip-so/</link>
+      <pubDate>Thu, 03 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-03-php-zip-so/</guid>
+      <description>今天想做一个从数据库导出订单生成excel,在本地运行测试就报错Class &#39;ZipArchive&#39; not found.&#xA;解决方法:&#xA;##在window系统下:&#xA;php.ini文件中，将extension=php_zip.dll前面的分号“;”去除,将 zlib.output_compression = Off 改为 zlib.output_compression = On,重启apache&#xA;##在linux系统下:&#xA;要重新下载编译php_zip.dll&#xA;cd /usr/src wget http://pecl.php.net/get/zip tar -zxvf zip cd zip-1.x.x phpize ./configure make sudo make install 安装后记录屏幕下的zip.so的位置,例如/usr/local/lib/php/extensions/zip.so&#xA;在php.ini里面,增加extension = /usr/local/lib/php/extensions/zip.so，然后，将 zlib.output_compression = Off 改为 zlib.output_compression = On&#xA;最后重启apache: service httpd restart</description>
+    </item>
+    <item>
+      <title>PHPExcel类库的各种使用方法总结</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-09-21-phpexcel/</link>
+      <pubDate>Mon, 21 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-09-21-phpexcel/</guid>
+      <description>导入PHPExcel类库&#xA;include &#39;PHPExcel.php&#39;; include &#39;PHPExcel/Writer/Excel2007.php&#39;; //或者include &#39;PHPExcel/Writer/Excel5.php&#39;; 用于输出.xls的 创建一个excel&#xA;$objPHPExcel = new PHPExcel(); 保存excel—2007格式&#xA;$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); //或者$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 非2007格式 $objWriter-&amp;gt;save(&amp;quot;xxx.xlsx&amp;quot;); 直接输出到浏览器&#xA;$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); header(&amp;quot;Pragma: public&amp;quot;); header(&amp;quot;Expires: 0″); header(&amp;quot;Cache-Control:must-revalidate, post-check=0, pre-check=0″); header(&amp;quot;Content-Type:application/force-download&amp;quot;); header(&amp;quot;Content-Type:application/vnd.ms-execl&amp;quot;); header(&amp;quot;Content-Type:application/octet-stream&amp;quot;); header(&amp;quot;Content-Type:application/download&amp;quot;);; header(&#39;Content-Disposition:attachment;filename=&amp;quot;resume.xls&amp;quot;&#39;); header(&amp;quot;Content-Transfer-Encoding:binary&amp;quot;); $objWriter-&amp;gt;save(&#39;php://output&#39;); ——————————————————————————————————————–&#xA;设置excel的属性：&#xA;//创建人 $objPHPExcel-&amp;gt;getProperties()-&amp;gt;setCreator(&amp;quot;Maarten Balliauw&amp;quot;); //最后修改人 $objPHPExcel-&amp;gt;getProperties()-&amp;gt;setLastModifiedBy(&amp;quot;Maarten Balliauw&amp;quot;); //标题 $objPHPExcel-&amp;gt;getProperties()-&amp;gt;setTitle(&amp;quot;Office 2007 XLSX Test Document&amp;quot;); //题目 $objPHPExcel-&amp;gt;getProperties()-&amp;gt;setSubject(&amp;quot;Office 2007 XLSX Test Document&amp;quot;); //描述 $objPHPExcel-&amp;gt;getProperties()-&amp;gt;setDescription(&amp;quot;Test document for Office 2007 XLSX, generated using PHP classes.</description>
+    </item>
+  </channel>
+</rss>

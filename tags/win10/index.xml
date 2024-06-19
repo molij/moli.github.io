@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>win10 on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/win10/</link>
+    <description>Recent content in win10 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/win10/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>win10下80端口被PID为4的System占用问题</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</link>
+      <pubDate>Wed, 16 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</guid>
+      <description>###Windows10下80端口被PID为4的System占用导致Apache无法启动的分析与解决方案&#xA;用命令 netstat -ano|findstr 80 来查看一下到底是哪个程序占用了80端口，如图所示端口查找的结果：&#xA;system进程占用80端口&#xA;![system进程占用80端口][p1] [p1]: /images/1.png &amp;ldquo;system进程占用80端口&amp;rdquo;&#xA;![system进程占用80端口][p2] [p2]: /images/2.png &amp;ldquo;system进程占用80端口&amp;rdquo;&#xA;![当前的http服务状态][p3] [p3]: /images/3.png &amp;ldquo;当前的http服务状态&amp;rdquo;&#xA;![PID1600进程][p4] [p4]: /images/4.png &amp;ldquo;PID1600进程&amp;rdquo;&#xA;![PID1600进程所在的服务][p5] [p5]: /images/5.png &amp;ldquo;PID1600进程所在的服务&amp;rdquo;&#xA;###解决方案&#xA;![解决方案][p6] [p6]: /images/6.png &amp;ldquo;解决方案&amp;rdquo;</description>
+    </item>
+  </channel>
+</rss>

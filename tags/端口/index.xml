@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>端口 on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/%E7%AB%AF%E5%8F%A3/</link>
+    <description>Recent content in 端口 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/%E7%AB%AF%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Skype打开默认占用80端口问题</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2016-04-14-skype-port-80/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2016-04-14-skype-port-80/</guid>
+      <description>因为新工作需要使用Skype来交流，才发现Skype打开时默认占用80端口和443端口，导致Apache无法启动。&#xA;解决方法很简单，在Skype的设置里面，找到&amp;quot;工具-&amp;gt;选项-&amp;gt;高级-&amp;gt;连接&amp;quot;，将端口80和端口443用于其他接入连接 前去掉勾选，就可以了。&#xA;如图所示：</description>
+    </item>
+  </channel>
+</rss>

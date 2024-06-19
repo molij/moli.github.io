@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>【高并发简单解决方案】redis队列缓存 &#43; mysql 批量入库 &#43; php离线整合</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >【高并发简单解决方案】redis队列缓存 &#43; Mysql 批量入库 &#43; Php离线整合</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Dec 25, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>需求背景：有个调用统计日志存储和统计需求，要求存储到mysql中；存储数据高峰能达到日均千万，瓶颈在于直接入库并发太高，可能会把mysql干垮。</p>
+<p>问题分析</p>
+<p>思考：应用网站架构的衍化过程中，应用最新的框架和工具技术固然是最优选择；但是，如果能在现有的框架的基础上提出简单可依赖的解决方案，未尝不是一种提升自我的尝试。</p>
+<p>解决：</p>
+<ul>
+<li>问题一：要求日志最好入库；但是，直接入库mysql确实扛不住，批量入库没有问题，done。【批量入库和直接入库性能差异参考文章】</li>
+<li>问题二：批量入库就需要有高并发的消息队列，决定采用redis list 仿真实现，而且方便回滚。</li>
+<li>问题三：日志量毕竟大，保存最近30条足矣，决定用php写个离线统计和清理脚本。</li>
+</ul>
+<p>done，下面是小拽的简单实现过程</p>
+<!-- raw HTML omitted -->
+<p>##一：设计数据库表和存储</p>
+<pre><code>考虑到log系统对数据库的性能更多一些，稳定性和安全性没有那么高，存储引擎自然是只支持select insert 没有索引的archive。如果确实有update需求，也可以采用myISAM。
+
+考虑到log是实时记录的所有数据，数量可能巨大，主键采用bigint，自增即可。
+
+考虑到log系统以写为主，统计采用离线计算，字段均不要出现索引，因为一方面可能会影响插入数据效率，另外读时候会造成死锁，影响写数据。
+</code></pre>
+<p>##二：redis存储数据形成消息队列</p>
+<p>由于高并发，尽可能简单，直接，上代码。</p>
+<pre><code>&lt;?php
+/***************************************************************************
+*
+* 获取到的调用日志，存入redis的队列中.
+* $Id$
+*
+**************************************************************************/
+
+/**
+* @file saveLog.php
+* @date 2015/11/06 20:47:13
+* @author:cuihuan
+* @version $Revision$
+* @brief
+*
+**/
+
+// 获取info
+$interface_info = $_GET['info'];
+
+// 存入redis队列
+$redis = new Redis();
+$redis-&gt;connect('xx', 6379);
+$redis-&gt;auth(&quot;password&quot;);
+
+// 加上时间戳存入队列
+$now_time = date(&quot;Y-m-d H:i:s&quot;);
+$redis-&gt;rPush(&quot;call_log&quot;, $interface_info . &quot;%&quot; . $now_time);
+$redis-&gt;close();
+
+
+/* vim: set ts=4 sw=4 sts=4 tw=100 */
+?&gt;
+</code></pre>
+<p>##三：数据定时批量入库。</p>
+<p>定时读取redis消息队列里面的数据，批量入库。</p>
+<pre><code>&lt;?php
+/**
+ * 获取redis消息队列中的脚本，拼接sql，批量入库。
+ * @update 2015-11-07 添加失败消息队列回滚机制 
+ *
+ * @Author:cuihuan
+ * 2015-11-06
+ * */
+
+// init redis
+$redis_xx = new Redis();
+$redis_xx-&gt;connect('ip', port);
+$redis_xx-&gt;auth(&quot;password&quot;);
+
+// 获取现有消息队列的长度
+$count = 0;
+$max = $redis_xx-&gt;lLen(&quot;call_log&quot;);
+
+// 获取消息队列的内容，拼接sql
+$insert_sql = &quot;insert into fb_call_log (`interface_name`, `createtime`) values &quot;;
+
+// 回滚数组
+$roll_back_arr = array();
+
+while ($count &lt; $max) {
+    $log_info = $redis_cq01-&gt;lPop(&quot;call_log&quot;);
+    $roll_back_arr = $log_info;
+    if ($log_info == 'nil' || !isset($log_info)) {
+        $insert_sql .= &quot;;&quot;;
+        break;
+    }
+
+    // 切割出时间和info
+    $log_info_arr = explode(&quot;%&quot;,$log_info);
+    $insert_sql .= &quot; ('&quot;.$log_info_arr[0].&quot;','&quot;.$log_info_arr[1].&quot;'),&quot;;
+    $count++;
+}
+
+// 判定存在数据，批量入库
+if ($count != 0) {
+    $link_2004 = mysql_connect('ip:port', 'user', 'password');
+    if (!$link_2004) {
+        die(&quot;Could not connect:&quot; . mysql_error());
+    }
+
+    $crowd_db = mysql_select_db('fb_log', $link_2004);
+    $insert_sql = rtrim($insert_sql,&quot;,&quot;).&quot;;&quot;;
+    $res = mysql_query($insert_sql);
+
+    // 输出入库log和入库结果;
+    echo date(&quot;Y-m-d H:i:s&quot;).&quot;insert &quot;.$count.&quot; log info result:&quot;;
+    echo json_encode($res);
+    echo &quot;&lt;br&gt;\n&quot;;
+    
+    // 数据库插入失败回滚
+    if(!$res){
+       foreach($roll_back_arr as $k){
+           $redis_xx-&gt;rPush(&quot;call_log&quot;, $k);
+       }
+    }
+ 
+    // 释放连接
+    mysql_free_result($res);
+    mysql_close($link_2004);
+}
+
+// 释放redis
+$redis_cq01-&gt;close();
+?&gt;
+</code></pre>
+<p>##四：离线天级统计和清理数据脚本</p>
+<pre><code>&lt;?php
+/**
+* static log ：每天离线统计代码日志和删除五天前的日志
+*
+* @Author:cuihuan
+* 2015-11-06
+* */
+
+// 离线统计
+$link_2004 = mysql_connect('ip:port', 'user', 'pwd');
+if (!$link_2004) {
+    die(&quot;Could not connect:&quot; . mysql_error());
+}
+
+$crowd_db = mysql_select_db('fb_log', $link_2004);
+
+// 统计昨天的数据
+$day_time = date(&quot;Y-m-d&quot;, time() - 60 * 60 * 24 * 1);
+$static_sql = &quot;get sql&quot;;
+
+$res = mysql_query($static_sql, $link_2004);
+
+// 获取结果入库略
+
+// 清理15天之前的数据
+$before_15_day = date(&quot;Y-m-d&quot;, time() - 60 * 60 * 24 * 15);
+$delete_sql = &quot;delete from xxx where createtime &lt; '&quot; . $before_15_day . &quot;'&quot;;
+try {
+    $res = mysql_query($delete_sql);
+}catch(Exception $e){
+    echo json_encode($e).&quot;\n&quot;;
+    echo &quot;delete result:&quot;.json_encode($res).&quot;\n&quot;;
+}
+
+mysql_close($link_2004);
+?&gt;
+</code></pre>
+<p>##五：代码部署</p>
+<p>主要是部署，批量入库脚本的调用和天级统计脚本，crontab例行运行。</p>
+<p>###批量入库脚本</p>
+<pre><code>*/2 * * * * /home/cuihuan/xxx/lamp/php5/bin/php /home/cuihuan/xxx/batchLog.php &gt;&gt;/home/cuihuan/xxx/batchlog.log
+</code></pre>
+<p>###天级统计脚本</p>
+<pre><code>0 5 * * * /home/cuihuan/xxx/php5/bin/php /home/cuihuan/xxx/staticLog.php &gt;&gt;/home/cuihuan/xxx/staticLog.log
+</code></pre>
+<p>总结：相对于其他复杂的方式处理高并发，这个解决方案简单有效：通过redis缓存抗压，mysql批量入库解决数据库瓶颈，离线计算解决统计数据，通过定期清理保证库的大小。</p>
+<blockquote>
+<p>原文作者：<a href="http://segmentfault.com/a/1190000004136250">靠谱崔小拽</a></p>
+</blockquote>
+<blockquote>
+<p>原文地址：<a href="http://segmentfault.com/a/1190000004136250">高并发简单解决方案</a></p>
+</blockquote>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-php-timing-task/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/linux/2015-12-29-shell-check-server/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

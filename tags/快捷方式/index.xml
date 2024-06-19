@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>快捷方式 on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F/</link>
+    <description>Recent content in 快捷方式 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>收藏到桌面的快捷方式</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-15-shortcut-save-url/</link>
+      <pubDate>Tue, 15 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-15-shortcut-save-url/</guid>
+      <description>收藏到桌面的快捷方式，使用链接：_path_/shortcut.php?url=_url_&amp;amp;filename=_filename_&#xA;//shortcut.php &amp;lt;?php $url = $_GET[&#39;url&#39;]; $filename = $_GET[&#39;filename&#39;]; $ShortCut = &amp;quot; [DEFAULT] BASEURL=&amp;quot;.$url.&amp;quot; [InternetShortcut] URL=&amp;quot;.$url.&amp;quot; Modified=B07A55D9386FCA01CA IconFile=_url_/favicon.ico IconIndex=1 &amp;quot;; Header(&amp;quot;Content-type: application/octet-stream&amp;quot;); header(&amp;quot;Content-Disposition: attachment; filename=&amp;quot;.$filename.&amp;quot;.url;&amp;quot;); echo $ShortCut; </description>
+    </item>
+  </channel>
+</rss>

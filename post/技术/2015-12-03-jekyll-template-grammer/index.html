@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>Jekyll模板变量&amp;语法</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Jekyll模板变量&amp;语法</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Dec 3, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>Jekyll会遍历你的站点，来寻找需要处理的文件。<br>
+任何具有 YAML 前置数据的文件都将会被处理，每一个这样的文件，Jekyll都会通过Liquid模板系统使用许多可用的页面变量。<br>
+下面是一个可用变量的列表。</p>
+<p>###Jekyll 目录及一些说明</p>
+<table>
+<thead>
+<tr>
+<th>文件/目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jekyll</td>
+<td>标准目录树</td>
+</tr>
+<tr>
+<td>_config.yml</td>
+<td>Jekyll的配置文件</td>
+</tr>
+<tr>
+<td>_includes</td>
+<td>include 文件所在的文件夹</td>
+</tr>
+<tr>
+<td>_layouts</td>
+<td>模版文件夹</td>
+</tr>
+<tr>
+<td>_posts</td>
+<td>自己要发布的内容</td>
+</tr>
+<tr>
+<td>_sites</td>
+<td>预览时产生的文件都放在该文件夹中</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>_includes文件夹中所放的文件是最终要放到模版中的一些代码片段。</li>
+<li>_layouts中放的一些模版，模版是用包含page或post内容的。Jekyll的模版使用HTML语法来写，并包含YAML Front Matter。所有的模版都可用Liquid来与网站进行交互。所的的模版都可以使用全局变量site和page，site变量包含该网站所有可以接触得到的内容和元数据(meta-data)，page变量包含的是当前渲染的page或post的所有可以接触得到的数据。</li>
+<li>_post文件夹中放的是自己要发布的post文章。post文件的命名规则为YEAR-MONTH-DATE-title.MARKUP，使用rake post会自动将post文件命名合适。而对于page，所有放在根目录下或不以下划线开头的文件夹中有格式的文件都会被Jekyll处理成page。这里说的有格式是指文件含有YAML Front Matter。所有的post和page都要用markdown或者texile或者HTML语法来写，并可以包含Liquid模版的语法。还要有 YAML Front Matter (Jekyll只处理具有YAML Front Matter的文件)。YAML Front Matter必须放在文件的开头，一对&mdash;之间，用户可在这一对&mdash;间设置预先定义的变量或用户自己的数据。</li>
+</ul>
+<!-- raw HTML omitted -->
+<p>###Jekyll模板全局变量</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site.time</td>
+<td>当前的时间(当你运行Jekyll时的时间)</td>
+</tr>
+<tr>
+<td>site.posts</td>
+<td>一个按时间逆序的文章列表。</td>
+</tr>
+<tr>
+<td>site.related_posts</td>
+<td>如果当前被处理的页面是一个文章文件，那这个变量是一个包含了最多10篇相关文章的列表。默认来说，这些相关文章是低质量但计算快的。为了得到高质量但计算慢的结果，运行Jekyll命令时可以加上&ndash;lsi选项。(潜在语意索引)</td>
+</tr>
+<tr>
+<td>site.categories.CATEGORY</td>
+<td>所有在CATEGORY分类中的文章列表</td>
+</tr>
+<tr>
+<td>site.tags.TAG</td>
+<td>所有拥有TAG标签的文章的列表</td>
+</tr>
+<tr>
+<td>site.[CONFIGURATION_DATA]</td>
+<td>截止0.5.2版本，所有在<code>_config.yml</code>中的数据都能够通过site变量调用。举例来说，如果你有一个这样的选项在你的配置文件中:<code>url: http://higrid.net</code>，那在文章和页面文件中可以这样调用<code>{ { site.url } }</code>。Jekyll并不会自动解析修改过的<code>_config.yml</code>文件，你想要启用新的设置选项，你需要重启Jekyll</td>
+</tr>
+</tbody>
+</table>
+<p>###Jekyll模板Page变量</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page.content</td>
+<td>页面中未渲染的内容</td>
+</tr>
+<tr>
+<td>page.title</td>
+<td>文章的标题</td>
+</tr>
+<tr>
+<td>page.url</td>
+<td>除去域名以外的URL，例子:/2013/12/14/higrid-net.html</td>
+</tr>
+<tr>
+<td>page.date</td>
+<td>指定每一篇文章的时间，这个选项能够覆盖一篇文章中前置数据设置的时间，它的格式是这样的:YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>page.id</td>
+<td>每一篇文章的唯一标示符(在RSS中非常有用) 例子：/2008/12/14/higrid-net</td>
+</tr>
+<tr>
+<td>page.categories</td>
+<td>这篇文章隶属的分类的一个列表，分类是通过在_post目录中的目录结构推导而来的。举例来说，在路径<code>/work/code/_posts/2008-12-24-closures.textile</code>下的文件，这个变量将会是<code>[work,code]</code>。这个变量也能在YAML前置数据中被指定。</td>
+</tr>
+<tr>
+<td>page.tags</td>
+<td>这篇文章的标签的列表。这些数据能够在YAML前置数据中指定</td>
+</tr>
+<tr>
+<td>page.next</td>
+<td>按时间序的下一篇文章</td>
+</tr>
+<tr>
+<td>page.content</td>
+<td>按时间序的上一篇文章</td>
+</tr>
+</tbody>
+</table>
+<p>注意:任何你自己指定的自定义前置数据都能够通过page调用。举例来说，如果你在页面的前置数据中设置了<code>custom_css: true</code>，那这个值可以在模板可以这样调用:<code>page.custom_css</code></p>
+<p>###Jekyll模板Paginator变量</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>paginator.per_page</td>
+<td>每一个页面上文章的数量</td>
+</tr>
+<tr>
+<td>paginator.posts</td>
+<td>当前页面上可用的文章</td>
+</tr>
+<tr>
+<td>paginator.total_posts</td>
+<td>所有文章的数量</td>
+</tr>
+<tr>
+<td>paginator.total_pages</td>
+<td>所有页面的数量</td>
+</tr>
+<tr>
+<td>paginator.page</td>
+<td>当前页面的数量</td>
+</tr>
+<tr>
+<td>paginator.previous_page</td>
+<td>前面的页面的数量</td>
+</tr>
+<tr>
+<td>paginator.next_page</td>
+<td>接下来的的页面的数量</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2015-12-03-php-zip-so/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-12-06-shell-method-terminal/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

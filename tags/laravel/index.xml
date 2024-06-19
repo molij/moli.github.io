@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>laravel on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/laravel/</link>
+    <description>Recent content in laravel on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 11 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【laravel学习笔记】一、安装</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/laravel/2015-09-01-laravel-build/</link>
+      <pubDate>Fri, 11 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/laravel/2015-09-01-laravel-build/</guid>
+      <description>Windows下安装 一、安装前的准备工作 1. PHP环境配置 2. 安装Composer 二、安装laravel 三、配置本地虚拟域名 参考这里：</description>
+    </item>
+    <item>
+      <title>【laravel学习笔记】二、路由、控制器及视图简介</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/laravel/2015-09-11-laravel-route-controller-view/</link>
+      <pubDate>Fri, 11 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/laravel/2015-09-11-laravel-route-controller-view/</guid>
+      <description>##路由 Laravel应用的 大多数路由都将在 app/Http/routes.php 中定义，大多数基本的 Laravel 路由都只接受一个 URI 和 一个 闭包(Closure) 参数。下面是一个简单的GET路由：&#xA;Route::get(&#39;/&#39;, &#39;WelcomeController@index&#39;); Route : 声明一个路由 get : 定义一个GET路由，除get外，还有post、put、delete路由; / : URL路径 WelcomeController@index : 控制器@方法 该路由是用户访问根目录 / 时，执行控制器WelcomeController中的index方法。&#xA;##控制器 上面路由调用控制器 app/Http/Controllers/WelcomeController.php中的index()方法：&#xA;&amp;lt;?php namespace App\Http\Controllers; class WelcomeController extends Controller { public function index(){ return view(&#39;welcome&#39;); } } </description>
+    </item>
+  </channel>
+</rss>

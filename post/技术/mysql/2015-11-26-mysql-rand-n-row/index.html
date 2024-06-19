@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>从Mysql某一表中随机读取n条数据的SQL查询语句</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >从Mysql某一表中随机读取n条数据的SQL查询语句</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Nov 26, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>若要在<code>i ≤ R ≤ j</code>这个范围得到一个随机整数R ，需要用到表达式 <code>FLOOR(i + RAND() * (j – i + 1))</code>。
+例如， 若要在7 到 12 的范围（包括7和12）内得到一个随机整数, 可使用以下语句：</p>
+<pre><code>SELECT FLOOR(7 + (RAND() * 6));
+</code></pre>
+<!-- raw HTML omitted -->
+<p>从 Mysql 表中随机读取数据不难，方法还挺多的，但是如果要考虑效率，得到一个快速的高效率的方法，那就不是一件简单的事情了（至少对我来说不简单）。</p>
+<p>随机获得Mysql数据表的一条或多条记录有很多方法，下面我就以users（userId，userName，password……）表（有一百多万条记录）为例，对比讲解下几个方法效率问题：</p>
+<pre><code>select * from      users order by rand() LIMIT 1
+</code></pre>
+<p>执行该sql语句，老半天没有反应，最后被迫手动停止执行，怎个伤人了得啊！后来我查了一下MYSQL手册，里面针对RAND()的提示大概意思就是，在 ORDER BY从句里面不能使用RAND()函数，因为这样会导致数据列被多次扫描，导致效率相当相当的低！效率不行，切忌使用！</p>
+<pre><code>SELECT * FROM      users  AS t1  JOIN (SELECT ROUND(RAND() * ((SELECT MAX(userId)      FROM `users`)-(SELECT MIN(userId) FROM users))+(SELECT MIN(userId) FROM      users)) AS userId) AS t2 WHERE t1.userId &gt;= t2.userId ORDER BY      t1.userId LIMIT 1
+</code></pre>
+<p>执行该sql语句，用时0.031s，效率没说的，相当的给力！心里那个爽啊，紧接着，我把<code>LIMIT 1</code>改为了<code>LIMIT 100</code> 随机取一百条记录，用时0.048，给力吧。可是就在此时问题出现了，发现结果好像不是随机的？为了验证结果，又执行了N次，真不是随机的， 问题出现在”ORDER BY t1.userId“这里，按userId排序了。随机取一条记录还是不错的选择，多条就不行了啊！</p>
+<pre><code>SELECT * FROM      users WHERE userId &gt;= ((SELECT MAX(userId) FROM users)-(SELECT      MIN(userId) FROM users)) * RAND() + (SELECT MIN(userId) FROM users)       LIMIT 1
+</code></pre>
+<p>执行该sql语句，用时0.039s，效率太给力了！接着我就把”LIMIT 1“改为了”LIMIT 10000“，用时0.063s。经过多次验证，哥对灯发誓，结果肯定是随机的！
+结论：随机取一条或多条记录，方法都不错！
+通过sql获得最大值和最小值，然后通过php的rand生成一个随机数randnum，再通过<code>SELECT * FROM users WHERE userId &gt;= randnum LIMIT 1</code>，获得一条记录效率应该还可以，多条应该就不行了。</p>
+<p>结论：方法1效率不行，切忌使用；随机获得一条记录，方法2是相当不错的选择，采用JOIN的语法比直接在WHERE中使用函数效率还是要高一些的，不过方法3也不错；随机获得多条记录，方法3没说的！</p>
+<p>从Mysql某一表中随机读取n条数据的SQL查询语句其他相关资料</p>
+<p>SQL语句先随机好ID序列，用 IN 查询（飘易推荐这个用法，IO开销小，速度最快）：</p>
+<pre><code>$sql=&quot;SELECT MAX(id),MIN(id) FROM content&quot;;
+$result=mysql_query($sql,$conn);
+$yi=mysql_fetch_array($result);
+$idmax=$yi[0];
+$idmin=$yi[1];
+$idlist='';   
+for($i=1;$i&lt;=20;$i++){   
+if($i==1){ $idlist=mt_rand($idmin,$idmax); }   
+else{ $idlist=$idlist.','.mt_rand($idmin,$idmax); }   
+} 
+$idlist2=&quot;id,&quot;.$idlist;
+$sql=&quot;select * from content where id in ($idlist) order by field($idlist2) LIMIT 0,12&quot;;
+$result=mysql_query($sql,$conn);
+$n=1;
+$rnds='';
+while($row=mysql_fetch_array($result)){
+$rnds=$rnds.$n.&quot;. &lt;a href='show&quot;.$row['id'].&quot;-&quot;.strtolower(trim($row['title'])).&quot;'&gt;&quot;.$row['title'].&quot;&lt;/a&gt;&lt;br /&gt;\n&quot;;
+$n++;
+}
+</code></pre>
+<p>800万数据随机取一条的牛方法</p>
+<pre><code>mysql&gt; select FLOOR(id*rand()) from test_rand where id=(select MAX(id) from test
+_rand);
++------------------+
+| FLOOR(id*rand()) |
++------------------+
+| 5225551 |
++------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>语句简单，速度慢的方法</p>
+<pre><code>SELECT * FROM table_name ORDER BY rand() LIMIT 5;
+</code></pre>
+<p>语句复杂，速度快的方法</p>
+<pre><code>SELECT * FROM table_name AS r1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM table_name)) AS id) AS r2 WHERE r1.id &gt;= r2.id ORDER BY r1.id ASC LIMIT 5;
+</code></pre>
+<p>cjc注: &hellip; AS id) AS t2 这里的 id, 也许该换成id2, 后面 WHERE t1.id &gt;= t2.id 改成  WHERE t1.id &gt;= t2.id2</p>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-11-19-data-hiding-in-image/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2015-12-01-php-zend_search_lucene-cn-search/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

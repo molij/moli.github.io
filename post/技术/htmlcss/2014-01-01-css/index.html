@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>css笔记</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Css笔记</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Jan 1, 2014</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>背景渐变色：</p>
+<p>background-image: linear-gradient(to right, #fff, #000 100%);</p>
+<p>currentColor</p>
+<p>table-css</p>
+<pre><code>&lt;table class=&quot;table&quot; cellspacing=&quot;0&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th width=&quot;10%&quot;&gt;序号&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;游戏&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;区服&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;卡号&lt;/th&gt;
+        &lt;th width=&quot;30%&quot;&gt;领取时间&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;volist name=&quot;mycard_list&quot; id=&quot;vo&quot; key=&quot;k&quot;&gt;
+      &lt;tr&gt;
+        &lt;td&gt;{$k}&lt;/td&gt;
+        &lt;td&gt;{$vo.gamename}&lt;/td&gt;
+        &lt;td&gt;{$vo.servername}&lt;/td&gt;
+        &lt;td&gt;{$vo.card_info}&lt;/td&gt;
+        &lt;td&gt;{$vo.get_time|date=&quot;Y-m-d H:i:s&quot;,###}&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;/volist&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+      
+.table {width: 100%;margin-bottom: 20px;text-align: center;vertical-align: middle;}
+.table th,.table td {line-height: 20px;padding: 15px 20px;text-align: center;font-size: 14px;border: 0 none;}
+.table thead th {background-color: #dfdfdf;color: #fff;}
+.table tbody td {background-color: #fff;color: #666;}
+.table tr:hover td {background-color: #dfdfdf;}
+</code></pre>
+<p>分页css</p>
+<pre><code>.listpage {width:auto;margin:0 20px;padding:10px 0 12px;text-align:center;line-height:25px;_padding-top:4px;}
+.listpage b{font-weight:normal;}
+.listpage a {display:inline-block;padding:0 10px;color:#666;border:1px solid #ccc;background:none;height:26px;margin:0 5px 10px;text-decoration:none;}
+.listpage a:hover{background:#ff6b09;color:#fff;border:1px solid #fff;text-decoration:none;}
+.listpage span{display:inline-block;padding:0 10px;background:#ff6b09;border:1px solid #ff6b09;color:#fff;margin:0 3px 10px;}
+.pages,.pages_more {width:578px;margin:0 auto;padding:10px 0 20px 0;border-top:1px dashed #1e2029;}
+.pages a{color:#53586e;}
+.pages_more {border:none;padding:0px 0 30px 0;}
+.listpage a.on{display:inline-block;padding:0 10px;background:#ff6b09;border:1px solid #ff6b09;color:#fff;margin:0 5px 10px;cursor:default;}</code></pre>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/jquery/2014-01-01-jquery/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-01-01-jekyll/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

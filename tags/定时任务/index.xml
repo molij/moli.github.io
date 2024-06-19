@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>定时任务 on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</link>
+    <description>Recent content in 定时任务 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP设置定时任务的实现方法</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-php-timing-task/</link>
+      <pubDate>Fri, 25 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-php-timing-task/</guid>
+      <description>定时运行任务对于一个网站来说，是一个比较重要的任务，比如定时发布文档，定时清理垃圾信息等，现在的网站大多数都是采用PHP动态语言开发的，而对于PHP的实现决定了它没有Java和.Net这种AppServer的概念，而http协议是一个无状态的协议，PHP只能被用户触发，被调用，调用后会自动退出内存，没有常驻内存。&#xA;如果非要PHP去设置定时任务， 可以有以下三个方法：&#xA;##1、用户触发定时&#xA;通过挂载到网页里面，判断当前的时间，然后运行PHP代码，缺点是每一次加载网页，都需要加载这个PHP页面，而对于人气不旺的网站，这样的延时可能会更加的严重，毕竟是用户的HTTP请求去触发这个PHP代码的运行，Discuz!论坛程序是判断在00:00之后，第一个用户访问请求去执行定时的PHP代码。&#xA;##2、常驻内存运行&#xA;PHP是可以常驻内存运行程序的，下面的这段代码，可以在当前文件夹下，生成一个test.txt，并每隔20秒，往里面写入一个时间戳，无论客户端是否关闭浏览器。&#xA;&amp;lt;?php ignore_user_abort(true); set_time_limit(0); function write_txt(){ if(!file_exists(&amp;quot;test.txt&amp;quot;)){ $fp = fopen(&amp;quot;test.txt&amp;quot;,&amp;quot;wb&amp;quot;); fclose($fp); } $str = file_get_contents(’test.txt’); $str .= &amp;quot;\r\n&amp;quot;.date(&amp;quot;H:i:s&amp;quot;); $fp = fopen(&amp;quot;test.txt&amp;quot;,&amp;quot;wb&amp;quot;); fwrite($fp,$str); fclose($fp); } function do_cron(){ usleep(20000000); write_txt(); } while(1){ do_cron(); } ?&amp;gt; ###关键的两个函数&#xA;ignore_user_abort(true)，这个函数的作用是，无论客户端是否关闭浏览器，下面的代码都将得到执行。&#xA;set_time_limit(0)，这个函数的作用是，取消PHP文件的执行时间，如果没有这个函数的话，默认PHP的执行时间是30秒，也就是说30秒后，这个文件就会从内存中删除。&#xA;另外usleep函数是在PHP5.0后的版本中加入的函数，支持Windows操作系统，设置代码运行的时间，单位是毫秒(MS)。&#xA;###如何停止定时&#xA;但是当我执行脚本的时候，即使我关闭了浏览器，我根本就没法去停止这段程序了，所以你需要一个执行脚本的开关，你可以用外部文件引入的方法来实现，在while循环的时候，include开关变量即可。那么就可以这样实现：&#xA;建立外部引入变量文件 switch.php 内容如下：&#xA;&amp;lt;?php return 1;//1执行脚本 0退出执行脚本 ?&amp;gt; 这个脚本只是测试可行，具体效率应该不高，对于lamp，你完全可以使用crontab 来实现。&#xA;##3、服务器定时任务&#xA;服务器定时任务需要你是独立的服务器，或者是VPS，总之就是对系统的配置有足够的权限，虚拟空间就不要折腾这个方法了，因为你没有权限。&#xA;###Windows平台&#xA;在 Windows 平台下您可以将cli\php.exe 和 .php 文件的双击属性相关联，您也可以编写一个批处理文件来用 PHP 执行脚本。我们把写好的程序放在一个目录下如 E:\web\mail.php 。&#xA;然后写一个windows批处理文件内容如下：&#xA;@D:\php\cli\php.exe E:\web\mail.</description>
+    </item>
+  </channel>
+</rss>

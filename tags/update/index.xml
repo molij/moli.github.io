@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>update on 莫离君的博客</title>
+    <link>https://moli.github.io/tags/update/</link>
+    <description>Recent content in update on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 17 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/tags/update/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mysql批量更新多条记录的不同值</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/mysql/2015-12-17-mysql-update-varies-value/</link>
+      <pubDate>Thu, 17 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/mysql/2015-12-17-mysql-update-varies-value/</guid>
+      <description>如果更新多条数据为不同的值，可能很多人会这样写：&#xA;foreach ($display_order as $id =&amp;gt; $ordinal) { $sql = &amp;quot;UPDATE categories SET display_order = $ordinal WHERE id = $id&amp;quot;; mysql_query($sql); } 即是循环一条一条的更新记录。一条记录update一次，这样性能很差，也很容易造成阻塞。&#xA;那么能不能一条sql语句实现批量更新呢？&#xA;mysql并没有提供直接的方法来实现批量更新，但是可以用case when来实现。&#xA;UPDATE mytable SET myfield = CASE id WHEN 1 THEN &#39;value&#39; WHEN 2 THEN &#39;value&#39; WHEN 3 THEN &#39;value&#39; END WHERE id IN (1,2,3) 这里的where部分不影响代码的执行，但是会提高sql执行的效率。确保sql语句仅执行需要修改的行数，这里只有3条数据进行更新，而where子句确保只有3行数据执行。&#xA;如果更新多个值的话，只需要稍加修改：&#xA;UPDATE categories SET display_order = CASE id WHEN 1 THEN 3 WHEN 2 THEN 4 WHEN 3 THEN 5 END, title = CASE id WHEN 1 THEN &#39;New Title 1&#39; WHEN 2 THEN &#39;New Title 2&#39; WHEN 3 THEN &#39;New Title 3&#39; END WHERE id IN (1,2,3) 在业务中运用，需要结合服务端语言，这里以php为例，构造这条mysql语句：</description>
+    </item>
+  </channel>
+</rss>

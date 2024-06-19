@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>文本向量化</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >文本向量化</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Jun 18, 2024</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <h2 id="一文本向量化">一、文本向量化</h2>
+<p>文本向量化：将文本信息表示成能够表达文本语义的向量，是用数值向量来表示文本的语义。</p>
+<p>词嵌入(Word Embedding)：一种将文本中的词转换成数字向量的方法，属于文本向量化处理的范畴。</p>
+<p>向量嵌入操作面临的挑战包括：</p>
+<ul>
+<li>信息丢失：向量表达需要保留信息结构和节点间的联系。</li>
+<li>可扩展性：嵌入方法应具有可扩展性，能够处理可变长文本信息。</li>
+<li>维数优化：高维数会提高精度，但时间和空间复杂性也被放大。低维度虽然时间、空间复杂度低，但以损失原始信息为代价，因此需要权衡最佳维度的选择。</li>
+</ul>
+<p>常见的文本向量和词嵌入方法包括独热模型（One Hot Model），词袋模型（Bag of Words Model）、词频-逆文档频率（TF-IDF）、N元模型（N-Gram）、单词-向量模型（Word2vec）、文档-向量模型（Doc2vec）</p>
+<!-- raw HTML omitted -->
+<h2 id="二独热编码">二、独热编码</h2>
+<p>One-hot编码采用N位状态寄存器来对N个状态进行编码，是分类变量作为二进制向量的表述。</p>
+<p>首先根据提供的文本构建词典，其中的数字可以视作对应词语的标签信息或者事物的分类信息。</p>
+<p>然后基于独热编码表达法，构造一个N维向量，该向量的维度与词典的长度一直，对于给定词语进行向量表达时，其在词典中出现的响应位置的寄存器赋值为1，其余为0示例如下：</p>
+<p><img src="images/20240618_01.jpg" alt="20240618_01.jpg"></p>
+<h2 id="三词袋模型">三、词袋模型</h2>
+<p>词袋模型(Bag-of-words model：BOW)假定对于给定文本，忽略单词出现的顺序和语法等因素，将其视为词汇的简单集合，文档中每个单词的出现属于独立关系，不依赖于其它单词。先将句子向量化，句子维度和字典维度一致，第 i 维上的数字代表 ID 为 i 的词语在该句子里出现的频率。</p>
+<p><img src="images/20240618_02.jpg" alt="20240618_02.jpg"></p>
+<h2 id="四词频-逆文档频率模型">四、词频-逆文档频率模型</h2>
+<p>TF-IDF（term frequency-inverse document frequency）是数据信息挖掘的常用统计技术。TF(Term Frequency)中文含义是词频，IDF(Inverse Document Frequency)中文含义是逆文本频率指数。</p>
+<p>词频统计的是词语在特定文档中出现的频率，而逆文档频率统计的是词语在其他文章中出现的频率，其处理基本逻辑是词语的重要性随着其在特定文档中出现的次数呈现递增趋势，但同时会随着其在语料库中其他文档中出现的频率递减下降 数学表达式如下：</p>
+<p><img src="images/20240618_03.jpg" alt="20240618_03.jpg"></p>
+<h2 id="五n元模型">五、N元模型</h2>
+<p>N-Gram语言模型基本思路是基于给定文本信息，预测下一个最可能出现的词语。N=1称为unigram，表示下一词的出现不依赖于前面的任何词；N=2称为bigram，表示下一词仅依赖前面紧邻的一个词语，依次类推。</p>
+<p><img src="images/20240618_04.jpg" alt="20240618_04.jpg"></p>
+<h2 id="六单词-向量模型">六、单词-向量模型</h2>
+<p>将不可计算、非结构化的词语转化为可计算、结构化的向量。word2vec模型假设不关注词的出现顺序。Word2Vec包含连续词袋模型CBOW（Continues Bag of Words）和Skip-gram模型两种网络结构。训练完成之后，模型可以针对词语和向量建立映射关系，因此可用来表示词语跟词语之间的关系</p>
+<p>CBOW模型如下：</p>
+<p><img src="images/20240618_05.jpg" alt="20240618_05.jpg"></p>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-learn-lang-chain/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Composer on 莫离君的博客</title>
+    <link>https://moli.github.io/categories/composer/</link>
+    <description>Recent content in Composer on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 23 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/categories/composer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Composer错误：exceeded the timeout of 300 seconds</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2017-06-23-composer-exceeded-time/</link>
+      <pubDate>Fri, 23 Jun 2017 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2017-06-23-composer-exceeded-time/</guid>
+      <description>Symfony2在使用Composer安装phpunit的时候遇到下面的错误：&#xA;[Symfony\Component\Process\Exception\ProcessTimedOutException] The process &amp;quot;git clone --no-checkout &#39;https://github.com/sebastianbergmann/phpunit.git&#39; &#39;/home/cxl/tp5-project/vendor/phpunit/phpunit&#39; &amp;amp;&amp;amp; cd &#39;/home/cxl/tp5-project/vendor/phpunit/phpunit&#39; &amp;amp;&amp;amp; git remote add composer &#39;https://github.com/sebastianbergmann/phpunit.git&#39; &amp;amp;&amp;amp; git fetch composer&amp;quot; exceeded the timeout of 300 seconds. 解决方案：增加COMPOSER_PROCESS_TIMEOUT，执行命令如下：&#xA;//查看默认超时时间 composer config --list //设置超时时间 composer config -g process-timeout 600 //清除缓存 composer clear-cache </description>
+    </item>
+  </channel>
+</rss>

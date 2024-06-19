@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>js on 莫离君的博客</title>
+    <link>https://moli.github.io/categories/js/</link>
+    <description>Recent content in js on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 01 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://moli.github.io/categories/js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>js笔记</title>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/javascript/2014-01-01-js/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/javascript/2014-01-01-js/</guid>
+      <description>##js简介&#xA;##点击全屏&#xA;var fullscreen=function(){ elem=document.body; if(elem.webkitRequestFullScreen){ elem.webkitRequestFullScreen(); }else if(elem.mozRequestFullScreen){ elem.mozRequestFullScreen(); }else if(elem.requestFullScreen){ elem.requestFullscreen(); }else{ //浏览器不支持全屏API或已被禁用 } } var exitFullscreen=function(){ var elem=document; if(elem.webkitCancelFullScreen){ elem.webkitCancelFullScreen(); }else if(elem.mozCancelFullScreen){ elem.mozCancelFullScreen(); }else if(elem.cancelFullScreen){ elem.cancelFullScreen(); }else if(elem.exitFullscreen){ elem.exitFullscreen(); }else{ //浏览器不支持全屏API或已被禁用 } } </description>
+    </item>
+  </channel>
+</rss>

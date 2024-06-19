@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>面试中遇到的一些问题总结</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >面试中遇到的一些问题总结</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Mar 30, 2016</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <h2 id="linux-常用的一些命令">Linux 常用的一些命令</h2>
+<h3 id="cd">cd</h3>
+<h3 id="ls">ls</h3>
+<h3 id="grep">grep</h3>
+<h3 id="find">find</h3>
+<h3 id="cpmvrm">cp/mv/rm</h3>
+<h3 id="ps">ps</h3>
+<h3 id="kill">kill</h3>
+<h3 id="file">file</h3>
+<h3 id="tar">tar</h3>
+<h3 id="cat">cat</h3>
+<h3 id="chgrpchownchmod">chgrp/chown/chmod</h3>
+<h3 id="vim">vim</h3>
+<h3 id="time">time</h3>
+<h3 id="df">df</h3>
+<h2 id="mysql-数据库的索引认知">mysql 数据库的索引认知</h2>
+<p><a href="http://www.tuicool.com/articles/ZRN3qu">http://www.tuicool.com/articles/ZRN3qu</a></p>
+<h2 id="php的mvc实现原理分析">PHP的MVC实现原理分析</h2>
+<pre><code>MVC三个字母的含义：
+
+M：Model 模型，负责数据库操作。
+V：View 视图，负责调用Model调取数据，再调用模板，展示出最终效果。
+C：Controller 控制器，程序的入口，决定改调用哪个View，并告诉View该做什么。
+</code></pre>
+<p>　　下面是一个超级简单的MVC结构实现：</p>
+<pre><code>Controller.php
+
+include 'Model.php';
+include 'View.php';
+
+class Controller {
+    private $model     = '';
+    private $view     = '';
+    
+    public function Controller(){
+        $this-&gt;model    =    new Model();
+        $this-&gt;view        =    new View();
+    }
+    
+    public function doAction( $method = 'defaultMethod', $params = array() ){
+        if( empty($method) ){
+            $this-&gt;defaultMethod();
+        }else if( method_exists($this, $method) ){
+            call_user_func(array($this, $method), $params);
+        }else{
+            $this-&gt;nonexisting_method();
+        }
+    }
+    
+    public function link_page($name = ''){
+        $links = $this-&gt;model-&gt;getLinks();
+        $this-&gt;view-&gt;display($links);
+        
+        $result = $this-&gt;model-&gt;getResult($name);
+        $this-&gt;view-&gt;display($result);
+    }
+    
+    public function defaultMethod(){
+        $this-&gt;br();
+        echo &quot;This is the default method. &quot;;
+    }
+    
+    public function nonexisting_method(){
+        $this-&gt;br();
+        echo &quot;This is the noexisting method. &quot;;
+    }
+    
+    public function br(){
+        echo &quot;&lt;br /&gt;&quot;;
+    }
+}
+
+
+$controller = new Controller();
+$controller-&gt;doAction('link_page', 'b');
+$controller-&gt;doAction();
+
+Model.php
+
+class Model {
+    private $database = array(
+        &quot;a&quot;    =&gt;    &quot;hello world&quot;,
+        &quot;b&quot;    =&gt;    &quot;ok well done&quot;,
+        &quot;c&quot;    =&gt;    &quot;good bye&quot;,
+    );
+    
+    //@TODO connect the database
+    
+    //run the query and get the result
+    public function getResult($name){
+        if( empty($name) ){
+            return FALSE;
+        }
+        
+        if( in_array($name, array_keys( $this-&gt;database ) ) ){
+            return $this-&gt;database[$name];
+        }
+    }
+
+    public function getLinks(){
+        $links = &quot;&lt;a href='#'&gt;Link A&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        $links.= &quot;&lt;a href='#'&gt;Link B&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        $links.= &quot;&lt;a href='#'&gt;Link C&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        
+        return $links;
+    }
+}
+
+
+View.php
+
+class View {
+    
+    public function display($output){
+//        ob_start();
+        
+        echo $output;
+    }
+    
+}
+</code></pre>
+<p><a href="http://www.jb51.net/article/49498.htm">http://www.jb51.net/article/49498.htm</a></p>
+<h2 id="thinkphp框架的优劣">thinkPHP框架的优劣</h2>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E8%8D%89%E7%A8%BF/2016-03-29-svn-git-diff/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2016-04-14-skype-port-80/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

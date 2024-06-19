@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>手把手教你认识学会LangChain</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >手把手教你认识学会LangChain</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Jun 18, 2024</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <h2 id="什么是langchain">什么是LangChain</h2>
+<p>LangChain: 一个让你的LLM变得更强大的开源框架。LangChain 就是一个 LLM 编程框架，你想开发一个基于 LLM 应用，需要什么组件它都有，直接使用就行；甚至针对常规的应用流程，它利用链(LangChain中Chain的由来)这个概念已经内置标准化方案了。下面我们从新兴的大语言模型（LLM）技术栈的角度来看看为何它的理念这么受欢迎。</p>
+<h2 id="langchain起源">LangChain起源</h2>
+<p>LangChain 的作者是 Harrison Chase，最初是于 2022 年 10 月开源的一个项目，在 GitHub 上获得大量关注之后迅速转变为一家初创公司。2017 年 Harrison Chase 还在哈佛上大学，如今已是硅谷的一家热门初创公司的 CEO，这对他来说是一次重大而迅速的跃迁。Insider 独家报道，人工智能初创公司 LangChain 在种子轮一周后，再次获得红杉领投的 2000 万至 2500 万美元融资，估值达到 2 亿美元。</p>
+<h2 id="langchain六大主要领域">LangChain六大主要领域</h2>
+<ul>
+<li>管理和优化prompt。不同的任务使用不同prompt，如何去管理和优化这些prompt是langchain的主要功能之一。</li>
+<li>链，初步理解为一个具体任务中不同子任务之间的一个调用。</li>
+<li>数据增强的生成，数据增强生成涉及特定类型的链，它首先与外部数据源交互以获取数据用于生成步骤。这方面的例子包括对长篇文字的总结和对特定数据源的提问/回答。</li>
+<li>代理，根据不同的指令采取不同的行动，直到整个流程完成为止。</li>
+<li>评估，生成式模型是出了名的难以用传统的指标来评估。评估它们的一个新方法是使用语言模型本身来进行评估。LangChain提供了一些提示/链来协助这个工作。</li>
+<li>内存：在整个流程中帮我们管理一些中间状态。</li>
+</ul>
+<p>总的来说LangChain可以理解为：在一个流程的整个生命周期中，管理和优化prompt，根据prompt使用不同的代理进行不同的动作，在这期间使用内存管理中间的一些状态，然后使用链将不同代理之间进行连接起来，最终形成一个闭环。</p>
+<h2 id="langchain的主要价值组件">LangChain的主要价值组件</h2>
+<p>组件：用于处理语言模型的抽象概念，以及每个抽象概念的实现集合。无论你是否使用LangChain框架的其他部分，组件都是模块化的，易于使用。</p>
+<p>现成的链：用于完成特定高级任务的组件的结构化组合。现成的链使人容易上手。对于更复杂的应用和细微的用例，组件使得定制现有链或建立新链变得容易。</p>
+<h2 id="langchain组件">LangChain组件</h2>
+<ul>
+<li>model I/O：语言模型接口</li>
+<li>data connection：与特定任务的数据接口</li>
+<li>chains：构建调用序列</li>
+<li>agents：给定高级指令，让链选择使用哪些工具</li>
+<li>memory：在一个链的运行之间保持应用状态</li>
+<li>callbacks：记录并流式传输任何链的中间步骤</li>
+<li>indexes：索引指的是结构化文件的方法，以便LLM能够与它们进行最好的交互</li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="数据连接组件data-connection">数据连接组件data connection</h2>
+<p>LLM应用需要用户特定的数据，这些数据不属于模型的训练集。LangChain通过以下方式提供了加载、转换、存储和查询数据的构建模块：</p>
+<p>文档加载器：从许多不同的来源加载文档
+文档转换器：分割文档，删除多余的文档等
+文本嵌入模型：采取非结构化文本，并把它变成一个浮点数的列表 矢量存储：存储和搜索嵌入式数据
+检索器：查询你的数据</p>
+<h2 id="data-connection整体流程">data connection整体流程</h2>
+<h2 id="data-connection文档加载器">data connection——文档加载器</h2>
+<p>python安装包命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pip install langchain
+</span></span><span style="display:flex;"><span>pip install unstructured
+</span></span><span style="display:flex;"><span>pip install jq
+</span></span></code></pre></div><h3 id="csv基本用法">CSV基本用法</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> UnstructuredCSVLoader
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders.csv_loader <span style="color:#f92672">import</span> CSVLoader
+</span></span><span style="display:flex;"><span>EXAMPLE_DIRECTORY <span style="color:#f92672">=</span> file_path <span style="color:#f92672">=</span> Path(__file__)<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent <span style="color:#f92672">/</span> <span style="color:#e6db74">&#34;examples&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_unstructured_csv_loader</span>() <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test unstructured loader.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(EXAMPLE_DIRECTORY, <span style="color:#e6db74">&#34;stanley-cups.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>    loader <span style="color:#f92672">=</span> UnstructuredCSVLoader(str(file_path))
+</span></span><span style="display:flex;"><span>    docs <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>    print(docs)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> len(docs) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_csv_loader</span>():
+</span></span><span style="display:flex;"><span>  file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(EXAMPLE_DIRECTORY, <span style="color:#e6db74">&#34;stanley-cups.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>  loader <span style="color:#f92672">=</span> CSVLoader(file_path)
+</span></span><span style="display:flex;"><span>  docs <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>  print(docs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test_unstructured_csv_loader()
+</span></span><span style="display:flex;"><span>test_csv_loader()
+</span></span></code></pre></div><h3 id="文件目录用法">文件目录用法</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> DirectoryLoader, TextLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>text_loader_kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;autodetect_encoding&#39;</span>: <span style="color:#66d9ef">True</span>}
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> DirectoryLoader(<span style="color:#e6db74">&#39;../examples/&#39;</span>, 
+</span></span><span style="display:flex;"><span>              glob<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**/*.txt&#34;</span>,  <span style="color:#75715e"># 遍历txt文件</span>
+</span></span><span style="display:flex;"><span>              show_progress<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,  <span style="color:#75715e"># 显示进度</span>
+</span></span><span style="display:flex;"><span>              use_multithreading<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,  <span style="color:#75715e"># 使用多线程</span>
+</span></span><span style="display:flex;"><span>              loader_cls<span style="color:#f92672">=</span>TextLoader,  <span style="color:#75715e"># 使用加载数据的方式</span>
+</span></span><span style="display:flex;"><span>              silent_errors<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,  <span style="color:#75715e"># 遇到错误继续</span>
+</span></span><span style="display:flex;"><span>              loader_kwargs<span style="color:#f92672">=</span>text_loader_kwargs)  <span style="color:#75715e"># 可以使用字典传入参数</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docs <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(docs[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>HTML用法
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> UnstructuredHTMLLoader, BSHTMLLoader
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> UnstructuredHTMLLoader(<span style="color:#e6db74">&#34;../examples/example.html&#34;</span>)
+</span></span><span style="display:flex;"><span>docs <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(docs[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> BSHTMLLoader(<span style="color:#e6db74">&#34;../examples/example.html&#34;</span>)
+</span></span><span style="display:flex;"><span>docs <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(docs[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h3 id="json用法">JSON用法</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pprint <span style="color:#f92672">import</span> pprint
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>file_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;../examples/facebook_chat.json&#39;</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(Path(file_path)<span style="color:#f92672">.</span>read_text())
+</span></span><span style="display:flex;"><span>pprint(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">{&#39;image&#39;: {&#39;creation_timestamp&#39;: 1675549016, &#39;uri&#39;: &#39;image_of_the_chat.jpg&#39;},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;is_still_participant&#39;: True,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;joinable_mode&#39;: {&#39;link&#39;: &#39;&#39;, &#39;mode&#39;: 1},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;magic_words&#39;: [],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;messages&#39;: [{&#39;content&#39;: &#39;Bye!&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675597571851},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Oh no worries! Bye&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 1&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675597435669},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;No Im sorry it was my mistake, the blue one is not &#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                          &#39;for sale&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675596277579},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;I thought you were selling the blue one!&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 1&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675595140251},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Im not interested in this bag. Im interested in the &#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                          &#39;blue one!&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 1&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675595109305},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Here is $129&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675595068468},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;photos&#39;: [{&#39;creation_timestamp&#39;: 1675595059,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                           &#39;uri&#39;: &#39;url_of_some_picture.jpg&#39;}],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675595060730},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Online is at least $100&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675595045152},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;How much do you want?&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 1&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675594799696},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Goodmorning! $50 is too low.&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 2&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675577876645},
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {&#39;content&#39;: &#39;Hi! Im interested in your bag. Im offering $50. Let &#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                          &#39;me know if you are interested. Thanks!&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;sender_name&#39;: &#39;User 1&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               &#39;timestamp_ms&#39;: 1675549022673}],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;participants&#39;: [{&#39;name&#39;: &#39;User 1&#39;}, {&#39;name&#39;: &#39;User 2&#39;}],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;thread_path&#39;: &#39;inbox/User 1 and User 2 chat&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;title&#39;: &#39;User 1 and User 2 chat&#39;}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>使用langchain加载数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> JSONLoader
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> JSONLoader(
+</span></span><span style="display:flex;"><span>    file_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;../examples/facebook_chat.json&#39;</span>,
+</span></span><span style="display:flex;"><span>    jq_schema<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.messages[].content&#39;</span> <span style="color:#75715e"># 会报错Expected page_content is string, got &lt;class &#39;NoneType&#39;&gt; instead.</span>
+</span></span><span style="display:flex;"><span>    page_content<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, <span style="color:#75715e"># 报错后添加这一行)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(data[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h3 id="pdf用法">PDF用法</h3>
+<h4 id="第一种用法">第一种用法</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> PyPDFLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> PyPDFLoader(<span style="color:#e6db74">&#34;../examples/layout-parser-paper.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>pages <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load_and_split()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(pages[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h4 id="第二种用法">第二种用法</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> MathpixPDFLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> MathpixPDFLoader(<span style="color:#e6db74">&#34;example_data/layout-parser-paper.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(data[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h4 id="第三种用法">第三种用法</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.document_loaders <span style="color:#f92672">import</span> UnstructuredPDFLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> UnstructuredPDFLoader(<span style="color:#e6db74">&#34;../examples/layout-parser-paper.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span><span style="display:flex;"><span>print(data[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h2 id="data-connection文档转换">data connection——文档转换</h2>
+<p>加载了文件后，经常会需要转换它们以更好地适应应用。最简单的例子是，你可能想把一个长的文档分割成较小的块状，以适应你的模型的上下文窗口。LangChain有许多内置的文档转换工具，可以很容易地对文档进行分割、组合、过滤和其他操作。</p>
+<h3 id="通过字符进行文本分割">通过字符进行文本分割</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>state_of_the_union = &#34;&#34;&#34;
+</span></span><span style="display:flex;"><span>斗之力，三段！”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    “萧炎，斗之力，三段！级别：低级！”测验魔石碑之旁，一位中年男子，看了一眼碑上所显示出来的信息，语气漠然的将之公布了出来…
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    中年男子话刚刚脱口，便是不出意外的在人头汹涌的广场上带起了一阵嘲讽的骚动。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    “三段？嘿嘿，果然不出我所料，这个“天才”这一年又是在原地踏步！”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    “哎，这废物真是把家族的脸都给丢光了。”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    “要不是族长是他的父亲，这种废物，早就被驱赶出家族，任其自生自灭了，哪还有机会待在家族中白吃白喝。”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    “唉，昔年那名闻乌坦城的天才少年，如今怎么落魄成这般模样了啊？”
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> CharacterTextSplitter
+</span></span><span style="display:flex;"><span>text_splitter <span style="color:#f92672">=</span> CharacterTextSplitter(        
+</span></span><span style="display:flex;"><span>    separator <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>    chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>,  <span style="color:#75715e"># 分块长度</span>
+</span></span><span style="display:flex;"><span>    chunk_overlap  <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,  <span style="color:#75715e"># 重合的文本长度</span>
+</span></span><span style="display:flex;"><span>    length_function <span style="color:#f92672">=</span> len,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>texts <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>create_documents([state_of_the_union])
+</span></span><span style="display:flex;"><span>print(texts[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这里metadatas用于区分不同的文档</span>
+</span></span><span style="display:flex;"><span>metadatas <span style="color:#f92672">=</span> [{<span style="color:#e6db74">&#34;document&#34;</span>: <span style="color:#ae81ff">1</span>}, {<span style="color:#e6db74">&#34;document&#34;</span>: <span style="color:#ae81ff">2</span>}]
+</span></span><span style="display:flex;"><span>documents <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>create_documents([state_of_the_union, state_of_the_union], metadatas<span style="color:#f92672">=</span>metadatas)
+</span></span><span style="display:flex;"><span>pprint(documents)
+</span></span></code></pre></div><h3 id="获取切割后的文本">获取切割后的文本</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(text_splitter<span style="color:#f92672">.</span>split_text(state_of_the_union)[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>对代码进行分割
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    RecursiveCharacterTextSplitter,
+</span></span><span style="display:flex;"><span>    Language,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print([e<span style="color:#f92672">.</span>value <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> Language])  <span style="color:#75715e"># 支持语言</span>
+</span></span><span style="display:flex;"><span>print(RecursiveCharacterTextSplitter<span style="color:#f92672">.</span>get_separators_for_language(Language<span style="color:#f92672">.</span>PYTHON))  <span style="color:#75715e"># 分割符号</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PYTHON_CODE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">def hello_world():
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    print(&#34;Hello, World!&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Call the function
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">hello_world()
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>python_splitter <span style="color:#f92672">=</span> RecursiveCharacterTextSplitter<span style="color:#f92672">.</span>from_language(
+</span></span><span style="display:flex;"><span>    language<span style="color:#f92672">=</span>Language<span style="color:#f92672">.</span>PYTHON, chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, chunk_overlap<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>python_docs <span style="color:#f92672">=</span> python_splitter<span style="color:#f92672">.</span>create_documents([PYTHON_CODE])
+</span></span><span style="display:flex;"><span>python_docs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Document(page_content=&#39;def hello_world():</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    print(&#34;Hello, World!&#34;)&#39;, metadata=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> Document(page_content=&#39;# Call the function</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">hello_world()&#39;, metadata=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><h3 id="通过markdownheader进行分割">通过markdownheader进行分割</h3>
+<p>举个例子：<code>md = # Foo\n\n ## Bar\n\nHi this is Jim \nHi this is Joe\n\n ## Baz\n\n Hi this is Molly' .</code></p>
+<p>我们定义分割头：<code>[(&quot;#&quot;, &quot;Header 1&quot;),(&quot;##&quot;, &quot;Header 2&quot;)]</code>文本应该被公共头进行分割，最终得到：<code>{'content': 'Hi this is Jim \nHi this is Joe', 'metadata': {'Header 1': 'Foo', 'Header 2': 'Bar'}} {'content': 'Hi this is Molly', 'metadata': {'Header 1': 'Foo', 'Header 2': 'Baz'}}</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> MarkdownHeaderTextSplitter
+</span></span><span style="display:flex;"><span>markdown_document <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;# Foo</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">    ## Bar</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Hi this is Jim</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Hi this is Joe</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74"> ### Boo </span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74"> Hi this is Lance </span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74"> ## Baz</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74"> Hi this is Molly&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>headers_to_split_on <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;#&#34;</span>, <span style="color:#e6db74">&#34;Header 1&#34;</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;##&#34;</span>, <span style="color:#e6db74">&#34;Header 2&#34;</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;###&#34;</span>, <span style="color:#e6db74">&#34;Header 3&#34;</span>),
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>markdown_splitter <span style="color:#f92672">=</span> MarkdownHeaderTextSplitter(headers_to_split_on<span style="color:#f92672">=</span>headers_to_split_on)
+</span></span><span style="display:flex;"><span>md_header_splits <span style="color:#f92672">=</span> markdown_splitter<span style="color:#f92672">.</span>split_text(markdown_document)
+</span></span><span style="display:flex;"><span>md_header_splits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    [Document(page_content=&#39;Hi this is Jim  </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Hi this is Joe&#39;, metadata={&#39;Header 1&#39;: &#39;Foo&#39;, &#39;Header 2&#39;: &#39;Bar&#39;}),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     Document(page_content=&#39;Hi this is Lance&#39;, metadata={&#39;Header 1&#39;: &#39;Foo&#39;, &#39;Header 2&#39;: &#39;Bar&#39;, &#39;Header 3&#39;: &#39;Boo&#39;}),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     Document(page_content=&#39;Hi this is Molly&#39;, metadata={&#39;Header 1&#39;: &#39;Foo&#39;, &#39;Header 2&#39;: &#39;Baz&#39;})]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><h3 id="通过字符递归分割">通过字符递归分割</h3>
+<p>默认列表为：<code>[&quot;\n\n&quot;, &quot;\n&quot;, &quot; &quot;, &quot;&quot;]</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span> state_of_the_union <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">斗之力，三段！”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“萧炎，斗之力，三段！级别：低级！”测验魔石碑之旁，一位中年男子，看了一眼碑上所显示出来的信息，语气漠然的将之公布了出来…
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">中年男子话刚刚脱口，便是不出意外的在人头汹涌的广场上带起了一阵嘲讽的骚动。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“三段？嘿嘿，果然不出我所料，这个“天才”这一年又是在原地踏步！”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“哎，这废物真是把家族的脸都给丢光了。”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“要不是族长是他的父亲，这种废物，早就被驱赶出家族，任其自生自灭了，哪还有机会待在家族中白吃白喝。”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“唉，昔年那名闻乌坦城的天才少年，如今怎么落魄成这般模样了啊？”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> CharacterTextSplitter
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pprint <span style="color:#f92672">import</span> pprint
+</span></span><span style="display:flex;"><span>text_splitter <span style="color:#f92672">=</span> CharacterTextSplitter(
+</span></span><span style="display:flex;"><span>    chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>,
+</span></span><span style="display:flex;"><span>    chunk_overlap  <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>    length_function <span style="color:#f92672">=</span> len,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>texts <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>create_documents([state_of_the_union])
+</span></span><span style="display:flex;"><span>pprint(texts[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>page_content)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(&#39;斗之力，三段！”</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[&#39;斗之力，三段！”</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;“萧炎，斗之力，三段！级别：低级！”测验魔石碑之旁，一位中年男子，看了一眼碑上所显示出来的信息，语气漠然的将之公布了出来…</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;中年男子话刚刚脱口，便是不出意外的在人头汹涌的广场上带起了一阵嘲讽的骚动。&#39;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><h3 id="通过tokens进行分割">通过tokens进行分割</h3>
+<p>我们知道，语言模型有一个令牌限制。不应该超过令牌的限制。因此，当你把你的文本分成几块时，计算标记的数量是一个好主意。有许多标记器。当你计算文本中的令牌时，你应该使用与语言模型中使用的相同的令牌器。</p>
+<p>安装tiktoken安装包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install tiktoken
+</span></span></code></pre></div><p>python代码实现如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>state_of_the_union <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">斗之力，三段！”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“萧炎，斗之力，三段！级别：低级！”测验魔石碑之旁，一位中年男子，看了一眼碑上所显示出来的信息，语气漠然的将之公布了出来…
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">中年男子话刚刚脱口，便是不出意外的在人头汹涌的广场上带起了一阵嘲讽的骚动。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“三段？嘿嘿，果然不出我所料，这个“天才”这一年又是在原地踏步！”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“哎，这废物真是把家族的脸都给丢光了。”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“要不是族长是他的父亲，这种废物，早就被驱赶出家族，任其自生自灭了，哪还有机会待在家族中白吃白喝。”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">“唉，昔年那名闻乌坦城的天才少年，如今怎么落魄成这般模样了啊？”
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> CharacterTextSplitter
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pprint <span style="color:#f92672">import</span> pprint
+</span></span><span style="display:flex;"><span>text_splitter <span style="color:#f92672">=</span> CharacterTextSplitter<span style="color:#f92672">.</span>from_tiktoken_encoder(
+</span></span><span style="display:flex;"><span>    chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>, chunk_overlap<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>texts <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>split_text(state_of_the_union)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pprint(texts)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> text <span style="color:#f92672">in</span> texts:
+</span></span><span style="display:flex;"><span>  print(len(text))
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">WARNING:langchain.text_splitter:Created a chunk of size 184, which is longer than the specified 128
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[&#39;斗之力，三段！”&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;望着测验魔石碑上面闪亮得甚至有些刺眼的五个大字，少年面无表情，唇角有着一抹自嘲，紧握的手掌，因为大力，而导致略微尖锐的指甲深深的刺进了掌心之中，带来一阵阵钻心的疼痛…&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;“萧炎，斗之力，三段！级别：低级！”测验魔石碑之旁，一位中年男子，看了一眼碑上所显示出来的信息，语气漠然的将之公布了出来…&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;中年男子话刚刚脱口，便是不出意外的在人头汹涌的广场上带起了一阵嘲讽的骚动。&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;“三段？嘿嘿，果然不出我所料，这个“天才”这一年又是在原地踏步！”</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">“哎，这废物真是把家族的脸都给丢光了。”&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;“要不是族长是他的父亲，这种废物，早就被驱赶出家族，任其自生自灭了，哪还有机会待在家族中白吃白喝。”&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> &#39;“唉，昔年那名闻乌坦城的天才少年，如今怎么落魄成这般模样了啊？”&#39;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>直接使用tiktoken</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.text_splitter <span style="color:#f92672">import</span> TokenTextSplitter
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>text_splitter <span style="color:#f92672">=</span> TokenTextSplitter(chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>, chunk_overlap<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>texts <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>split_text(state_of_the_union)
+</span></span><span style="display:flex;"><span>print(texts[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h2 id="模型io组件">模型IO组件</h2>
+<p>模型包括LLM、聊天模型、文本嵌入模型。大型语言模型（LLM）是我们涵盖的第一种模型类型。这些模型接受一个文本字符串作为输入，并返回一个文本字符串作为输出。聊天模型是我们涵盖的第二种类型的模型。这些模型通常由一个语言模型支持，但它们的API更加结构化。具体来说，这些模型接受一个聊天信息的列表作为输入，并返回一个聊天信息。第三类模型是文本嵌入模型。这些模型将文本作为输入，并返回一个浮点数列表。</p>
+<p>LangChain提供了连接任何语言模型的构建模块。</p>
+<h3 id="提示-模板化动态选择和管理模型输入">提示： 模板化、动态选择和管理模型输入</h3>
+<p>对模型进行编程的新方法是通过提示语。一个提示指的是对模型的输入。这种输入通常是由多个组件构成的。LangChain提供了几个类和函数，使构建和处理提示信息变得容易。常用的方法是：提示模板： 对模型输入进行参数化处；与例子选择器： 动态地选择要包含在提示中的例子。</p>
+<p>一个提示模板可以包含：对语言模型的指示；一组少量的例子，以帮助语言模型产生一个更好的反应；一个对语言模型的问题。例如:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain <span style="color:#f92672">import</span> PromptTemplate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>template <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">You are a naming consultant for new companies.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">What is a good name for a company that makes </span><span style="color:#e6db74">{product}</span><span style="color:#e6db74">?
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> PromptTemplate<span style="color:#f92672">.</span>from_template(template)
+</span></span><span style="display:flex;"><span>prompt<span style="color:#f92672">.</span>format(product<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;colorful socks&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    You are a naming consultant for new companies.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    What is a good name for a company that makes colorful socks?
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>如果需要创建一个与角色相关的消息模板，则需要使用MessagePromptTemplate。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;You are a helpful assistant that translates </span><span style="color:#e6db74">{input_language}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">{output_language}</span><span style="color:#e6db74">.&#34;</span>
+</span></span><span style="display:flex;"><span>system_message_prompt <span style="color:#f92672">=</span> SystemMessagePromptTemplate<span style="color:#f92672">.</span>from_template(template)
+</span></span><span style="display:flex;"><span>human_template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{text}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>human_message_prompt <span style="color:#f92672">=</span> HumanMessagePromptTemplate<span style="color:#f92672">.</span>from_template(human_template)
+</span></span></code></pre></div><p>MessagePromptTemplate的类型：LangChain提供不同类型的MessagePromptTemplate。最常用的是AIMessagePromptTemplate、SystemMessagePromptTemplate和HumanMessagePromptTemplate，它们分别创建AI消息、系统消息和人类消息。</p>
+<p>通用的提示模板：假设我们想让LLM生成一个函数名称的英文解释。为了实现这一任务，我们将创建一个自定义的提示模板，将函数名称作为输入，并对提示模板进行格式化，以提供该函数的源代码。</p>
+<p>我们首先创建一个函数，它将返回给定的函数的源代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> inspect
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_source_code</span>(function_name):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get the source code of the function</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> inspect<span style="color:#f92672">.</span>getsource(function_name)
+</span></span></code></pre></div><p>接下来，我们将创建一个自定义的提示模板，将函数名称作为输入，并格式化提示模板以提供函数的源代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.prompts <span style="color:#f92672">import</span> StringPromptTemplate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pydantic <span style="color:#f92672">import</span> BaseModel, validator
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FunctionExplainerPromptTemplate</span>(StringPromptTemplate, BaseModel):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;A custom prompt template that takes in the function name as input, and formats the prompt template to provide the source code of the function.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@validator</span>(<span style="color:#e6db74">&#34;input_variables&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_input_variables</span>(cls, v):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Validate that the input variables are correct.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(v) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;function_name&#34;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> v:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;function_name must be the only input_variable.&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">format</span>(self, <span style="color:#f92672">**</span>kwargs) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get the source code of the function</span>
+</span></span><span style="display:flex;"><span>        source_code <span style="color:#f92672">=</span> get_source_code(kwargs[<span style="color:#e6db74">&#34;function_name&#34;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate the prompt to be sent to the language model</span>
+</span></span><span style="display:flex;"><span>        prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Given the function name and source code, generate an English language explanation of the function.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Function Name: </span><span style="color:#e6db74">{</span>kwargs[<span style="color:#e6db74">&#34;function_name&#34;</span>]<span style="color:#f92672">.</span>__name__<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Source Code:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        </span><span style="color:#e6db74">{</span>source_code<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Explanation:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> prompt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_prompt_type</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;function-explainer&#34;</span>
+</span></span></code></pre></div><h3 id="语言模型-通过通用接口调用语言模型">语言模型： 通过通用接口调用语言模型</h3>
+<p>LLMs和聊天模型有微妙但重要的区别。LangChain中的LLM指的是纯文本完成模型。它们所包含的API将一个字符串提示作为输入并输出一个字符串完成。OpenAI的GPT-3是作为LLM实现的。聊天模型通常由LLM支持，但专门为进行对话而进行调整。而且，至关重要的是，他们的提供者API暴露了一个与纯文本完成模型不同的接口。它们不接受单一的字符串，而是接受一个聊天信息的列表作为输入。通常这些信息都标有说话者（通常是 &ldquo;系统&rdquo;、&ldquo;AI &ldquo;和 &ldquo;人类 &ldquo;中的一个）。它们会返回一个（&ldquo;AI&rdquo;）聊天信息作为输出。GPT-4和Anthropic的Claude都是作为聊天模型实现的。</p>
+<p>为了使LLM和聊天模型的交换成为可能，两者都实现了基础语言模型接口。这暴露了常见的方法 &ldquo;predict &ldquo;和 &ldquo;pred messages&rdquo;，前者接受一个字符串并返回一个字符串，后者接受消息并返回一个消息。如果你使用一个特定的模型，建议你使用该模型类的特定方法（例如，LLM的 &ldquo;预测 &ldquo;和聊天模型的 &ldquo;预测消息&rdquo;），但如果你正在创建一个应该与不同类型的模型一起工作的应用程序，共享接口会有帮助。</p>
+<p>使用LLM的最简单方法是可调用：传入一个字符串，得到一个字符串完成。</p>
+<p>generate: batch calls, richer outputs</p>
+<p>generate让你可以用一串字符串调用模型，得到比文本更完整的响应。这个完整的响应可以包括像多个顶级响应和其他LLM提供者的特定信息，例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>llm_result <span style="color:#f92672">=</span> llm<span style="color:#f92672">.</span>generate([<span style="color:#e6db74">&#34;Tell me a joke&#34;</span>, <span style="color:#e6db74">&#34;Tell me a poem&#34;</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>len(llm_result<span style="color:#f92672">.</span>generations)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">30
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>llm_result<span style="color:#f92672">.</span>generations[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    [Generation(text=&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Why did the chicken cross the road?</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">To get to the other side!&#39;),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     Generation(text=&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Why did the chicken cross the road?</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">To get to the other side.&#39;)]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>llm_result<span style="color:#f92672">.</span>generations[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    [Generation(text=&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">What if love neverspeech</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">What if love never ended</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">What if love was only a feeling</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">I&#39;ll never know this love</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">It&#39;s not a feeling</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">But it&#39;s what we have for each other</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">We just know that love is something strong</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">And we can&#39;t help but be happy</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">We just feel what love is for us</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">And we love each other with all our heart</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">We just don&#39;t know how</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">How it will go</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">But we know that love is something strong</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">And we&#39;ll always have each other</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">In our lives.&#34;),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     Generation(text=&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Once upon a time</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">There was a love so pure and true</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">It lasted for centuries</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">And never became stale or dry</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">It was moving and alive</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">And the heart of the love-ick</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Is still beating strong and true.&#39;)]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">You can also access provider specific information that is returned. This information is NOT standardized across providers.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>llm_result<span style="color:#f92672">.</span>llm_output
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 3903,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &#39;total_tokens&#39;: 4023,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &#39;prompt_tokens&#39;: 120}}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span></code></pre></div><p>LongChain具体支持什么模型，不同模型是怎么使用的可以看官方文档：<a href="https://link.zhihu.com/?target=https%3A//python.langchain.com/docs/modules/model_io/models/">Language models | ️ Langchain</a></p>
+<h3 id="输出分析器-从模型输出中提取信息">输出分析器： 从模型输出中提取信息</h3>
+<p>输出解析器是帮助结构化语言模型响应的类。有两个主要的方法是输出解析器必须实现的：</p>
+<p>&ldquo;获取格式说明&rdquo;：该方法返回一个字符串，包含语言模型的输出应该如何被格式化的指示。
+&ldquo;解析&rdquo;： 该方法接收一个字符串（假定是来自语言模型的响应）并将其解析为某种结构。
+&ldquo;带提示的解析&rdquo;：该方法是可选方法，它接收一个字符串（假定是来自语言模型的响应）和一个提示（假定是产生这种响应的提示），并将其解析为一些结构。提示主要是在OutputParser想要重试或以某种方式修复输出的情况下提供的，并且需要从提示中获得信息来这样做。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.prompts <span style="color:#f92672">import</span> PromptTemplate, ChatPromptTemplate, HumanMessagePromptTemplate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.llms <span style="color:#f92672">import</span> OpenAI
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.chat_models <span style="color:#f92672">import</span> ChatOpenAI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.output_parsers <span style="color:#f92672">import</span> PydanticOutputParser
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pydantic <span style="color:#f92672">import</span> BaseModel, Field, validator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> List
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;text-davinci-003&#39;</span>
+</span></span><span style="display:flex;"><span>temperature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> OpenAI(model_name<span style="color:#f92672">=</span>model_name, temperature<span style="color:#f92672">=</span>temperature)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define your desired data structure.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Joke</span>(BaseModel):
+</span></span><span style="display:flex;"><span>    setup: str <span style="color:#f92672">=</span> Field(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;question to set up a joke&#34;</span>)
+</span></span><span style="display:flex;"><span>    punchline: str <span style="color:#f92672">=</span> Field(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;answer to resolve the joke&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># You can add custom validation logic easily with Pydantic.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@validator</span>(<span style="color:#e6db74">&#39;setup&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">question_ends_with_question_mark</span>(cls, field):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> field[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;?&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;Badly formed question!&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> field
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set up a parser + inject instructions into the prompt template.</span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> PydanticOutputParser(pydantic_object<span style="color:#f92672">=</span>Joke)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> PromptTemplate(
+</span></span><span style="display:flex;"><span>    template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Answer the user query.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{format_instructions}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{query}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>    input_variables<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;query&#34;</span>],
+</span></span><span style="display:flex;"><span>    partial_variables<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;format_instructions&#34;</span>: parser<span style="color:#f92672">.</span>get_format_instructions()}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># And a query intented to prompt a language model to populate the data structure.</span>
+</span></span><span style="display:flex;"><span>joke_query <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Tell me a joke.&#34;</span>
+</span></span><span style="display:flex;"><span>_input <span style="color:#f92672">=</span> prompt<span style="color:#f92672">.</span>format_prompt(query<span style="color:#f92672">=</span>joke_query)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> model(_input<span style="color:#f92672">.</span>to_string())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>parse(output)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Joke(setup<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Why did the chicken cross the road?&#39;</span>, punchline<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;To get to the other side!&#39;</span>)
+</span></span></code></pre></div><p>具体参见：<a href="https://link.zhihu.com/?target=https%3A//python.langchain.com/docs/modules/model_io/output_parsers/">Output parsers | ️ Langchain</a></p>
+<h2 id="chain链组件">Chain链组件</h2>
+<p>更复杂的应用需要将LLM串联起来&ndash;要么相互串联，要么与其他组件串联。这时就需要用到Chain链组件。</p>
+<p>LangChain为这种 &ldquo;链式 &ldquo;应用提供了Chain接口。其基本接口很简单：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Chain</span>(BaseModel, ABC):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Base interface that all chains should implement.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    memory: BaseMemory
+</span></span><span style="display:flex;"><span>    callbacks: Callbacks
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __call__(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        inputs: Any,
+</span></span><span style="display:flex;"><span>        return_only_outputs: bool <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>        callbacks: Callbacks <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">-&gt;</span> Dict[str, Any]:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>使用不同链功能的演示，可参见官方文档：<a href="https://link.zhihu.com/?target=https%3A//python.langchain.com/docs/modules/chains/how_to/">How to | ️ Langchain</a></p>
+<p>最受欢迎的链可以参见：<a href="https://link.zhihu.com/?target=https%3A//python.langchain.com/docs/modules/chains/popular/">Popular | ️ Langchain</a></p>
+<p>链允许我们将多个组件结合在一起，创建一个单一的、连贯的应用程序。例如，我们可以创建一个链，接受用户输入，用PromptTemplate格式化，然后将格式化的响应传递给LLM。我们可以通过将多个链组合在一起，或将链与其他组件组合在一起，建立更复杂的链。LLMChain是最基本的构建块链。它接受一个提示模板，用用户输入的格式化它，并从LLM返回响应。</p>
+<p>我们首先要创建一个提示模板：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.llms <span style="color:#f92672">import</span> OpenAI
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.prompts <span style="color:#f92672">import</span> PromptTemplate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> OpenAI(temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>)
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> PromptTemplate(
+</span></span><span style="display:flex;"><span>    input_variables<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;product&#34;</span>],
+</span></span><span style="display:flex;"><span>    template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What is a good name for a company that makes </span><span style="color:#e6db74">{product}</span><span style="color:#e6db74">?&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>然后，创建一个非常简单的链，它将接受用户的输入，用它来格式化提示，然后将其发送到LLM。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.chains <span style="color:#f92672">import</span> LLMChain
+</span></span><span style="display:flex;"><span>chain <span style="color:#f92672">=</span> LLMChain(llm<span style="color:#f92672">=</span>llm, prompt<span style="color:#f92672">=</span>prompt)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run the chain only specifying the input variable.</span>
+</span></span><span style="display:flex;"><span>print(chain<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#34;colorful socks&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Colorful Toes Co<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">如果有多个变量，可以用一个字典一次输入它们。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> PromptTemplate(
+</span></span><span style="display:flex;"><span>    input_variables<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;company&#34;</span>, <span style="color:#e6db74">&#34;product&#34;</span>],
+</span></span><span style="display:flex;"><span>    template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What is a good name for </span><span style="color:#e6db74">{company}</span><span style="color:#e6db74"> that makes </span><span style="color:#e6db74">{product}</span><span style="color:#e6db74">?&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>chain <span style="color:#f92672">=</span> LLMChain(llm<span style="color:#f92672">=</span>llm, prompt<span style="color:#f92672">=</span>prompt)
+</span></span><span style="display:flex;"><span>print(chain<span style="color:#f92672">.</span>run({
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;company&#39;</span>: <span style="color:#e6db74">&#34;ABC Startup&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;product&#39;</span>: <span style="color:#e6db74">&#34;colorful socks&#34;</span>
+</span></span><span style="display:flex;"><span>    }))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Socktopia Colourful Creations<span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>也可以在LLMChain中使用一个聊天模型：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.chat_models <span style="color:#f92672">import</span> ChatOpenAI
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> langchain.prompts.chat <span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    ChatPromptTemplate,
+</span></span><span style="display:flex;"><span>    HumanMessagePromptTemplate,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>human_message_prompt <span style="color:#f92672">=</span> HumanMessagePromptTemplate(
+</span></span><span style="display:flex;"><span>        prompt<span style="color:#f92672">=</span>PromptTemplate(
+</span></span><span style="display:flex;"><span>            template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;What is a good name for a company that makes </span><span style="color:#e6db74">{product}</span><span style="color:#e6db74">?&#34;</span>,
+</span></span><span style="display:flex;"><span>            input_variables<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;product&#34;</span>],
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>chat_prompt_template <span style="color:#f92672">=</span> ChatPromptTemplate<span style="color:#f92672">.</span>from_messages([human_message_prompt])
+</span></span><span style="display:flex;"><span>chat <span style="color:#f92672">=</span> ChatOpenAI(temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>)
+</span></span><span style="display:flex;"><span>chain <span style="color:#f92672">=</span> LLMChain(llm<span style="color:#f92672">=</span>chat, prompt<span style="color:#f92672">=</span>chat_prompt_template)
+</span></span><span style="display:flex;"><span>print(chain<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#34;colorful socks&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Rainbow Socks Co<span style="color:#f92672">.</span>
+</span></span></code></pre></div><h2 id="链的序列化保存链到磁盘从磁盘加载链">链的序列化，保存链到磁盘，从磁盘加载链：</h2>
+<p><a href="https://link.zhihu.com/?target=https%3A//python.langchain.com/docs/modules/chains/how_to/serialization">Serialization | ️ Langchain</a></p>
+<h2 id="总结">总结</h2>
+<p>LangChain 为特定用例提供了多种组件，例如个人助理、文档问答、聊天机器人、查询表格数据、与 API 交互、提取、评估和汇总。通过提供模块化和灵活的方法简化了构建高级语言模型应用程序的过程。通过了解组件、链、提示模板、输出解析器、索引、检索器、聊天消息历史记录和代理等核心概念，可以创建适合特定需求的自定义解决方案。LangChain 能够释放语言模型的全部潜力，并在广泛的用例中创建智能的、上下文感知的应用程序。</p>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/608295910?utm_psn=1719825206179340288">LangChain指南：打造LLM的垂域AI框架</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/656646499?utm_psn=1719825174554337280">零代码入门大模型：一文全面搞懂LangChain</a></li>
+</ul>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/llm/2024-06-18-text-to-vec/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

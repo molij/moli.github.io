@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>Sublime Text Snippets(代码片段)功能</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Sublime Text Snippets(代码片段)功能</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Feb 28, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>我们在编写代码的时候，总会遇到一些需要反复使用的代码片段。这时候就需要反复的复制和黏贴，大大影响效率。我们利用<code>Sublime Text</code>的snippet功能，就能很好的解决这一问题。通俗的讲，就是把我们常用的代码分别保存起啦，然后通过插件的形式来反复调用。</p>
+<!-- raw HTML omitted -->
+<p>创建方法：Tools &gt; New Snippet
+弹出如下示例代码：</p>
+<pre><code>&lt;snippet&gt;
+     &lt;content&gt;&lt;![CDATA[
+Hello, ${1:this} is a ${2:snippet}.
+]]&gt;&lt;/content&gt;
+     &lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;
+     &lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;
+     &lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;
+     &lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;
+&lt;/snippet&gt;
+</code></pre>
+<p>完整的结构和说明：</p>
+<pre><code>&lt;snippet&gt;
+    &lt;content&gt;&lt;![CDATA[ 你需要插入的代码片段${1:name} ]]&gt;&lt;/content&gt;
+    &lt;!-- 可选：快捷键，利用Tab自动补全代码的功能 --&gt;
+    &lt;tabTrigger&gt;html5&lt;/tabTrigger&gt;
+    &lt;!-- 可选：使用范围，不填写代表对所有文件有效。附：source.css和test.html分别对应不同文件。 --&gt;
+    &lt;scope&gt;source.python&lt;/scope&gt;
+    &lt;!-- 可选：在snippet菜单中的显示说明（支持中文）。如果不定义，菜单则显示当前文件的文件名。 --&gt;
+    &lt;description&gt;My Fancy Snippet&lt;/description&gt;
+&lt;/snippet&gt;
+</code></pre>
+<p>${1:name}表示代码插入后，光标所停留的位置，可同时插入多个。其中:name为自定义参数（可选）。
+${2}表示代码插入后，按Tab键，光标会根据顺序跳转到相应位置（以此类推）。</p>
+<p>现在，你应该有了个大致的了解。那我们就开始自己动手编写一个实例：</p>
+<pre><code>&lt;snippet&gt;
+     &lt;content&gt;
+     &lt;![CDATA[
+        &lt;!doctype html&gt; 
+        &lt;html&gt; 
+        &lt;head&gt; 
+            &lt;meta charset=&quot;utf-8&quot;&gt; 
+            &lt;title&gt;${1}&lt;/title&gt; 
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;${1}&lt;/h1&gt;
+            Hello, ${2:this} is a ${3:snippet}.
+        &lt;/body&gt;
+        &lt;/html&gt;
+     ]]&gt;
+     &lt;/content&gt;
+     &lt;tabTrigger&gt;html5&lt;/tabTrigger&gt;
+     &lt;description&gt;html5框架代码段&lt;/description&gt;
+     &lt;scope&gt;text.html&lt;/scope&gt;
+&lt;/snippet&gt;
+</code></pre>
+<p>创建完毕以后，保存在\Packages\User目录下（例win7下：<code>C:\Users\[用户]\AppData\Roaming\Sublime Text 2\Packages\User\html5.sublime-snippet</code>  ），文件命名为html5，后缀名<code>.sublime-snippet</code>。</p>
+<p>此时我们打开一个html文件，输入html5，再按Tab键，刚才我们所编写的代码段，就插入了进来。并且此时的光标停留在我们所标记的${1}位置处，如果我们再按下Tab，那么光标就跳转到${2}的位置。由于我们在scope中定义了仅在html文件中使用，所以此时如果我们打开的是css或其他格式的文件，那将无法插入代码段。</p>
+<p>补充：除了利用快捷键Tab出代码之外，我们还能通过菜单来加载，打开Tools &gt; Snippet，选择Snippet: custom-footer。如果你没有定义description，那此时便会看到以我们文件名为命名的Snippet: html5选项。</p>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/htmlcss/2015-01-01-scroller/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-tar-zip/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+

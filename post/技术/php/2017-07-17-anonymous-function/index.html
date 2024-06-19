@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>PHP代码之使用匿名函数</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >PHP代码之使用匿名函数</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Jul 17, 2017</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>匿名函数（<code>Anonymous functions</code>），也叫闭包函数（<code>closures</code>），允许 临时创建一个没有指定名称的函数。最经常用作回调函数（<code>callback</code>）参数的值。当然，也有其它应用的情况。</p>
+<p>匿名函数目前是通过<code>Closure</code>类来实现的。</p>
+<p>闭包函数也可以作为变量的值来使用。PHP 会自动把此种表达式转换成内置类<code>Closure</code>的对象实例。把一个<code>closure</code>对象赋值给一个变量的方式与普通变量赋值的语法是一样的，最后也要加上分号。</p>
+<p>闭包可以从父作用域中继承变量。 任何此类变量都应该用<code>use</code>语言结构传递进去。 <code>PHP 7.1</code>起，不能传入此类变量：<code>superglobals</code>、 <code>$this</code> 或者和参数重名。
+这些变量都必须在函数或类的头部声明。 从父作用域中继承变量与使用全局变量是不同的。全局变量存在于一个全局的范围，无论当前在执行的是哪个函数。而 闭包的父作用域是定义该闭包的函数（不一定是调用它的函数）。</p>
+<!-- raw HTML omitted -->
+<h2 id="构建函数或方法内部的代码块">构建函数或方法内部的代码块</h2>
+<p>假如我们有一段逻辑，在一个函数或者方法里我们需要格式化数据,但是这个格式化数据的代码片段出现了多次，如果我们直接写可能会想下面这样：</p>
+<pre><code>function doSomething(...) {
+    ...
+    // 格式化代码段
+    ...
+    ...
+    // 格式化代码段[重复的代码]
+    ...
+}
+</code></pre>
+<p>我相信大多数的人应该不会像上面这么写，可能都会像下面这样：</p>
+<pre><code>function doSomething(...) {
+    ...
+    format(...);
+    ...
+    format(...);
+    ...
+}
+// 再声明一个格式花代码的函数或方法
+function format() {
+    // 格式化代码段
+    ...
+}
+</code></pre>
+<p>上面这样的写法没有任何的问题，最小单元化我们的代码片段，但是如果这个format函数或者方法只是doSomething使用呢？我通常会向下面这么写，为什么？因为我认为在这种上下文的环境中format和doSomething的一个子集。</p>
+<pre><code>function doSomething() {
+    ...
+    $package = function (...) use (...) {　// 同样use后面的参数也可以传引用
+        // 格式化代码段
+        ...
+    };
+    ...
+    package(...);
+    ...
+    package(...);
+    ...
+}
+</code></pre>
+<h2 id="实现类的懒加载和实现设计模式的最少知道原则">实现类的【懒加载】和实现设计模式的【最少知道原则】</h2>
+<p>假如有下面这段代码：</p>
+<pre><code>class One
+{
+    private $instance;
+    // 类One内部依赖了类Two
+    // 不符合设计模式的最少知道原则
+    public function __construct()
+    {  
+        $this-&gt;intance = new Two();
+    }
+    public function doSomething()
+    {
+        if (...) {
+            // 如果某种情况调用类Two的实例方法
+            $this-&gt;instance-&gt;do(...);
+        }
+        ...
+    }
+}
+...
+$instance = new One();
+$instance-&gt;doSomething();
+...
+</code></pre>
+<p>上面的写法有什么问题？</p>
+<ul>
+<li>不符合设计模式的最少知道原则,类One内部直接依赖了类Two</li>
+<li>类Two的实例不是所有的上下文都会用到，所以浪费了资源，有人说搞个单例，但是解决不了实例化了不用的尴尬</li>
+</ul>
+<p>所以我们使用匿名函数解决上面的问题，下面我们这么改写：</p>
+<pre><code>class One
+{
+    private $closure;
+    public function __construct(Closure $closure)
+    {  
+        $this-&gt;closure = $closure;
+    }
+    public function doSomething()
+    {
+        if (...) {
+            // 用的时候再实例化
+            // 实现懒加载
+            $instance = $this-&gt;closure();
+            $instance-&gt;do(...)
+        }
+        ...
+    }
+}
+...
+$instance = new One(function () {
+    // 类One内部外部依赖了类Two
+    return new Two();
+});
+$instance-&gt;doSomething();
+...</code></pre>
+
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/php/2017-07-17-use-/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+
+</body>
+</html>
+
