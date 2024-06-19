@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>执行系统命令的函数 &middot; 莫离君的博客</title>
+  <meta name="description" content="css笔记" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>执行系统命令的函数</h1>
+  <time datetime=2015-12-06T00:00:00Z class="post-date">Sun, Dec 6, 2015</time>
+  <p>system, exec, passthru, shell_exec 这4个函数可用于执行系统命令。每个的行为都有细微差别。问题在于, 当在共享主机中, 某些函数可能被选择性的禁用. 大多数新手趋于每次首先检查哪个函数可用, 然而再使用它。更好的方案是封成函数一个可跨平台的函数。</p>
+<!-- raw HTML omitted -->
+<pre><code>/** 
+Method to execute a command in the terminal  
+Uses :
+1. system
+2. passthru     
+3. exec
+4. shell_exec
+*/
+function terminal($command){
+    //system
+    if(function_exists('system')){
+        ob_start();
+        system($command , $return_var);
+        $output = ob_get_contents();
+        ob_end_clean();
+    }
+    //passthru
+    else if(function_exists('passthru')){
+        ob_start();
+        passthru($command , $return_var);
+        $output = ob_get_contents();
+        ob_end_clean();
+    }
+    //exec
+    else if(function_exists('exec')){
+        exec($command , $output , $return_var);
+        $output = implode(&quot;\n&quot; , $output);
+    }
+    //shell_exec
+    else if(function_exists('shell_exec')){
+        $output = shell_exec($command) ;
+    }
+    else{
+        $output = 'Command execution not possible on this system';
+        $return_var = 1;
+    }
+    return array('output' =&gt; $output , 'status' =&gt; $return_var);
+}
+terminal('ls');
+</code></pre>
+<p>上面的函数將运行shell命令, 只要有一个系统函数可用, 这保持了代码的一致性。</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

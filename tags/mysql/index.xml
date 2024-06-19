@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/mysql/</link>
+    <description>Recent content in mysql on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 22 Nov 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>解决Ubuntu远程连接mysql连不上的问题</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2016-11-22-ubuntu-mysql-connect/</link>
+      <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2016-11-22-ubuntu-mysql-connect/</guid>
+      <description>原因：Ubuntu竟然在mysql的配置文件中默认绑定了本机。&#xA;解决方案：果断给注释掉。编辑配置文件/etc/mysql/my.cnf，注释掉里边的bind-address配置项。&#xA;# Instead of skip-networking the default is now to listen only on # localhost which is more compatible and is not less secure. bind-address = 127.0.0.1 重启mysql&#xA;service mysql restart </description>
+    </item>
+    <item>
+      <title>【高并发简单解决方案】redis队列缓存 &#43; mysql 批量入库 &#43; php离线整合</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-redis&#43;mysql&#43;php-high-concurrence/</link>
+      <pubDate>Fri, 25 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-redis&#43;mysql&#43;php-high-concurrence/</guid>
+      <description>需求背景：有个调用统计日志存储和统计需求，要求存储到mysql中；存储数据高峰能达到日均千万，瓶颈在于直接入库并发太高，可能会把mysql干垮。&#xA;问题分析&#xA;思考：应用网站架构的衍化过程中，应用最新的框架和工具技术固然是最优选择；但是，如果能在现有的框架的基础上提出简单可依赖的解决方案，未尝不是一种提升自我的尝试。&#xA;解决：&#xA;问题一：要求日志最好入库；但是，直接入库mysql确实扛不住，批量入库没有问题，done。【批量入库和直接入库性能差异参考文章】 问题二：批量入库就需要有高并发的消息队列，决定采用redis list 仿真实现，而且方便回滚。 问题三：日志量毕竟大，保存最近30条足矣，决定用php写个离线统计和清理脚本。 done，下面是小拽的简单实现过程&#xA;##一：设计数据库表和存储&#xA;考虑到log系统对数据库的性能更多一些，稳定性和安全性没有那么高，存储引擎自然是只支持select insert 没有索引的archive。如果确实有update需求，也可以采用myISAM。 考虑到log是实时记录的所有数据，数量可能巨大，主键采用bigint，自增即可。 考虑到log系统以写为主，统计采用离线计算，字段均不要出现索引，因为一方面可能会影响插入数据效率，另外读时候会造成死锁，影响写数据。 ##二：redis存储数据形成消息队列&#xA;由于高并发，尽可能简单，直接，上代码。&#xA;&amp;lt;?php /*************************************************************************** * * 获取到的调用日志，存入redis的队列中. * $Id$ * **************************************************************************/ /** * @file saveLog.php * @date 2015/11/06 20:47:13 * @author:cuihuan * @version $Revision$ * @brief * **/ // 获取info $interface_info = $_GET[&#39;info&#39;]; // 存入redis队列 $redis = new Redis(); $redis-&amp;gt;connect(&#39;xx&#39;, 6379); $redis-&amp;gt;auth(&amp;quot;password&amp;quot;); // 加上时间戳存入队列 $now_time = date(&amp;quot;Y-m-d H:i:s&amp;quot;); $redis-&amp;gt;rPush(&amp;quot;call_log&amp;quot;, $interface_info . &amp;quot;%&amp;quot; . $now_time); $redis-&amp;gt;close(); /* vim: set ts=4 sw=4 sts=4 tw=100 */ ?</description>
+    </item>
+    <item>
+      <title>mysql批量更新多条记录的不同值</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2015-12-17-mysql-update-varies-value/</link>
+      <pubDate>Thu, 17 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2015-12-17-mysql-update-varies-value/</guid>
+      <description>如果更新多条数据为不同的值，可能很多人会这样写：&#xA;foreach ($display_order as $id =&amp;gt; $ordinal) { $sql = &amp;quot;UPDATE categories SET display_order = $ordinal WHERE id = $id&amp;quot;; mysql_query($sql); } 即是循环一条一条的更新记录。一条记录update一次，这样性能很差，也很容易造成阻塞。&#xA;那么能不能一条sql语句实现批量更新呢？&#xA;mysql并没有提供直接的方法来实现批量更新，但是可以用case when来实现。&#xA;UPDATE mytable SET myfield = CASE id WHEN 1 THEN &#39;value&#39; WHEN 2 THEN &#39;value&#39; WHEN 3 THEN &#39;value&#39; END WHERE id IN (1,2,3) 这里的where部分不影响代码的执行，但是会提高sql执行的效率。确保sql语句仅执行需要修改的行数，这里只有3条数据进行更新，而where子句确保只有3行数据执行。&#xA;如果更新多个值的话，只需要稍加修改：&#xA;UPDATE categories SET display_order = CASE id WHEN 1 THEN 3 WHEN 2 THEN 4 WHEN 3 THEN 5 END, title = CASE id WHEN 1 THEN &#39;New Title 1&#39; WHEN 2 THEN &#39;New Title 2&#39; WHEN 3 THEN &#39;New Title 3&#39; END WHERE id IN (1,2,3) 在业务中运用，需要结合服务端语言，这里以php为例，构造这条mysql语句：</description>
+    </item>
+    <item>
+      <title>从Mysql某一表中随机读取n条数据的SQL查询语句</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2015-11-26-mysql-rand-n-row/</link>
+      <pubDate>Thu, 26 Nov 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/mysql/2015-11-26-mysql-rand-n-row/</guid>
+      <description>若要在i ≤ R ≤ j这个范围得到一个随机整数R ，需要用到表达式 FLOOR(i + RAND() * (j – i + 1))。 例如， 若要在7 到 12 的范围（包括7和12）内得到一个随机整数, 可使用以下语句：&#xA;SELECT FLOOR(7 + (RAND() * 6)); 从 Mysql 表中随机读取数据不难，方法还挺多的，但是如果要考虑效率，得到一个快速的高效率的方法，那就不是一件简单的事情了（至少对我来说不简单）。&#xA;随机获得Mysql数据表的一条或多条记录有很多方法，下面我就以users（userId，userName，password……）表（有一百多万条记录）为例，对比讲解下几个方法效率问题：&#xA;select * from users order by rand() LIMIT 1 执行该sql语句，老半天没有反应，最后被迫手动停止执行，怎个伤人了得啊！后来我查了一下MYSQL手册，里面针对RAND()的提示大概意思就是，在 ORDER BY从句里面不能使用RAND()函数，因为这样会导致数据列被多次扫描，导致效率相当相当的低！效率不行，切忌使用！&#xA;SELECT * FROM users AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(userId) FROM `users`)-(SELECT MIN(userId) FROM users))+(SELECT MIN(userId) FROM users)) AS userId) AS t2 WHERE t1.userId &amp;gt;= t2.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP 判断设备是否是手机/平板的方法 &middot; 莫离君的博客</title>
+  <meta name="description" content="PHP 判断设备是否是手机/平板的方法" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>PHP 判断设备是否是手机/平板的方法</h1>
+  <time datetime=2015-10-14T00:00:00Z class="post-date">Wed, Oct 14, 2015</time>
+  <p>在做WEB开发的时候经常会需要用到对移动设备的页面匹配，当然可以直接把网站做成响应式的，但如果不想这么做的话，可以使用PHP对设备类型进行判断，然后显示相应的界面和内容。今天分享一种使用 PHP 判断设备是否是手机/平板的方法，方法来源于WordPress(wp-includes/vars.php:125)，适用于大部分类型的手机/平板判断：</p>
+<p>在做WEB开发的时候经常会需要用到对移动设备的页面匹配，当然可以直接把网站做成响应式的，但如果不想这么做的话，可以使用PHP对设备类型进行判断，然后显示相应的界面和内容。今天分享一种使用 PHP 判断设备是否是手机/平板的方法，方法来源于WordPress(wp-includes/vars.php:125)，适用于大部分类型的手机/平板判断：</p>
+<pre><code>/**
+ * Test if the current browser runs on a mobile device (smart phone, tablet, etc.)
+ *
+ * @staticvar bool $is_mobile
+ *
+ * @return bool
+ */
+function wp_is_mobile() {
+    static $is_mobile = null;
+ 
+    if ( isset( $is_mobile ) ) {
+        return $is_mobile;
+    }
+ 
+    if ( empty($_SERVER['HTTP_USER_AGENT']) ) {
+        $is_mobile = false;
+    } elseif ( strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false // many mobile devices (all iPhone, iPad, etc.)
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'Silk/') !== false
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'BlackBerry') !== false
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false
+        || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false ) {
+            $is_mobile = true;
+    } else {
+        $is_mobile = false;
+    }
+ 
+    return $is_mobile;
+}</code></pre>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>自动检测程序正常运行，遇故障则重启服务 &middot; 莫离君的博客</title>
+  <meta name="description" content="自动检测程序正常运行，遇故障则重启服务" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>自动检测程序正常运行，遇故障则重启服务</h1>
+  <time datetime=2015-12-29T00:00:00Z class="post-date">Tue, Dec 29, 2015</time>
+  <p>在某些情况下，如系统负载过大server无法申请到内存而挂掉、server底层发生段错误、server占用内存过大被内核Kill，或者被某些程序误杀。那server将无法提供服务，导致业务中断，公司收入出现损失。</p>
+<p>有一个非常有效并且常用的方案是crontab重启监控。</p>
+<p>原理是每1分钟执行一次shell脚本，检测server的进程是否存活，如果存在则跳过。如果发现主进程已经挂掉，则执行restart逻辑，先kill掉所有残留的子进程，然后重新启动Server。</p>
+<!-- raw HTML omitted -->
+<p>在系统的crontab中加入：</p>
+<pre><code>* * * * * /data/script/check_server.sh
+</code></pre>
+<p>/data/script/check_server.sh：</p>
+<pre><code>#!/usr/bin/bash
+cmd=&quot;/application/php/bin/php /data/www/filter/http_server.php&quot;
+count=`ps aux |grep &quot;$cmd&quot; | grep -v &quot;grep&quot; | wc -l`
+ 
+echo $count
+if [ $count -lt 1 ]; then
+ps aux |grep &quot;$cmd&quot; | grep -v &quot;grep&quot;| awk '{print $2}'|xargs kill -9
+sleep 2
+$cmd
+echo &quot;restart &quot;$(date +%Y-%m-%d_%H:%M:%S) &gt;/data/log/restart.log
+fi
+</code></pre>
+<blockquote>
+<p>原文作者：<a href="http://blog.41ms.com/post/42.html">松鼠先生</a></p>
+</blockquote>
+<blockquote>
+<p>原文地址：<a href="http://blog.41ms.com/post/42.html">无人值守，检测程序正常运行，遇故障则重启服务</a></p>
+</blockquote>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ubuntu上在多个PHP版本之间切换 &middot; 莫离君的博客</title>
+  <meta name="description" content="Ubuntu上在多个PHP版本之间切换" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Ubuntu上在多个PHP版本之间切换</h1>
+  <time datetime=2017-06-13T00:00:00Z class="post-date">Tue, Jun 13, 2017</time>
+  <p>在您的系统上，如果您已安装了多个版本的PHP（例如PHP 7.1和PHP 5.6两者）。 PHP 7.1作为Apache和CLI的默认PHP运行。对于任何需求，您需要使用PHP 5.6。然后你不需要删除php 7.1。你可以简单地切换php版本为默认用于Apache和命令行。</p>
+<p>例如，您的服务器安装了PHP 7.1和PHP 5.6两个版本。现在下面的例子将帮助你在两个版本之间切换。</p>
+<!-- raw HTML omitted -->
+<h2 id="从php-56--php-71">从PHP 5.6 =&gt; PHP 7.1</h2>
+<p>默认PHP 5.6在您的系统上设置，您需要切换到PHP 7.1。</p>
+<h3 id="apache-">Apache： –</h3>
+<pre tabindex="0"><code>$ sudo a2dismod php5.6
+$ sudo a2enmod php7.1
+$ sudo service apache2 restart
+</code></pre><h3 id="命令行-">命令行：-</h3>
+<pre tabindex="0"><code>$ update-alternatives --set php /usr/bin/php7.1
+</code></pre><h2 id="从php-71--php-56">从PHP 7.1 =&gt; PHP 5.6</h2>
+<p>默认PHP 7.1在您的系统上设置，您需要切换到PHP 5.6。</p>
+<h3 id="apache--1">Apache： –</h3>
+<pre tabindex="0"><code>$ sudo a2dismod php7.1
+$ sudo a2enmod php5.6
+$ sudo service apache2 restart
+</code></pre><h3 id="命令行--1">命令行：-</h3>
+<pre tabindex="0"><code>$ sudo update-alternatives --set php /usr/bin/php5.6
+</code></pre><blockquote>
+<p>原文地址：<a href="https://www.howtoing.com/switch-between-multiple-php-version-on-ubuntu/">如何在Ubuntu上在多个PHP版本之间切换</a></p>
+</blockquote>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

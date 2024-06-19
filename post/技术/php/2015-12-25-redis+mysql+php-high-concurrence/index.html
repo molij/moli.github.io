@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>【高并发简单解决方案】redis队列缓存 &#43; mysql 批量入库 &#43; php离线整合 &middot; 莫离君的博客</title>
+  <meta name="description" content="redis队列缓存 &#43; mysql 批量入库 &#43; php离线整合" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>【高并发简单解决方案】redis队列缓存 &#43; mysql 批量入库 &#43; php离线整合</h1>
+  <time datetime=2015-12-25T00:00:00Z class="post-date">Fri, Dec 25, 2015</time>
+  <p>需求背景：有个调用统计日志存储和统计需求，要求存储到mysql中；存储数据高峰能达到日均千万，瓶颈在于直接入库并发太高，可能会把mysql干垮。</p>
+<p>问题分析</p>
+<p>思考：应用网站架构的衍化过程中，应用最新的框架和工具技术固然是最优选择；但是，如果能在现有的框架的基础上提出简单可依赖的解决方案，未尝不是一种提升自我的尝试。</p>
+<p>解决：</p>
+<ul>
+<li>问题一：要求日志最好入库；但是，直接入库mysql确实扛不住，批量入库没有问题，done。【批量入库和直接入库性能差异参考文章】</li>
+<li>问题二：批量入库就需要有高并发的消息队列，决定采用redis list 仿真实现，而且方便回滚。</li>
+<li>问题三：日志量毕竟大，保存最近30条足矣，决定用php写个离线统计和清理脚本。</li>
+</ul>
+<p>done，下面是小拽的简单实现过程</p>
+<!-- raw HTML omitted -->
+<p>##一：设计数据库表和存储</p>
+<pre><code>考虑到log系统对数据库的性能更多一些，稳定性和安全性没有那么高，存储引擎自然是只支持select insert 没有索引的archive。如果确实有update需求，也可以采用myISAM。
+
+考虑到log是实时记录的所有数据，数量可能巨大，主键采用bigint，自增即可。
+
+考虑到log系统以写为主，统计采用离线计算，字段均不要出现索引，因为一方面可能会影响插入数据效率，另外读时候会造成死锁，影响写数据。
+</code></pre>
+<p>##二：redis存储数据形成消息队列</p>
+<p>由于高并发，尽可能简单，直接，上代码。</p>
+<pre><code>&lt;?php
+/***************************************************************************
+*
+* 获取到的调用日志，存入redis的队列中.
+* $Id$
+*
+**************************************************************************/
+
+/**
+* @file saveLog.php
+* @date 2015/11/06 20:47:13
+* @author:cuihuan
+* @version $Revision$
+* @brief
+*
+**/
+
+// 获取info
+$interface_info = $_GET['info'];
+
+// 存入redis队列
+$redis = new Redis();
+$redis-&gt;connect('xx', 6379);
+$redis-&gt;auth(&quot;password&quot;);
+
+// 加上时间戳存入队列
+$now_time = date(&quot;Y-m-d H:i:s&quot;);
+$redis-&gt;rPush(&quot;call_log&quot;, $interface_info . &quot;%&quot; . $now_time);
+$redis-&gt;close();
+
+
+/* vim: set ts=4 sw=4 sts=4 tw=100 */
+?&gt;
+</code></pre>
+<p>##三：数据定时批量入库。</p>
+<p>定时读取redis消息队列里面的数据，批量入库。</p>
+<pre><code>&lt;?php
+/**
+ * 获取redis消息队列中的脚本，拼接sql，批量入库。
+ * @update 2015-11-07 添加失败消息队列回滚机制 
+ *
+ * @Author:cuihuan
+ * 2015-11-06
+ * */
+
+// init redis
+$redis_xx = new Redis();
+$redis_xx-&gt;connect('ip', port);
+$redis_xx-&gt;auth(&quot;password&quot;);
+
+// 获取现有消息队列的长度
+$count = 0;
+$max = $redis_xx-&gt;lLen(&quot;call_log&quot;);
+
+// 获取消息队列的内容，拼接sql
+$insert_sql = &quot;insert into fb_call_log (`interface_name`, `createtime`) values &quot;;
+
+// 回滚数组
+$roll_back_arr = array();
+
+while ($count &lt; $max) {
+    $log_info = $redis_cq01-&gt;lPop(&quot;call_log&quot;);
+    $roll_back_arr = $log_info;
+    if ($log_info == 'nil' || !isset($log_info)) {
+        $insert_sql .= &quot;;&quot;;
+        break;
+    }
+
+    // 切割出时间和info
+    $log_info_arr = explode(&quot;%&quot;,$log_info);
+    $insert_sql .= &quot; ('&quot;.$log_info_arr[0].&quot;','&quot;.$log_info_arr[1].&quot;'),&quot;;
+    $count++;
+}
+
+// 判定存在数据，批量入库
+if ($count != 0) {
+    $link_2004 = mysql_connect('ip:port', 'user', 'password');
+    if (!$link_2004) {
+        die(&quot;Could not connect:&quot; . mysql_error());
+    }
+
+    $crowd_db = mysql_select_db('fb_log', $link_2004);
+    $insert_sql = rtrim($insert_sql,&quot;,&quot;).&quot;;&quot;;
+    $res = mysql_query($insert_sql);
+
+    // 输出入库log和入库结果;
+    echo date(&quot;Y-m-d H:i:s&quot;).&quot;insert &quot;.$count.&quot; log info result:&quot;;
+    echo json_encode($res);
+    echo &quot;&lt;br&gt;\n&quot;;
+    
+    // 数据库插入失败回滚
+    if(!$res){
+       foreach($roll_back_arr as $k){
+           $redis_xx-&gt;rPush(&quot;call_log&quot;, $k);
+       }
+    }
+ 
+    // 释放连接
+    mysql_free_result($res);
+    mysql_close($link_2004);
+}
+
+// 释放redis
+$redis_cq01-&gt;close();
+?&gt;
+</code></pre>
+<p>##四：离线天级统计和清理数据脚本</p>
+<pre><code>&lt;?php
+/**
+* static log ：每天离线统计代码日志和删除五天前的日志
+*
+* @Author:cuihuan
+* 2015-11-06
+* */
+
+// 离线统计
+$link_2004 = mysql_connect('ip:port', 'user', 'pwd');
+if (!$link_2004) {
+    die(&quot;Could not connect:&quot; . mysql_error());
+}
+
+$crowd_db = mysql_select_db('fb_log', $link_2004);
+
+// 统计昨天的数据
+$day_time = date(&quot;Y-m-d&quot;, time() - 60 * 60 * 24 * 1);
+$static_sql = &quot;get sql&quot;;
+
+$res = mysql_query($static_sql, $link_2004);
+
+// 获取结果入库略
+
+// 清理15天之前的数据
+$before_15_day = date(&quot;Y-m-d&quot;, time() - 60 * 60 * 24 * 15);
+$delete_sql = &quot;delete from xxx where createtime &lt; '&quot; . $before_15_day . &quot;'&quot;;
+try {
+    $res = mysql_query($delete_sql);
+}catch(Exception $e){
+    echo json_encode($e).&quot;\n&quot;;
+    echo &quot;delete result:&quot;.json_encode($res).&quot;\n&quot;;
+}
+
+mysql_close($link_2004);
+?&gt;
+</code></pre>
+<p>##五：代码部署</p>
+<p>主要是部署，批量入库脚本的调用和天级统计脚本，crontab例行运行。</p>
+<p>###批量入库脚本</p>
+<pre><code>*/2 * * * * /home/cuihuan/xxx/lamp/php5/bin/php /home/cuihuan/xxx/batchLog.php &gt;&gt;/home/cuihuan/xxx/batchlog.log
+</code></pre>
+<p>###天级统计脚本</p>
+<pre><code>0 5 * * * /home/cuihuan/xxx/php5/bin/php /home/cuihuan/xxx/staticLog.php &gt;&gt;/home/cuihuan/xxx/staticLog.log
+</code></pre>
+<p>总结：相对于其他复杂的方式处理高并发，这个解决方案简单有效：通过redis缓存抗压，mysql批量入库解决数据库瓶颈，离线计算解决统计数据，通过定期清理保证库的大小。</p>
+<blockquote>
+<p>原文作者：<a href="http://segmentfault.com/a/1190000004136250">靠谱崔小拽</a></p>
+</blockquote>
+<blockquote>
+<p>原文地址：<a href="http://segmentfault.com/a/1190000004136250">高并发简单解决方案</a></p>
+</blockquote>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>React学习 之 Dangerously Set innerHTML &middot; 莫离君的博客</title>
+  <meta name="description" content="Dangerously Set innerHTML" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>React学习 之 Dangerously Set innerHTML</h1>
+  <time datetime=2016-03-02T00:00:00Z class="post-date">Wed, Mar 2, 2016</time>
+  <p>在学习React的过程中看到 <code>dangerouslySetInnerHTML</code> 这样奇怪的prop命名。</p>
+<p>React特意设计这样的，以此提醒开发者，它的prop值应该是净化后的安全数据。</p>
+<p>官网给出的原因是：</p>
+<blockquote>
+<p>不合时宜的使用 innerHTML 可能会导致 cross-site scripting (XSS) 攻击。
+净化用户的输入来显示的时候，经常会出现错误，不合适的净化也是导致网页攻击 的原因之一。</p>
+</blockquote>
+<p>在彻底的理解安全问题后果并正确地净化数据之后，生成只包含唯一 key <code>__html</code> 的对象，并且对象的值是净化后的数据。</p>
+<p>使用dangerouslySetInnerHTML：</p>
+<pre><code>function createMarkup() { return {__html: 'First &amp;middot; Second'}; };
+&lt;div dangerouslySetInnerHTML={createMarkup()} /&gt;
+</code></pre>
+<p>这么做的意义在于，当你不是有意地使用 <code>&lt;div dangerouslySetInnerHTML={getUsername()} /&gt;</code>时候，它并不会被渲染，因为 <code>getUsername()</code> 返回的格式是 字符串 而不是一个 <code>{__html: ''}</code> 对象。</p>
+<p><code>{__html:...}</code> 背后的目的是表明它会被当成 <code>&quot;type/taint&quot;</code> 类型处理。 这种包裹对象，可以通过方法调用返回净化后的数据，随后这种标记过的数据可以被传递给 dangerouslySetInnerHTML。 基于这种原因，我们不推荐写这种形式的代码：<code>&lt;div dangerouslySetInnerHTML={{__html: getMarkup()}} /&gt;</code>.</p>
+<p>这个功能主要被用来与 DOM 字符串操作类库一起使用，所以提供的 HTML 必须要格式清晰（例如：传递 XML 校验 ）</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

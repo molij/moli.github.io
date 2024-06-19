@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>打包/压缩目录 &middot; 莫离君的博客</title>
+  <meta name="description" content="打包/压缩目录" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>打包/压缩目录</h1>
+  <time datetime=2015-03-19T00:00:00Z class="post-date">Thu, Mar 19, 2015</time>
+  <p>##打包/压缩目录</p>
+<p>范例一：将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar</p>
+<pre><code>[root@linux ~]# tar -cvf /tmp/etc.tar /etc &lt;==仅打包，不压缩！
+[root@linux ~]# tar -zcvf /tmp/etc.tar.gz /etc &lt;==打包后，以 gzip 压缩
+[root@linux ~]# tar -jcvf /tmp/etc.tar.bz2 /etc &lt;==打包后，以 bzip2 压缩
+</code></pre>
+<p>将 /tmp/etc.tar.gz 文件解压缩在 /usr/local/src 底下</p>
+<pre><code>[root@linux ~]# cd /usr/local/src
+[root@linux src]# tar -zxvf /tmp/etc.tar.gz
+</code></pre>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

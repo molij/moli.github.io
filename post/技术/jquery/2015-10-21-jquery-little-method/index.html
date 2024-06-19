@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>常用的jQuery小技巧 &middot; 莫离君的博客</title>
+  <meta name="description" content="常用的jQuery小技巧" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>常用的jQuery小技巧</h1>
+  <time datetime=2015-10-21T00:00:00Z class="post-date">Wed, Oct 21, 2015</time>
+  <p>　1. 如何创建嵌套的过滤器</p>
+<pre><code>//允许你减少集合中的匹配元素的过滤器，  
+//只剩下那些与给定的选择器匹配的部分。在这种情况下，  
+//查询删除了任何没（:not）有（:has）  
+//包含class为“selected”（.selected）的子节点。  
+.filter(&quot;:not(:has(.selected))&quot;) 
+</code></pre>
+<!-- raw HTML omitted -->
+<p>　　2. 如何重用元素搜索</p>
+<pre><code>var allItems = $(&quot;div.item&quot;);  
+var keepList = $(&quot;div#container1 div.item&quot;);  
+//现在你可以继续使用这些jQuery对象来工作了。例如，  
+//基于复选框裁剪“keep list”，复选框的名称  
+//符合
+&lt;DIV&gt;class names:x
+$(formToLookAt + &quot; input:checked&quot;).each(function() {  
+    keepList = keepList.filter(&quot;.&quot; + $(this).attr(&quot;name&quot;));  
+});  
+&lt;/DIV&gt; 
+</code></pre>
+<p>　　3. 任何使用has()来检查某个元素是否包含某个类或是元素</p>
+<pre><code>//jQuery 1.4.*包含了对这一has方法的支持。该方法找出  
+//某个元素是否包含了其他另一个元素类或是其他任何的  
+//你正在查找并要在其之上进行操作的东东。  
+$(&quot;input&quot;).has(&quot;.email&quot;).addClass(&quot;email_icon&quot;); 
+
+　　4. 如何使用jQuery来切换样式表
+
+//找出你希望切换的媒体类型（media-type），然后把href设置成新的样式表。  
+</code></pre>
+<p>　　5. 如何限制选择范围（基于优化目的）</p>
+<pre><code>//尽可能使用标签名来作为类名的前缀，  
+//这样jQuery就不需要花费更多的时间来搜索  
+//你想要的元素。还要记住的一点是，  
+//针对于你的页面上的元素的操作越具体化，  
+//就越能降低执行和搜索的时间。  
+var in_stock = $('#shopping_cart_items input.is_in_stock');
+&lt;ul id=&quot;shopping_cart_items&quot;&gt;
+ &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;Item-X&quot; name=&quot;item&quot; class=&quot;is_in_stock&quot; /&gt;Item X&lt;/li&gt;
+ &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;Item-Y&quot; name=&quot;item&quot; class=&quot;3-5_days&quot; /&gt;Item Y&lt;/li&gt;
+ &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;Item-Z&quot; name=&quot;item&quot; class=&quot;unknown&quot; /&gt;Item Z&lt;/li&gt;
+&lt;/ul&gt; 
+</code></pre>
+<p>　　6. 如何正确地使用ToggleClass</p>
+<pre><code>//切换（toggle）类允许你根据某个类的  
+//是否存在来添加或是删除该类。  
+//这种情况下有些开发者使用：  
+a.hasClass('blueButton') ? a.removeClass('blueButton') : a.addClass('blueButton');
+//toggleClass允许你使用下面的语句来很容易地做到这一点  
+a.toggleClass('blueButton'); 
+</code></pre>
+<p>　　7. 如何设置IE特有的功能</p>
+<pre><code>if ($.browser.msie) {
+ // Internet Explorer其实不那么好用  
+} 
+</code></pre>
+<p>　　8. 如何使用jQuery来代替一个元素</p>
+<pre><code>$('#thatdiv').replaceWith('fnuh'); 
+</code></pre>
+<p>　　9. 如何验证某个元素是否为空</p>
+<pre><code>if ($('#keks').html()) {
+ //什么都没有找到;  
+} 
+</code></pre>
+<p>　　10. 如何从一个未排序的集合中找出某个元素的索引号</p>
+<pre><code>$(&quot;ul &gt; li&quot;).click(function () {
+ var index = $(this).prevAll().length;
+}); 
+</code></pre>
+<p>　　11. 如何把函数绑定到事件上</p>
+<pre><code>$('#foo').bind('click', function () {
+ alert('User clicked on &quot;foo.&quot;');
+}); 
+</code></pre>
+<p>　　12. 如何追加或是添加html到元素中</p>
+<pre><code>  $('#lal').append('sometext'); 
+</code></pre>
+<p>　　13. 在创建元素时，如何使用对象字面量（literal）来定义属性</p>
+<p>var e = $(&quot;&quot;, { href: &ldquo;#&rdquo;, class: &ldquo;a-class another-class&rdquo;, title: &ldquo;&hellip;&rdquo; });</p>
+<p>　　14. 如何使用多个属性来进行过滤</p>
+<p>//在使用许多相类似的有着不同类型的input元素时，<br>
+//这种基于精确度的方法很有用<br>
+var elements = $(&rsquo;#someid input[type=sometype][value=somevalue]&rsquo;).get();</p>
+<p>　　15. 如何使用jQuery来预加载图像</p>
+<pre><code>jQuery.preloadImages = function () {
+ for (var i = 0; i &lt; arguments.length; i++) {
+     $(&quot;&lt;img /&gt;&quot;).attr('src', arguments[i]);
+ }
+};
+//用法  
+$.preloadImages('image1.gif', '/path/to/image2.png', 'some/image3.jpg'); 
+</code></pre>
+<p>　　16. 如何为任何与选择器相匹配的元素设置事件处理程序</p>
+<pre><code>$('button.someClass').live('click', someFunction);
+//注意，在jQuery 1.4.2中，delegate和undelegate选项  
+//被引入代替live，因为它们提供了更好的上下文支持  
+//例如，就table来说，以前你会用  
+//.live()  
+$(&quot;table&quot;).each(function () {
+ $(&quot;td&quot;, this).live(&quot;hover&quot;, function () {
+     $(this).toggleClass(&quot;hover&quot;);
+ });
+});
+//现在用  
+$(&quot;table&quot;).delegate(&quot;td&quot;, &quot;hover&quot;, function () {
+ $(this).toggleClass(&quot;hover&quot;);
+}); 
+</code></pre>
+<p>　　17. 如何找到一个已经被选中的option元素</p>
+<pre><code>$('#someElement').find('option:selected'); 
+</code></pre>
+<p>　　18. 如何隐藏一个包含了某个值文本的元素</p>
+<pre><code>$(&quot;p.value:contains('thetextvalue')&quot;).hide(); 
+</code></pre>
+<p>　　19. 如果自动滚动到页面中的某区域</p>
+<pre><code>  jQuery.fn.autoscroll = function(selector) {  
+   $('html,body').animate(  
+       {scrollTop: $(selector).offset().top},  
+       500  
+   };  
+  }  
+  //然后像这样来滚动到你希望去到的class/area上。  
+  $('.area_name').autoscroll();  
+</code></pre>
+<p>　　20. 如何检测各种浏览器</p>
+<pre><code>if( $.browser.safari)  //检测Safari
+if ($.browser.msie &amp;&amp; $.browser.version &gt; 6 )//检测IE6及之后版本
+if ($.browser.msie &amp;&amp; $.browser.version &lt;= 6 )  //检测IE6及之前版本
+if ($.browser.mozilla &amp;&amp; $.browser.version &gt;= '1.8' )   //检测FireFox 2及之后版本 
+</code></pre>
+<p>　　21. 如何替换串中的词</p>
+<pre><code>  var el = $('#id');    
+  el.html(el.html().replace(/word/ig, '')); 
+</code></pre>
+<p>　　22. 如何禁用右键单击上下文菜单</p>
+<pre><code>  $(document).bind('contextmenu', function (e) {
+   return false;
+  }); 
+</code></pre>
+<p>　　23. 如何定义一个定制的选择器</p>
+<p>$.expr[&rsquo;:&rsquo;].mycustomselector = function(element, index, meta, stack){<br>
+// element- 一个DOM元素<br>
+// index – 栈中的当前循环索引<br>
+// meta – 有关选择器的元数据<br>
+// stack – 要循环的所有元素的栈<br>
+// 如果包含了当前元素就返回true<br>
+// 如果不包含当前元素就返回false };<br>
+// 定制选择器的用法：<br>
+$(&rsquo;.someClasses:test&rsquo;).doSomething();</p>
+<p>　　24. 如何检查某个元素是否存在</p>
+<p>if ($(&rsquo;#someDiv&rsquo;).length) {
+//你妹，终于找到了
+}</p>
+<p>　　25. 如何使用jQuery来检测右键和左键的鼠标单击两种情况</p>
+<p>$(&quot;#someelement&quot;).live(&lsquo;click&rsquo;, function (e) {
+if ((!$.browser.msie &amp;&amp; e.button == 0) || ($.browser.msie &amp;&amp; e.button == 1)) {
+alert(&ldquo;Left Mouse Button Clicked&rdquo;);
+} else if (e.button == 2) {
+alert(&ldquo;Right Mouse Button Clicked&rdquo;);
+}
+});</p>
+<p>　　26. 如何显示或是删除input域中的默认值</p>
+<p>//这段代码展示了在用户未输入值时，<br>
+//如何在文本类型的input域中保留<br>
+//一个默认值<br>
+wap_val = [];
+$(&quot;.swap&quot;).each(function (i) {
+wap_val[i] = $(this).val();
+$(this).focusin(function () {
+if ($(this).val() == swap_val[i]) {
+$(this).val(&quot;&quot;);
+}
+}).focusout(function () {
+if ($.trim($(this).val()) == &ldquo;&rdquo;) {
+$(this).val(swap_val[i]);
+}
+});
+});</p>
+<p>　　27. 如何在一段时间之后自动隐藏或关闭元素（支持1.4版本）</p>
+<p>//这是1.3.2中我们使用setTimeout来实现的方式<br>
+setTimeout(function () {
+$(&rsquo;.mydiv&rsquo;).hide(&lsquo;blind&rsquo;, {}, 500)
+}, 5000);
+//而这是在1.4中可以使用delay()这一功能来实现的方式（这很像是休眠）<br>
+$(&quot;.mydiv&quot;).delay(5000).hide(&lsquo;blind&rsquo;, {}, 500);</p>
+<p>　　28. 如何把已创建的元素动态地添加到DOM中</p>
+<p>var newDiv = $(&rsquo;&rsquo;);
+newDiv.attr(&lsquo;id&rsquo;, &lsquo;myNewDiv&rsquo;).appendTo(&lsquo;body&rsquo;);</p>
+<p>　　29. 如何限制“Text-Area”域中的字符的个数</p>
+<p>jQuery.fn.maxLength = function (max) {
+this.each(function () {
+var type = this.tagName.toLowerCase();
+var inputType = this.type ? this.type.toLowerCase() : null;
+if (type == &ldquo;input&rdquo; &amp;&amp; inputType == &ldquo;text&rdquo; || inputType == &ldquo;password&rdquo;) {
+this.maxLength = max;
+}
+else if (type == &ldquo;textarea&rdquo;) {
+this.onkeypress = function (e) {
+var ob = e || event;
+var keyCode = ob.keyCode;
+var hasSelection = document.selection
+? document.selection.createRange().text.length &gt; 0
+: this.selectionStart != this.selectionEnd;
+return !(this.value.length &gt;= max
+&amp;&amp; (keyCode &gt; 50 || keyCode == 32 || keyCode == 0 || keyCode == 13)
+&amp;&amp; !ob.ctrlKey &amp;&amp; !ob.altKey &amp;&amp; !hasSelection);
+};
+this.onkeyup = function () {
+if (this.value.length &gt; max) {
+this.value = this.value.substring(0, max);
+}
+};
+}
+});
+};
+//用法<br>
+$(&rsquo;#mytextarea&rsquo;).maxLength(500);</p>
+<p>　　30. 如何为函数创建一个基本的测试</p>
+<p>//把测试单独放在模块中<br>
+module(&ldquo;Module B&rdquo;);
+test(&ldquo;some other test&rdquo;, function () {
+//指明测试内部预期有多少要运行的断言<br>
+expect(2);
+//一个比较断言，相当于JUnit的assertEquals<br>
+equals(true, false, &ldquo;failing test&rdquo;);
+equals(true, true, &ldquo;passing test&rdquo;);
+});</p>
+<p>　　31. 如何在jQuery中克隆一个元素</p>
+<p>var cloned = $(&rsquo;#somediv&rsquo;).clone();</p>
+<p>　　32. 在jQuery中如何测试某个元素是否可见</p>
+<p>if ($(element).is(&rsquo;:visible&rsquo;) == &rsquo;true&rsquo;) {
+//该元素是可见的<br>
+}</p>
+<p>　　33. 如何把一个元素放在屏幕的中心位置</p>
+<p>jQuery.fn.center = function () {
+this.css(&lsquo;position&rsquo;, &lsquo;absolute&rsquo;);
+this.css(&rsquo;top&rsquo;, ($(window).height() - this.height())
+/ +$(window).scrollTop() + &lsquo;px&rsquo;);
+this.css(&rsquo;left&rsquo;, ($(window).width() - this.width())
+/ 2 + $(window).scrollLeft() + &lsquo;px&rsquo;);
+return this;
+}
+//这样来使用上面的函数：<br>
+$(element).center();</p>
+<p>　　34. 如何把有着某个特定名称的所有元素的值都放到一个数组中</p>
+<p>var arrInputValues = new Array();
+$(&ldquo;input[name=&lsquo;table[]&rsquo;]&rdquo;).each(function () {
+arrInputValues.push($(this).val());
+});</p>
+<p>　　35. 如何从元素中除去HTML</p>
+<p>(function ($) {
+$.fn.stripHtml = function () {
+var regexp = /&lt;(&quot;[^&quot;]<em>&quot;|&rsquo;[^&rsquo;]</em>&rsquo;|[^&rsquo;&quot;&gt;])*&gt;/gi;
+this.each(function () {
+$(this).html($(this).html().replace(regexp, &ldquo;&rdquo;));
+});
+return $(this);
+}
+})(jQuery);
+//用法：<br>
+$(&lsquo;p&rsquo;).stripHtml();</p>
+<p>　　36. 如何使用closest来取得父元素</p>
+<p>$(&rsquo;#searchBox&rsquo;).closest(&lsquo;div&rsquo;);</p>
+<p>　　37. 如何使用Firebug和Firefox来记录jQuery事件日志</p>
+<p>// 允许链式日志记录<br>
+// 用法：<br>
+$(&rsquo;#someDiv&rsquo;).hide().log(&lsquo;div hidden&rsquo;).addClass(&lsquo;someClass&rsquo;);
+jQuery.log = jQuery.fn.log = function (msg) {
+if (console) {
+console.log(&quot;%s: %o&quot;, msg, this);
+}
+return this;
+};</p>
+<p>　　38. 如何强制在弹出窗口中打开链接</p>
+<p>jQuery(&lsquo;a.popup&rsquo;).live(&lsquo;click&rsquo;, function () {
+newwindow = window.open($(this).attr(&lsquo;href&rsquo;), &lsquo;&rsquo;, &lsquo;height=200,width=150&rsquo;);
+if (window.focus) {
+newwindow.focus();
+}
+return false;
+});</p>
+<p>　　39. 如何强制在新的选项卡中打开链接</p>
+<p>jQuery(&lsquo;a.newTab&rsquo;).live(&lsquo;click&rsquo;, function () {
+newwindow = window.open($(this).href);
+jQuery(this).target = &ldquo;_blank&rdquo;;
+return false;
+});</p>
+<p>　　40. 在jQuery中如何使用.siblings()来选择同辈元素</p>
+<p>// 不这样做<br>
+$(&rsquo;#nav li&rsquo;).click(function () {
+$(&rsquo;#nav li&rsquo;).removeClass(&lsquo;active&rsquo;);
+$(this).addClass(&lsquo;active&rsquo;);
+});
+//替代做法是<br>
+$(&rsquo;#nav li&rsquo;).click(function () {
+$(this).addClass(&lsquo;active&rsquo;).siblings().removeClass(&lsquo;active&rsquo;);
+});</p>
+<p>　　41. 如何切换页面上的所有复选框</p>
+<p>var tog = false;
+// 或者为true，如果它们在加载时为被选中状态的话<br>
+$(&lsquo;a&rsquo;).click(function () {
+$(&ldquo;input[type=checkbox]&rdquo;).attr(&ldquo;checked&rdquo;, !tog);
+tog = !tog;
+});</p>
+<p>　　42. 如何基于一些输入文本来过滤一个元素列表</p>
+<p>//如果元素的值和输入的文本相匹配的话<br>
+//该元素将被返回<br>
+$(&rsquo;.someClass&rsquo;).filter(function () {
+return $(this).attr(&lsquo;value&rsquo;) == $(&lsquo;input#someId&rsquo;).val();
+})</p>
+<p>　　43. 如何获得鼠标垫光标位置x和y</p>
+<p>$(document).ready(function () {
+$(document).mousemove(function (e) {
+$(&rsquo;#XY&rsquo;).html(&ldquo;X Axis : &quot; + e.pageX + &quot; | Y Axis &quot; + e.pageY);
+});
+});</p>
+<p>　　44. 如何把整个的列表元素（List Element，LI）变成可点击的</p>
+<p>$(&ldquo;ul li&rdquo;).click(function () {
+window.location = $(this).find(&ldquo;a&rdquo;).attr(&ldquo;href&rdquo;);
+return false;
+});</p>
+<!-- raw HTML omitted -->
+<p>　　45. 如何使用jQuery来解析XML（基本的例子）</p>
+<p>function parseXml(xml) {
+//找到每个Tutorial并打印出author<br>
+$(xml).find(&ldquo;Tutorial&rdquo;).each(function () {
+$(&quot;#output&rdquo;).append($(this).attr(&ldquo;author&rdquo;) + &ldquo;&rdquo;);
+});
+}</p>
+<p>　　46. 如何检查图像是否已经被完全加载进来</p>
+<p>$(&rsquo;#theImage&rsquo;).attr(&lsquo;src&rsquo;, &lsquo;image.jpg&rsquo;).load(function () {
+alert(&lsquo;This Image Has Been Loaded&rsquo;);
+});</p>
+<p>　　47. 如何使用jQuery来为事件指定命名空间</p>
+<p>//事件可以这样绑定命名空间<br>
+$(&lsquo;input&rsquo;).bind(&lsquo;blur.validation&rsquo;, function (e) {
+// &hellip;<br>
+});
+//data方法也接受命名空间<br>
+$(&lsquo;input&rsquo;).data(&lsquo;validation.isValid&rsquo;, true);</p>
+<p>　　48. 如何检查cookie是否启用</p>
+<p>var dt = new Date();
+dt.setSeconds(dt.getSeconds() + 60);
+document.cookie = &ldquo;cookietest=1; expires=&rdquo; + dt.toGMTString();
+var cookiesEnabled = document.cookie.indexOf(&ldquo;cookietest=&rdquo;) != -1;
+if (!cookiesEnabled) {
+//没有启用cookie<br>
+}</p>
+<p>　　49. 如何让cookie过期</p>
+<p>var date = new Date();
+date.setTime(date.getTime() + (x * 60 * 1000));
+$.cookie(&rsquo;example&rsquo;, &lsquo;foo&rsquo;, { expires: date });</p>
+<p>　　50. 如何使用一个可点击的链接来替换页面中任何的URL</p>
+<p>$.fn.replaceUrl = function () {
+var regexp =
+/((ftp|http|https)://(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(/|/([\w#!:.?+=&amp;%@!-/]))?)/gi;
+this.each(function () {
+$(this).html(
+$(this).html().replace(regexp, &lsquo;<!-- raw HTML omitted -->$1<!-- raw HTML omitted -->&rsquo;)
+);
+});
+return $(this);
+}
+//用法　<br>
+$(&lsquo;p&rsquo;).replaceUrl();</p>
+<h2 id="heading">Tip15：Jquery触发回车事件<br>
+$(function () {<br>
+$(&rsquo;#target&rsquo;).bind(&lsquo;keyup&rsquo;, function (event) {<br>
+if (event.keyCode == 13) {<br>
+alert(&ldquo;Hello~&rdquo;);<br>
+}<br>
+});<br>
+});</h2>
+<h2 id="jquery可以像获取textbox值一样获取select的值selectval">Tip14：获得select 的值<br>
+　　jquery可以像获取textbox值一样获取select的值：$(&lsquo;select&rsquo;).val();</h2>
+<h2 id="使用--windowclipboarddatasetdatatext-text-可以将text文本放到系统剪贴板中实现文本的复制功能但是这个方法只被ie所支持google-chrome-和foxfire都不支持所以在使用时应先判断浏览器是否支持if-windowclipboarddata-----windowclipboarddatasetdatatext-text-">Tip13：复制文本<br>
+　　使用  window.clipboardData.setData(&rsquo;text&rsquo;, text); 可以将text文本放到系统剪贴板中，实现文本的复制功能。但是，这个方法只被IE所支持。Google Chrome 和Foxfire都不支持。所以，在使用时应先判断浏览器是否支持：if (window.clipboardData) {    window.clipboardData.setData(&rsquo;text&rsquo;, text); }</h2>
+<h2 id="对于input或者textarea的文本选择jquery提供了一个简单的函数完成select在调用它的时候需要确保文本框可见并且已经获得焦点-------txtsamplefocusselect现货的焦点然后选择文本">Tip12：选择文本<br>
+　　对于input或者textarea的文本选择，jquery提供了一个简单的函数完成：select()，在调用它的时候，需要确保文本框可见，并且已经获得焦点。       　　$(&quot;#txtSample&quot;).focus().select();　　//现货的焦点，然后选择文本</h2>
+<h2 id="mouseover-和-mouseout---mouseenter-和--mouseleave这两组事件都是鼠标移入和移出元素时触发的他们的最大区别是---mouseover-和-mouseout是冒泡的如果鼠标移动到它们的子元素同样会触发该事件而---mouseenter-和--mouseleave是不会冒泡的-------这个区别很重要">Tip11：鼠标事件<br>
+　　mouseover 和 mouseout、   mouseenter 和  mouseleave；这两组事件都是鼠标移入和移出元素时触发的，他们的最大区别是：   mouseover 和 mouseout是冒泡的，如果鼠标移动到它们的子元素，同样会触发该事件，而   mouseenter 和  mouseleave是不会冒泡的。       　　这个区别很重要！</h2>
+<h2 id="windowlocationhref--ahtml">Tip10：页面跳转<br>
+使用js直接对window.location.href 赋一个URL字符串值即可实现跳转。<br>
+window.location.href = &lsquo;a.html&rsquo;;</h2>
+<h2 id="合并defaults和options并将合并结果返回到setting中而不覆盖default内容可以有多个参数合并多项并返回">Tip9：jQuery对象的扩展<br>
+$.extend(target,prop1,propN)：用一个或多个其他对象来扩展一个对象，返回这个被扩展的对象。这是jquery实现的继承方式。例如：<br>
+　　$.extend(settings, options);<br>
+合并settings和options，并将合并结果返回settings中，相当于options继承setting并将继承结果保存在 setting中。<br>
+　　var settings = $.extend({}, defaults, options);<br>
+合并defaults和options，并将合并结果返回到setting中而不覆盖default内容。可以有多个参数（合并多项并返回）</h2>
+<h2 id="上面的代码将删除数组array中的元素b">Tip8：jQuery删除数组中的项<br>
+如Tip7中所说，使用$.grep()方法删除数组中的元素。<br>
+var array = [&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;];<br>
+$.grap(array, function(value, index){return value==&lsquo;b&rsquo;;}, true);<br>
+上面的代码将删除数组array中的元素&rsquo;b&rsquo;。</h2>
+<h2 id="该方法常用来删除数组中的元素">Tip7：jQuery数组的处理<br>
+$.each(obj, fn);<br>
+　　对obj进行遍历，obj为要遍历的数组或对象；fn为处理函数，可选的参数为索引和内容，例如var fn = function(index, content){}；如果需要结束遍历，请返回false，其它的返回值将会被忽略。<br>
+　　该方法可以用来处理JSON数据对象。<br>
+$.inArray(obj, array);<br>
+　　判断数组array中是否包含obj对象，如果存在，返回对应的下标，如果不存在，返回-1；<br>
+$.map(array, fn);<br>
+　　将一个数组中的元素转换到另一个数组中。array为需要转换的数组，fn为处理函数；这个方法的返回值是一个经过处理后的新数组。<br>
+$.merge(array1, array2);<br>
+　　合并两个数组；将数组array2中的内容复制到array1中，并将结果返回。merge方法不会去除重复，需要使用 $.unique()去除重复。<br>
+$.unique(array);<br>
+　　去除数组array中的重复项。<br>
+$.grep(array, fn, [invert]);<br>
+　　过滤数组中的元素；该方法对数组array中的每一个对象都调用fn方法；<br>
+　　invert 可选参数；如果 &ldquo;invert&rdquo; 为 false 或未设置，则函数返回数组中由过滤函数返回 true 的元素，当&quot;invert&quot; 为 true，则返回过滤函数中返回 false 的元素集。<br>
+　　该方法常用来删除数组中的元素</h2>
+<h2 id="如trim-hello-how-are-you--返回hellohow-are-you-">Tip6：去除string开头和结尾的空格<br>
+js中没有提供trim函数供我们去掉字符串两段的空字符，jQuery中扩展了这一功能：<br>
+$.trim(str)：删除字符串两端的空白字符。<br>
+如：$.trim(&quot; hello, how are you? &ldquo;); //返回&quot;hello,how are you? &quot;</h2>
+<h2 id="btnunbindclick将会移除click事件的订阅">Tip5：添加事件和移除事件<br>
+为一个jQuery对象添加事件是很方便的事情：<br>
+$(&rsquo;#btn&rsquo;).click(fn);<br>
+$(&rsquo;#btn&rsquo;).bind(&lsquo;click&rsquo;, fn);<br>
+jQuery提供了为一个对象的事件提供多个处理函数的机制，我们添加了一个click事件处理方法后，还可以继续添加，而不会覆盖先前的处理方法。<br>
+当调用unbind方法时移除绑定的事件订阅：<br>
+$(&rsquo;#btn&rsquo;).unbind();　　　　//将会移除所有的事件订阅<br>
+$(&rsquo;#btn&rsquo;).unbind(&lsquo;click&rsquo;)　　//将会移除click事件的订阅</h2>
+<p>Tip4：扩展需要的功能<br>
+jQuery提供了extend方法让我们来扩展自己需要的功能。例如：<br>
+$.extend({<br>
+　　sum: function(num1, num2){return num1+num2; },<br>
+}); //为jquery扩展了sum方法</p>
+<h2 id="alertsum10-20">使用扩展的方法（通过“$.方法名”调用）：<br>
+alert($.sum(10, 20));</h2>
+<h2 id="divget2innerhtml-调用dom的方法属性">Tip3：获取jQuery对象集合中的一项<br>
+　　对于获取的元素集合，获取其中的某一项（通过索引指定）可以使用eq或get(n)方法或者索引号获取，要注意，eq返回的是jquery对象，而 get(n)和索引返回的是dom元素对象。对于jquery对象只能使用jquery的方法，而dom对象只能使用dom的方法，如要获取第三个<!-- raw HTML omitted -->元素的内容。有如下两种方法：<br>
+　　$(&ldquo;div&rdquo;).eq(2).html(); 　　　　 //调用jquery对象的方法<br>
+　　$(&ldquo;div&rdquo;).get(2).innerHTML; 　　//调用dom的方法属性</h2>
+<h2 id="divget0同样获取第一个dom对象">Tip2：jQuery对象和Dom的转换<br>
+Dom对象可以通过$(dom)转换为jQuery对象；例如：<br>
+　　$(document.getElementById(&rsquo;#myDiv&rsquo;))<br>
+jQuery对象本身是一个索引，可以通过下标得到Dom对象；也可以使用方法get()获取Dom对象；例如：<br>
+　　$(&ldquo;div&rdquo;)[0];　　　　//获取第一个Dom对象<br>
+　　$(&ldquo;div&rdquo;).get(0);　　//同样获取第一个Dom对象</h2>
+<p>Tip1：在独立的js文件中智能感知<br>
+在js文件的开头添加：/// <!-- raw HTML omitted --></p>
+<ol>
+<li>检查IE是否是版本6</li>
+</ol>
+<p>if ( (jQuery.browser.msie) &amp;&amp; (parseInt(jQuery.browser.version) &lt; 7) ) { <br>
+$(&lsquo;body&rsquo;).prepend(&rsquo;<!-- raw HTML omitted -->You are using an old version of Internet Explorer which is not supported.  Please upgrade your browser in order to view this website.<!-- raw HTML omitted -->&rsquo;); <br>
+}</p>
+<ol start="2">
+<li>打开一个打印的窗口</li>
+</ol>
+<p>[url=#]Print this page[/url] <br>
+$(&lsquo;a.print&rsquo;).click(function(){ <br>
+window.print(); <br>
+return false; <br>
+});</p>
+<p>3 禁止表单使用回车键</p>
+<p>$(&quot;#form&rdquo;).keypress(function(e) { <br>
+if (e.which == 13) { <br>
+return false; <br>
+} <br>
+});</p>
+<p>4 全选和反选checkbox</p>
+<!-- raw HTML omitted -->
+<pre><code>    [*][url=#]Reset All[/url]    
+
+[/list]    
+
+&lt;input type=&quot;checkbox&quot; id=&quot;option1&quot; /&gt;&lt;label for=&quot;option1&quot;&gt;Option 1&lt;/label&gt;    
+&lt;input type=&quot;checkbox&quot; id=&quot;option2&quot; /&gt;&lt;label for=&quot;option2&quot;&gt;Option 2&lt;/label&gt;    
+&lt;input type=&quot;checkbox&quot; id=&quot;option3&quot; /&gt;&lt;label for=&quot;option3&quot;&gt;Option 3&lt;/label&gt;    
+&lt;input type=&quot;checkbox&quot; id=&quot;option4&quot; /&gt;&lt;label for=&quot;option4&quot;&gt;Option 4&lt;/label&gt;    
+</code></pre>
+<!-- raw HTML omitted -->
+<p>$(&rsquo;.reset-all&rsquo;).live(&lsquo;click&rsquo;, function(){ <br>
+$(this).closest(&rsquo;.options&rsquo;).find(&lsquo;input[type=checkbox]&rsquo;).attr(&lsquo;checked&rsquo;, false); <br>
+return false; <br>
+});</p>
+<p>5 平均分各个列<br>
+有的时候,需要在表格中让各个列等分,可以这样</p>
+<p>var max_height = 0; <br>
+$(&ldquo;div.col&rdquo;).each(function(){ <br>
+if ($(this).height() &gt; max_height) { max_height = $(this).height(); } <br>
+}); <br>
+$(&ldquo;div.col&rdquo;).height(max_height);</p>
+<p>6 将所有的连接用新建窗口打开</p>
+<p>$(&lsquo;a[@rel$=&lsquo;external&rsquo;]&rsquo;).click(function(){ <br>
+this.target = &ldquo;_blank&rdquo;; <br>
+});</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

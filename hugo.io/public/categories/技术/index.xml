@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术 on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/categories/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 01 Nov 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux下执行shell提示错误syntax error:unexpected end of file</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-11-01-shell-dos-fault/</link>
+      <pubDate>Tue, 01 Nov 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-11-01-shell-dos-fault/</guid>
+      <description>因为开发环境是虚拟机Linux系统，开发时映射到Windows系统，所以在Windows系统下编辑的shell脚本，在执行时发现提示错误syntax error:unexpected end of file。&#xA;原因是DOS下文件和Linux下文件格式差异。DOS下的断行标志是\r\n，对应十六进制为0D 0A。而Unix下的断行标志是\n，十六进制为0A。&#xA;换句话说，在Windows系统下，换行用的两个符号：回车\r、换行\n，在Linux下只有一个\n。&#xA;DOS格式的文本文件在Linux下，有时候vi打开时行尾会显示^M，当然也有可能看不到，但是在vi界面会在下方显示该文件格式，如&amp;quot;test.txt&amp;quot; [dos] 9L, 113C，可以看出该文件是DOS格式。&#xA;解决方法 在Linux下vi编辑执行如下命令即可：&#xA;vi test.txt :set fileformat=unix :wq </description>
+    </item>
+    <item>
+      <title>Macbook pro连接无线路由不稳定掉线的解决办法</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-09-29-mbp-router-wifi/</link>
+      <pubDate>Thu, 29 Sep 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-09-29-mbp-router-wifi/</guid>
+      <description>原因 你和你邻居无线路由之间的&amp;quot;信道&amp;quot;相互冲突 &amp;ldquo;频段带宽&amp;quot;过低，穿墙能力不强 无线信号&amp;quot;模式&amp;quot;过于老旧 当无线路由&amp;quot;模式&amp;quot;选项选择为&amp;quot;自动&amp;quot;时，有第二个无线设备试图接入无线网络时，如果第二个接入设备的无线模块陈旧，无线路由器会自动适配陈旧的发射模式 无线信号&amp;quot;最大发射速率&amp;quot;太低 解决方法 进入路由器管理界面，以TP-LINK为例，进入192.168.1.1管理界面，更改无线设置的基本设置项：&#xA;&amp;ldquo;信道&amp;quot;改为&amp;quot;9&amp;rdquo;（无线路由自动默认的信道一般是1，3，4，6）改为&amp;quot;9&amp;quot;一般不会和其他路由冲突，不容易掉线。（重要） &amp;ldquo;模式&amp;quot;改为&amp;quot;11n only&amp;rdquo; &amp;ldquo;频段带宽&amp;quot;改为&amp;quot;40MHz&amp;rdquo; &amp;ldquo;最大发射功率&amp;quot;改为最大（一般是300Mbps或者150Mbps） 保存后，自动重启生效即可。</description>
+    </item>
+    <item>
+      <title>Ajax跨域请求带上cookies</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-05-11-ajax-cross-domain-with-cookies/</link>
+      <pubDate>Wed, 11 May 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-05-11-ajax-cross-domain-with-cookies/</guid>
+      <description>跨域允许 远端设置 Access-Control-Allow-Origin &amp;ldquo;*&amp;rdquo;&#xA;Ajax请求跨域带上cookies 本地设置 withCredentials = true; 远端设置 Access-Control-Allow-Credentials true&#xA;Access-Control-Allow-Credentials 为 true 时，Access-Control-Allow-Origin不能同时为 *，不然会报跨错误，需要单独配置跨域准许。&#xA;** jQuery中Ajax写法： **&#xA;$.ajax({ url: a_cross_domain_url, xhrFields: { withCredentials: true } }); </description>
+    </item>
+    <item>
+      <title>Skype打开默认占用80端口问题</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-04-14-skype-port-80/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-04-14-skype-port-80/</guid>
+      <description>因为新工作需要使用Skype来交流，才发现Skype打开时默认占用80端口和443端口，导致Apache无法启动。&#xA;解决方法很简单，在Skype的设置里面，找到&amp;quot;工具-&amp;gt;选项-&amp;gt;高级-&amp;gt;连接&amp;quot;，将端口80和端口443用于其他接入连接 前去掉勾选，就可以了。&#xA;如图所示：</description>
+    </item>
+    <item>
+      <title>面试中遇到的一些问题总结</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-30-some-questions-met/</link>
+      <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-30-some-questions-met/</guid>
+      <description>Linux 常用的一些命令 cd ls grep find cp/mv/rm ps kill file tar cat chgrp/chown/chmod vim time df mysql 数据库的索引认知 http://www.tuicool.com/articles/ZRN3qu&#xA;PHP的MVC实现原理分析 MVC三个字母的含义： M：Model 模型，负责数据库操作。 V：View 视图，负责调用Model调取数据，再调用模板，展示出最终效果。 C：Controller 控制器，程序的入口，决定改调用哪个View，并告诉View该做什么。 下面是一个超级简单的MVC结构实现：&#xA;Controller.php include &#39;Model.php&#39;; include &#39;View.php&#39;; class Controller { private $model = &#39;&#39;; private $view = &#39;&#39;; public function Controller(){ $this-&amp;gt;model = new Model(); $this-&amp;gt;view = new View(); } public function doAction( $method = &#39;defaultMethod&#39;, $params = array() ){ if( empty($method) ){ $this-&amp;gt;defaultMethod(); }else if( method_exists($this, $method) ){ call_user_func(array($this, $method), $params); }else{ $this-&amp;gt;nonexisting_method(); } } public function link_page($name = &#39;&#39;){ $links = $this-&amp;gt;model-&amp;gt;getLinks(); $this-&amp;gt;view-&amp;gt;display($links); $result = $this-&amp;gt;model-&amp;gt;getResult($name); $this-&amp;gt;view-&amp;gt;display($result); } public function defaultMethod(){ $this-&amp;gt;br(); echo &amp;quot;This is the default method.</description>
+    </item>
+    <item>
+      <title>svn与git的一些区别</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-29-svn-git-diff/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-29-svn-git-diff/</guid>
+      <description>git是分布式的，svn不是 内容存储方式，git是按元数据，svn是按文件 分支不同 git没有一个全局版本号，svn有 git内容完整性要优于svn </description>
+    </item>
+    <item>
+      <title>Memcache整理</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-03-16-memcache/</link>
+      <pubDate>Wed, 16 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-03-16-memcache/</guid>
+      <description>memcached是一个免费开源的，高性能的，具有分布式对象的缓存系统，它可以用来保存一些经常存取的对象或数据，保存的数据像一张巨大的HASH表，该表以Key-value对的方式存在内存中。&#xA;Memcached流程： 检查客户端的请求数据是否在memcached中，如有，直接把请求数据返回，不再对数据库进行任何操作。 如果请求的数据不在memcached中，就去查数据库，把从数据库中获取的数据返回给客户端，同时把数据缓存一份到memcached中（memcached客户端不负责，需要程序明确实现）。 每次更新数据库的同时更新memcached中的数据，保证一致性。 当分配给memcached内存空间用完之后，会使用LRU（Least Recently Used，最近最少使用）策略加上到期失效策略，失效数据首先被替换，然后再替换掉最近未使用的数据。 Memcached特征： 协议简单 它是基于文本行的协议，直接通过telnet在memcached服务器上可进行存取数据操作&#xA;基于libevent事件处理 Libevent是一套利用C开发的程序库，它将BSD系统的kqueue,Linux系统的epoll等事件处理功能封装成一个接口，与传统的select相比，提高了性能。&#xA;内置的内存管理方式 所有数据都保存在内存中，存取数据比硬盘快，当内存满后，通过LRU算法自动删除不使用的缓存，但没有考虑数据的容灾问题，重启服务，所有数据会丢失。&#xA;分布式 各个memcached服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能，分布式部署取决于memcache客户端。&#xA;Memcached的缓存策略： memcached的缓存策略是LRU（最近最少使用）加上到期失效策略。当你在memcached内存储数据项时，你有可能会指定它在缓存的失效时间，默认为永久。当memcached服务器用完分配的内时，失效的数据被首先替换，然后也是最近未使用的数据。在LRU中，memcached使用的是一种Lazy Expiration策略，自己不会监控存入的key/vlue对是否过期，而是在获取key值时查看记录的时间戳，检查key/value对空间是否过期，这样可减轻服务器的负载。&#xA;Memcached的分布式算法： 当向memcached集群存入/取key/value时，memcached客户端程序根据一定的算法计算存入哪台服务器，然后再把key/value值存到此服务器中。 选择服务器算法有两种，一种是根据余数来计算分布，另一种是根据散列算法来计算分布。&#xA;余数算法： 先求得键的整数散列值，再除以服务器台数，根据余数确定存取服务器，这种方法计算简单，高效，但在memcached服务器增加或减少时，几乎所有的缓存都会失效。&#xA;散列算法： 先算出memcached服务器的散列值，并将其分布到0到2的32次方的圆上，然后用同样的方法算出存储数据的键的散列值并映射至圆上，最后从数据映射到的位置开始顺时针查找，将数据保存到查找到的第一个服务器上，如果超过2的32次方，依然找不到服务器，就将数据保存到第一台memcached服务器上。如果添加了一台memcached服务器，只在圆上增加服务器的逆时针方向的第一台服务器上的键会受到影响。</description>
+    </item>
+    <item>
+      <title>React学习 之 Dangerously Set innerHTML</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-02-dangerously-set-innerhtml/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-03-02-dangerously-set-innerhtml/</guid>
+      <description>在学习React的过程中看到 dangerouslySetInnerHTML 这样奇怪的prop命名。&#xA;React特意设计这样的，以此提醒开发者，它的prop值应该是净化后的安全数据。&#xA;官网给出的原因是：&#xA;不合时宜的使用 innerHTML 可能会导致 cross-site scripting (XSS) 攻击。 净化用户的输入来显示的时候，经常会出现错误，不合适的净化也是导致网页攻击 的原因之一。&#xA;在彻底的理解安全问题后果并正确地净化数据之后，生成只包含唯一 key __html 的对象，并且对象的值是净化后的数据。&#xA;使用dangerouslySetInnerHTML：&#xA;function createMarkup() { return {__html: &#39;First &amp;amp;middot; Second&#39;}; }; &amp;lt;div dangerouslySetInnerHTML={createMarkup()} /&amp;gt; 这么做的意义在于，当你不是有意地使用 &amp;lt;div dangerouslySetInnerHTML={getUsername()} /&amp;gt;时候，它并不会被渲染，因为 getUsername() 返回的格式是 字符串 而不是一个 {__html: &#39;&#39;} 对象。&#xA;{__html:...} 背后的目的是表明它会被当成 &amp;quot;type/taint&amp;quot; 类型处理。 这种包裹对象，可以通过方法调用返回净化后的数据，随后这种标记过的数据可以被传递给 dangerouslySetInnerHTML。 基于这种原因，我们不推荐写这种形式的代码：&amp;lt;div dangerouslySetInnerHTML={{__html: getMarkup()}} /&amp;gt;.&#xA;这个功能主要被用来与 DOM 字符串操作类库一起使用，所以提供的 HTML 必须要格式清晰（例如：传递 XML 校验 ）</description>
+    </item>
+    <item>
+      <title>微信内置浏览器UserAgent的判断</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/javascript/2016-03-01-useragent-is-weixin-browser/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/javascript/2016-03-01-useragent-is-weixin-browser/</guid>
+      <description>通过微信分享的URL链接都将通过微信内置的浏览器打开，那么如何区别判断是否是微信内置浏览器呢，很简单。&#xA;微信Android UA&#xA;mozilla/5.0 (linux; u; android 4.1.2; zh-cn; mi-one plus build/jzo54k) applewebkit/534.30 (khtml, like gecko) version/4.0 mobile safari/534.30 micromessenger/5.0.1.352 微信iPhone UA&#xA;mozilla/5.0 (iphone; cpu iphone os 5_1_1 like mac os x) applewebkit/534.46 (khtml, like gecko) mobile/9b206 micromessenger/5.0 微信的 User Agent 都有micromessenger字符串标示，通过判断是否含有这个字符串就OK了。&#xA;JS判断是否是微信内置的浏览器&#xA;function isWeixinBrowser(){ var ua = navigator.userAgent.toLowerCase(); return (/micromessenger/.test(ua)) ? true : false ; } </description>
+    </item>
+    <item>
+      <title>Mac下安装composer遇到的问题</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-02-29-mac-composer-install-problem/</link>
+      <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E8%8D%89%E7%A8%BF/2016-02-29-mac-composer-install-problem/</guid>
+      <description>##安装composer&#xA;cd /usr/local/bin curl -sS https://getcomposer.org/installer | php 执行发现失败了，提示如下：&#xA;Some settings on your machine may cause stability issues with Composer. If you encounter issues, try to change the following: The OpenSSL library (0.9.8zc) used by PHP does not support TLSv1.2 or TLSv1.1. If possible you should upgrade OpenSSL to version 1.0.1 or above. Downloading... Could not create file /usr/local/bin/composer.phar: fopen(/usr/local/bin/composer.phar): failed to open stream: Permission denied Download failed: fopen(/usr/local/bin/composer.phar): failed to open stream: Permission denied fwrite() expects parameter 1 to be resource, boolean given 原来是Composer 依赖于 PHP，</description>
+    </item>
+    <item>
+      <title>一行代码，浏览器变临时编辑器</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</link>
+      <pubDate>Tue, 01 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</guid>
+      <description>这是 Jose 在CoderWall 分享的一个小技巧：在浏览器地址栏中输入下面这行代码，回车即可把浏览器变临时编辑器。&#xA;data:text/html, &amp;lt;html contenteditable&amp;gt; 代码高亮编辑器&#xA;data:text/html, &amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;#e{position:absolute;top:0;right:0;bottom:0;left:0;}&amp;lt;/style&amp;gt;&amp;lt;div id=&amp;quot;e&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;quot;http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script&amp;gt;var e=ace.edit(&amp;quot;e&amp;quot;);e.setTheme(&amp;quot;ace/theme/monokai&amp;quot;);e.getSession().setMode(&amp;quot;ace/mode/ruby&amp;quot;);&amp;lt;/script&amp;gt; 改造成支持其他语言语法高亮的，可把 ace/mode/ruby 替换为： Python -&amp;gt; ace/mode/python C/C++ -&amp;gt; ace/mode/c_cpp Javscript -&amp;gt; ace/mode/javascript Java -&amp;gt; ace/mode/java Scala -&amp;gt; ace/mode/scala Markdown -&amp;gt; ace/mode/markdown CoffeeScript -&amp;gt; ace/mode/coffee 其他…… jakeonrails 语法高亮风格用的是 monokai。 如果需要换成其他风格，，可把 ace/theme/monokai 替换为： Eclipse -&amp;gt; ace/theme/eclipse TextMate -&amp;gt; ace/theme/textmate 其他…… </description>
+    </item>
+    <item>
+      <title>用图片隐藏信息的技术实现</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-11-19-data-hiding-in-image/</link>
+      <pubDate>Thu, 19 Nov 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-11-19-data-hiding-in-image/</guid>
+      <description>隐藏的过程很简单，用 Windows 内置的文件拷贝命令，即可完成。假设你的图片文件叫 A.jpg，需要隐藏的文件是B.txt（压缩文件叫 B.zip），那你只需要执行如下命令，就可以把两个文件合并成一个新文件。&#xA;copy /b A.JPG + B.txt C.jpg copy /b A.JPG + B.zip C.jpg 执行完如上命令，即可得到一个新的图片文件 C.JPG。这个图片文件的大小是前两者的总和。你可以用各种看图工具来打开 C.JPG，不会看到什么异常。 如果你覆盖的是文件，直接用记事本打开，在文件最后就可以看到里面的内容。 如果你覆盖的是压缩文件，提取的时候，可以用压缩工具打开图片，就可以直接看到压缩包里面的内容了。</description>
+    </item>
+    <item>
+      <title>curl模拟登陆</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-29-curl-login/</link>
+      <pubDate>Thu, 29 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-29-curl-login/</guid>
+      <description>用PHP开发模拟浏览器的应用,首选技术是CURL函数库。但是php官方提供的技术文档资料很少，相关的示例代码也很少。&#xA;最 近由于项目需要，开发了一系列免费邮箱的导出用户自己联系人的功能，包括国内外知名邮 箱，163，sina，sohu,yahoo,hotmail,gmail,qq mail等。还开发了一些方便用户嵌入代码到各大博客，个人门户的应用。比如嵌入flash代码到Qzone，网易的blog，百度的个人门户等。&#xA;当然，最原始的技术手段是采用fsockopen函数，然后深入去学习http协议，写出标准的http头信息，也是可以完成开发的。不过麻烦的地方就出在标准。如果对http协议标准认识不深，经常会因碰到少了一个空格或者少了一个换行符号而debug很久。&#xA;OK， 还是进入正题。工欲善其事，必先利其器。要模拟浏览器访问网站，首选要学会观察浏览器是如何发送http报文的，以及网站服务器返回给浏览器 是什么样的内容。我推荐安装一个国外人开发的httpwatch的软件，最好搞个破解的版本，否则有些功能是使用不了的。这个软件安装完成之后是嵌入在 IE里的，启动Record，在地址栏输入网址后回车，它就会将浏览器和服务器之间的所有通讯扫描出来，让你一览无遗。关于这个软件的使用在本文不做介 绍。&#xA;模拟浏览器登陆应用开发，最关键的地方是突破登陆验证。CURL技术不只支持http，还支持https。区别就在多了一层SSL加密传输。如果是要登陆 https网站，php记得要支持openssl。还是先拿一个例子来分析。&#xA;// 用户名 $login = ‘username’; //密码 $password = ‘password’; //163的用户登陆地址 $url = “https://reg.163.com/logins.jsp”; //post 要提交的数据 $fields = “verifycookie=1&amp;amp;style=16&amp;amp;product=mail163&amp;amp;username=”.$login.”&amp;amp;password=”.$password.”&amp;amp;selType=jy&amp;amp;remUser=&amp;amp;secure=on&amp;amp;%B5%C7%C2%BC%D3%CA%CF%E4=%B5%C7%C2%BC%D3%CA%CF%E4″; // 用来存放cookie的文件 $cookie_file = dirname(__FILE__).”/cookie.txt”; // 启动一个CURL会话 $ch = curl_init(); // 要访问的地址 curl_setopt($ch, CURLOPT_URL, $url); // 对认证证书来源的检查，0表示阻止对证书的合法性的检查。 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // 从证书中检查SSL加密算法是否存在 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1); //模拟用户使用的浏览器，在HTTP请求中包含一个”user-agent”头的字符串。 curl_setopt($ch, CURLOPT_USERAGENT, “Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)”); // 发送一个常规的POST请求，类型为：application/x-www-form-urlencoded，就像表单提交的一样。 curl_setopt($ch, CURLOPT_POST, 1); //要传送的所有数据，如果要传送一个文件，需要一个@开头的文件名 curl_setopt($ch, CURLOPT_POSTFIELDS, $fields); //连接关闭以后，存放cookie信息的文件名称 curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file); // 包含cookie信息的文件名称，这个cookie文件可以是Netscape格式或者HTTP风格的header信息。 curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file); // 设置curl允许执行的最长秒数 //curl_setopt($ch, CURLOPT_TIMEOUT, 6); // 获取的信息以文件流的形式返回，而不是直接输出。 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); // 执行操作 $result = curl_exec($ch); if ($result == NULL) { echo “Error: “; echo curl_errno($ch) .</description>
+    </item>
+    <item>
+      <title>如何解决msvcr100.dll丢失问题</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-27-msvcr100u-dll/</link>
+      <pubDate>Tue, 27 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-27-msvcr100u-dll/</guid>
+      <description>msvcr100.dll是Visual Studio 2010的一个动态链接库，如果某程序是用它开发出来的，那么该程序的运行就有可能需要此动态链接库，有些程序直接将其打包到了安装目录，并注册，就不会出现缺失的问题；但有些程序则默认系统中有此动态链接库，没有进行处理，那就会出现缺失的问题。&#xA;解决方法一：&#xA;下载MSVCR100.dll，然后放到系统中，注意存放的系统路径：&#xA;1、32位系统，dll放在：\Windows\System32&#xA;2、64位系统需要放两个dll文件，一个32位，一个64位（下面两个一定要看仔细，反的）：32位dll放在：\Windows\SysWOW64, 64位dll放在：\Windows\System32</description>
+    </item>
+    <item>
+      <title>git常用的一些命令</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-09-01-git-do/</link>
+      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-09-01-git-do/</guid>
+      <description>查看状态 $ git status 添加修改 $ git add . 提交修改 $ git commit -m &amp;#34;...&amp;#34; 自动追踪文件，包括你已经手动删除的，状态为Deleted的文件 $ git add -u $ git rm .../... -r -f $ git checkout . $ git commit -m &amp;#34;...&amp;#34; $ git push origin master 发布文章 rake post title=&amp;#34;文章标题&amp;#34; rake page name=&amp;#34;页面名称.md&amp;#34; rake page name=&amp;#34;pages/页面名称.md&amp;#34; </description>
+    </item>
+    <item>
+      <title>使用Github Pages建独立博客</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-github-blog/</link>
+      <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-github-blog/</guid>
+      <description>Github很好的将代码和社区联系在了一起，于是发生了很多有趣的事情，世界也因为他美好了一点点。Github作为现在最流行的代码仓库，已经得到很多大公司和项目的青睐，比如jQuery、Twitter等。为使项目更方便的被人理解，介绍页面少不了，甚至会需要完整的文档站，Github替你想到了这一点，他提供了Github Pages的服务，不仅可以方便的为项目建立介绍站点，也可以用来建立个人博客。&#xA;Github Pages有以下几个优点：&#xA;当然他也有缺点：&#xA;使用Jekyll模板系统，相当于静态页发布，适合博客，文档介绍等。 动态程序的部分相当局限，比如没有评论，不过还好我们有解决方案。 基于Git，很多东西需要动手，不像Wordpress有强大的后台 大致介绍到此，作为个人博客来说，简洁清爽的表达自己的工作、心得，就已达目标，所以Github Pages是我认为此需求最完美的解决方案了。&#xA;购买、绑定独立域名 虽说Godaddy曾支持过SOPA，并且首页放着极其不专业的大胸美女，但是作为域名服务商他做的还不赖，选择它最重要的原因是他支持支付宝，没有信用卡有时真的很难过。&#xA;域名的购买不用多讲，注册、选域名、支付，有网购经验的都毫无压力，优惠码也遍地皆是。域名的配置需要提醒一下，因为伟大英明的GFW的存在，我们必须多做些事情。&#xA;流传Godaddy的域名解析服务器被墙掉，导致域名无法访问，后来这个事情在BeiYuu也发生了，不得已需要把域名解析服务迁移到国内比较稳定的服务商处，这个迁移对于域名来说没有什么风险，最终的控制权还是在Godaddy那里，你随时都可以改回去。&#xA;我们选择DNSPod的服务，他们的产品做得不错，易用、免费，收费版有更高端的功能，暂不需要。注册登录之后，按照DNSPod的说法，只需三步（我们插入一步）：&#xA;域名的配置部分完成，跪谢方校长。&#xA;配置和使用Github Git是版本管理的未来，他的优点我不再赘述，相关资料很多。推荐这本[Git中文教程][4]。&#xA;要使用Git，需要安装它的客户端，推荐在Linux下使用Git，会比较方便。Windows版的下载地址在这里：http://code.google.com/p/msysgit/downloads/list。其他系统的安装也可以参考官方的[安装教程][5]。&#xA;下载安装客户端之后，各个系统的配置就类似了，我们使用windows作为例子，Linux和Mac与此类似。&#xA;在Windows下，打开Git Bash，其他系统下面则打开终端（Terminal）： ###1、检查SSH keys的设置 首先我们需要检查你电脑上现有的ssh key：&#xA;$ cd ~/.ssh 如果显示“No such file or directory”，跳到第三步，否则继续。&#xA;###2、备份和移除原来的ssh key设置： 因为已经存在key文件，所以需要备份旧的数据并删除：&#xA;$ ls config&#x9;id_rsa&#x9;id_rsa.pub&#x9;known_hosts $ mkdir key_backup $ cp id_rsa* key_backup $ rm id_rsa* ###3、生成新的SSH Key： 输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。&#xA;$ ssh-keygen -t rsa -C &amp;quot;邮件地址@youremail.com&amp;quot; Generating public/private rsa key pair. Enter file in which to save the key (/Users/your_user_directory/.</description>
+    </item>
+    <item>
+      <title>安装Jekyll</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-jekyll/</link>
+      <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-jekyll/</guid>
+      <description>##安装ruby环境 安装Jekyll，下载地址：[http://rubyinstaller.org/downloads/][]&#xA;##下载DevKit并解压 DevKit 是 windows 平台下编译和使用本地 C/C++ 扩展包的工具。它就是用来模拟 Linux 平 台下的 make,gcc,sh 来进行编译。但是这个方法目前仅支持通过 RubyInstaller 安装的 Ruby 。 下载地址：http://rubyinstaller.org/downloads/&#xA;##git下安装Devkit&#xA;###3.1&#xA;git下（cmd下各种问题）进入Devkit解压的目录，执行以下命令&#xA;####3.1.1&#xA;$ Ruby dk.rb init $ Ruby dk.rb install 如果config.yml有报错，找到这个文件，按里面的说明添加两行路径&#xA;- E:\Ruby21-x64 - E:\Ruby21-x64 ####3.1.2&#xA;$ ruby -v 出现版本号，证明安装成功&#xA;###3.2&#xA;$ Gem install Jekyll 这一步安装Jekyll，由于天朝网络的关系，可能会出现Unable to download data的错误，解决方法：&#xA;$ gem sources --remove https://rubygems.org/ $ gem sources -a https://ruby.taobao.org/ $ gem sources -l *** CURRENT SOURCES *** https://ruby.taobao.org （请确保只有 ruby.</description>
+    </item>
+  </channel>
+</rss>

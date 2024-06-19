@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/linux/</link>
+    <description>Recent content in Linux on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 May 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>session opened/closed for user root by (uid=0)</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/</link>
+      <pubDate>Fri, 25 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2018-05-25-cron-session-log/</guid>
+      <description>服务器出现大量这种日志使得 /var/ 目录占用磁盘空间巨大：&#xA;# tail -f /var/log/auth.log May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2193]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:40:01 1204developer CRON[2192]: pam_unix(cron:session): session closed for user www-data May 25 14:40:01 1204developer CRON[2190]: pam_unix(cron:session): session closed for user www-data May 25 14:40:01 1204developer CRON[2191]: pam_unix(cron:session): session closed for user www-data May 25 14:41:01 1204developer CRON[2189]: pam_unix(cron:session): session closed for user smmsp May 25 14:41:01 1204developer CRON[12928]: pam_unix(cron:session): session opened for user www-data by (uid=0) May 25 14:41:02 1204developer CRON[12928]: pam_unix(cron:session): session closed for user www-data May 25 14:41:09 1204developer CRON[2193]: pam_unix(cron:session): session closed for user www-data 解决方案：</description>
+    </item>
+    <item>
+      <title>Linux下执行shell提示错误syntax error:unexpected end of file</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-11-01-shell-dos-fault/</link>
+      <pubDate>Tue, 01 Nov 2016 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2016-11-01-shell-dos-fault/</guid>
+      <description>因为开发环境是虚拟机Linux系统，开发时映射到Windows系统，所以在Windows系统下编辑的shell脚本，在执行时发现提示错误syntax error:unexpected end of file。&#xA;原因是DOS下文件和Linux下文件格式差异。DOS下的断行标志是\r\n，对应十六进制为0D 0A。而Unix下的断行标志是\n，十六进制为0A。&#xA;换句话说，在Windows系统下，换行用的两个符号：回车\r、换行\n，在Linux下只有一个\n。&#xA;DOS格式的文本文件在Linux下，有时候vi打开时行尾会显示^M，当然也有可能看不到，但是在vi界面会在下方显示该文件格式，如&amp;quot;test.txt&amp;quot; [dos] 9L, 113C，可以看出该文件是DOS格式。&#xA;解决方法 在Linux下vi编辑执行如下命令即可：&#xA;vi test.txt :set fileformat=unix :wq </description>
+    </item>
+    <item>
+      <title>自动检测程序正常运行，遇故障则重启服务</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-12-29-shell-check-server/</link>
+      <pubDate>Tue, 29 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-12-29-shell-check-server/</guid>
+      <description>在某些情况下，如系统负载过大server无法申请到内存而挂掉、server底层发生段错误、server占用内存过大被内核Kill，或者被某些程序误杀。那server将无法提供服务，导致业务中断，公司收入出现损失。&#xA;有一个非常有效并且常用的方案是crontab重启监控。&#xA;原理是每1分钟执行一次shell脚本，检测server的进程是否存活，如果存在则跳过。如果发现主进程已经挂掉，则执行restart逻辑，先kill掉所有残留的子进程，然后重新启动Server。&#xA;在系统的crontab中加入：&#xA;* * * * * /data/script/check_server.sh /data/script/check_server.sh：&#xA;#!/usr/bin/bash cmd=&amp;quot;/application/php/bin/php /data/www/filter/http_server.php&amp;quot; count=`ps aux |grep &amp;quot;$cmd&amp;quot; | grep -v &amp;quot;grep&amp;quot; | wc -l` echo $count if [ $count -lt 1 ]; then ps aux |grep &amp;quot;$cmd&amp;quot; | grep -v &amp;quot;grep&amp;quot;| awk &#39;{print $2}&#39;|xargs kill -9 sleep 2 $cmd echo &amp;quot;restart &amp;quot;$(date +%Y-%m-%d_%H:%M:%S) &amp;gt;/data/log/restart.log fi 原文作者：松鼠先生&#xA;原文地址：无人值守，检测程序正常运行，遇故障则重启服务</description>
+    </item>
+    <item>
+      <title>Linux中cp直接覆盖不提示的方法</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-08-31-linux-5/</link>
+      <pubDate>Mon, 31 Aug 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-08-31-linux-5/</guid>
+      <description>cp覆盖时，无论加什么参数-f之类的还是提示是否覆盖，这在大量cp覆盖操作的时候是不能忍受的。&#xA;把a目录下的文件复制到b目录&#xA;cp –r a/* b&#xA;执行上面的命令时，b存在的每个文件都会提示是否覆盖;&#xA;cp –r –f a/* b&#xA;执行上面的命令时，b存在的每个文件都不再会提示;&#xA;这是我们希望的理想状态，但是有时加了-f了，怎么还会有提示呢？原来一些服务器会默认增加别名 alias cp=&amp;lsquo;cp -i&amp;rsquo;，当你执行cp时，其实执行的是cp –i。&#xA;在终端执行alias就可以看出来了。&#xA;[root@devdb ~]# alias&#xA;alias cp=&amp;lsquo;cp -i&amp;rsquo;&#xA;可以这样解决&#xA;[root@devdb ~]# vi ~/.bashrc&#xA;在alias cp=&amp;lsquo;cp -i&amp;rsquo;前加上&amp;quot;#&amp;ldquo;注释掉这行，：wq!保存推出，然后重新登陆就可以了。</description>
+    </item>
+    <item>
+      <title>linux之vi编辑器命令使用</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-vi-editor/</link>
+      <pubDate>Fri, 03 Apr 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-vi-editor/</guid>
+      <description>高级一些的编辑器，都会包含宏功能，vim当然不能缺少了，在vim中使用宏是非常方便的：&#xA;:qx 开始记录宏，并将结果存入寄存器x q 退出记录模式 @x 播放记录在x寄存器中的宏命令 稍微解释一下，当在normal模式下输入:qx后，你对文本的所有编辑动作将会被记录下来，再次输入q即退出了记录模 式，然后输入@x对刚才记录下来的命令进行重复，此命令后可跟数字，表示要重复多少次，比如@x20，可以重复20次。这个在文本的批处理中是非常有用的。 同时编辑多个文件 在vim众多的插件中，有一个叫minibuffer的插件，就是下面所说的标签页功能了，可以支持同时编辑多个文件。 ##标签命令&#xA;:tabe fn 在一个新的标签页中编辑文件fn gt 切换到下一个标签页 gT 切换到上一个标签页 :tabr 切换到第一个标签页 :tabl 切换到最后一个标签页 :tabm [N] 把当前tab移动到第N个tab之后 对，正如你所想象的那样，跟eclipse, ue等的标签页是一个意思！ ##窗口命令 ctrl+w s 水平分割窗口 ctrl+w w 切换窗口 ctrl+w q 退出当前窗口(由于同时有多个文件，此命令不会影响其他窗口) ctrl+w v 垂直分割窗口 ##其他 vim在保存之前不会对文件做实际的修改，只是加载到缓冲区中，对文件的编辑其实是对缓冲区的编辑，直到:w时才会存入物理文件。 :e file 把file加载到新的缓冲区中 :bn 跳转到下一个缓冲区 :bd 删除缓冲区(关闭文件) :sp fn 分割窗口，并将fn加载到新的窗口中 ##退出编辑器 :w 将缓冲区写入文件，即保存修改 :wq 保存修改并退出 :x 保存修改并退出 :q 退出，如果对缓冲区进行过修改，则会提示 :q! 强制退出，放弃修改 ##查找替换 /pattern 向后搜索字符串pattern ?pattern 向前搜索字符串pattern n 下一个匹配(如果是/搜索，则是向下的下一个，?</description>
+    </item>
+    <item>
+      <title>linux批量替换字符串</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-1/</link>
+      <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-1/</guid>
+      <description>##批量替换文件夹下全部文件中某字符串XXXX为YYYY&#xA;sed -i &amp;quot;s/XXXX/YYYY/g&amp;quot; `grep XXXX -rl /www/../..` </description>
+    </item>
+    <item>
+      <title>Linux服务器间文件传输</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-2/</link>
+      <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-2/</guid>
+      <description>##Linux服务器间文件传输 不同的Linux之间copy文件常用有3种方法：&#xA;第一种就是ftp，也就是其中一台Linux安装ftp Server，这样可以另外一台使用ftp的client程序来进行文件的copy。&#xA;第二种方法就是采用samba服务，类似Windows文件copy 的方式来操作，比较简洁方便。&#xA;第三种就是利用scp命令来进行文件复制。&#xA;1、将服务器上的目录下载到当前登录的服务器的指定目录： scp -P 端口号 -r 用户名@服务器IP:/目录名 本地目录名&#xA;使用实例： scp -P 端口号 -r root@192.168.1.240:/zsk/hollykm /home/hollykm 实现将linux 服务器192.168.1.240上/zsk/hollykm 目录复制到用户当前登录服务器的 /home/hollykm 目录下。 www.2cto.com&#xA;备注：SSH 端口默认的是 22，如果修改了，则更改为修改后的端口号；如果端口号默认是22 ，则可以不用写 -P。 其中-r 是循环复制。&#xA;2、将服务器上的文件下载到当前登录的服务器的指定目录下，并命名：&#xA;使用实例： scp root@192.168.1.240:/zsk/hollykm/test.txt /home/test_copy.txt&#xA;将linux 服务器192.168.1.240上/zsk/hollykm/test.txt 文件复制到登录服务器的/home/下并重命名为 test_copy.txt&#xA;可能有用的几个参数 :&#xA;-v 和大多数 linux 命令中的 -v 意思一样 , 用来显示进度 . 可以用来查看连接 , 认证 , 或是配置错误 .&#xA;-C 使能压缩选项 .&#xA;-P 选择端口 . 注意 -p 已经被 rcp 使用 .</description>
+    </item>
+    <item>
+      <title>打包/压缩目录</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-tar-zip/</link>
+      <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2015-03-19-linux-tar-zip/</guid>
+      <description>##打包/压缩目录&#xA;范例一：将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar&#xA;[root@linux ~]# tar -cvf /tmp/etc.tar /etc &amp;lt;==仅打包，不压缩！ [root@linux ~]# tar -zcvf /tmp/etc.tar.gz /etc &amp;lt;==打包后，以 gzip 压缩 [root@linux ~]# tar -jcvf /tmp/etc.tar.bz2 /etc &amp;lt;==打包后，以 bzip2 压缩 将 /tmp/etc.tar.gz 文件解压缩在 /usr/local/src 底下&#xA;[root@linux ~]# cd /usr/local/src [root@linux src]# tar -zxvf /tmp/etc.tar.gz </description>
+    </item>
+    <item>
+      <title>各种常用的Linux操作命令</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2014-01-01-linux/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/linux/2014-01-01-linux/</guid>
+      <description>##简单速记命令：&#xA;查看时间： date 更新Internet时间： ntpdate time.windows.com 重启httpd:&#x9;service httpd restart 复制文件夹下文件 cp -r /home/aaa/* /home/sss 修改权限 chmod -R 777 /home/aaa/* 删除文件 rm -rf /home/aaa/* 查看当前规则：cat /etc/sysconfig/iptables ##复杂操作笔记：&#xA;替换字符串: [戳这里][1] linux服务器之间文件传输：[戳这里][2] 打包/压缩目录：[戳这里][3] vi编辑器使用命令：[戳这里][4] ##查找目录下的所有文件中是否含有某个字符串&#xA;find .| xargs grep -ri &amp;quot;XXXX&amp;quot; ##查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名&#xA;find .| xargs grep -ri &amp;quot;XXXX&amp;quot; -l service iptables stop service iptables start ##crontab定时执行任务&#xA;编辑：crontab -e&#xA;列出：crontab -l&#xA;退出编辑：ctrl+c&#xA;保存：:wp&#xA;分 时 日 月 周 命令 0 */3 * * * wget http://www.</description>
+    </item>
+  </channel>
+</rss>

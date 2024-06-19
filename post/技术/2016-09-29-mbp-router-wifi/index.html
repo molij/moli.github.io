@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Macbook pro连接无线路由不稳定掉线的解决办法 &middot; 莫离君的博客</title>
+  <meta name="description" content="Macbook pro连接无线路由不稳定掉线的解决办法" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Macbook pro连接无线路由不稳定掉线的解决办法</h1>
+  <time datetime=2016-09-29T00:00:00Z class="post-date">Thu, Sep 29, 2016</time>
+  <h2 id="原因">原因</h2>
+<ul>
+<li>你和你邻居无线路由之间的&quot;信道&quot;相互冲突</li>
+<li>&ldquo;频段带宽&quot;过低，穿墙能力不强</li>
+<li>无线信号&quot;模式&quot;过于老旧
+<ul>
+<li>当无线路由&quot;模式&quot;选项选择为&quot;自动&quot;时，有第二个无线设备试图接入无线网络时，如果第二个接入设备的无线模块陈旧，无线路由器会自动适配陈旧的发射模式</li>
+</ul>
+</li>
+<li>无线信号&quot;最大发射速率&quot;太低</li>
+</ul>
+<h2 id="解决方法">解决方法</h2>
+<p>进入路由器管理界面，以TP-LINK为例，进入192.168.1.1管理界面，更改无线设置的基本设置项：</p>
+<ul>
+<li>&ldquo;信道&quot;改为&quot;9&rdquo;（无线路由自动默认的信道一般是1，3，4，6）改为&quot;9&quot;一般不会和其他路由冲突，不容易掉线。（重要）</li>
+<li>&ldquo;模式&quot;改为&quot;11n only&rdquo;</li>
+<li>&ldquo;频段带宽&quot;改为&quot;40MHz&rdquo;</li>
+<li>&ldquo;最大发射功率&quot;改为最大（一般是300Mbps或者150Mbps）</li>
+</ul>
+<p>保存后，自动重启生效即可。</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

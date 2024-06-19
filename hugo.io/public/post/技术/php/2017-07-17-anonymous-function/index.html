@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP代码之使用匿名函数 &middot; 莫离君的博客</title>
+  <meta name="description" content="PHP代码之使用匿名函数" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>PHP代码之使用匿名函数</h1>
+  <time datetime=2017-07-17T00:00:00Z class="post-date">Mon, Jul 17, 2017</time>
+  <p>匿名函数（<code>Anonymous functions</code>），也叫闭包函数（<code>closures</code>），允许 临时创建一个没有指定名称的函数。最经常用作回调函数（<code>callback</code>）参数的值。当然，也有其它应用的情况。</p>
+<p>匿名函数目前是通过<code>Closure</code>类来实现的。</p>
+<p>闭包函数也可以作为变量的值来使用。PHP 会自动把此种表达式转换成内置类<code>Closure</code>的对象实例。把一个<code>closure</code>对象赋值给一个变量的方式与普通变量赋值的语法是一样的，最后也要加上分号。</p>
+<p>闭包可以从父作用域中继承变量。 任何此类变量都应该用<code>use</code>语言结构传递进去。 <code>PHP 7.1</code>起，不能传入此类变量：<code>superglobals</code>、 <code>$this</code> 或者和参数重名。
+这些变量都必须在函数或类的头部声明。 从父作用域中继承变量与使用全局变量是不同的。全局变量存在于一个全局的范围，无论当前在执行的是哪个函数。而 闭包的父作用域是定义该闭包的函数（不一定是调用它的函数）。</p>
+<!-- raw HTML omitted -->
+<h2 id="构建函数或方法内部的代码块">构建函数或方法内部的代码块</h2>
+<p>假如我们有一段逻辑，在一个函数或者方法里我们需要格式化数据,但是这个格式化数据的代码片段出现了多次，如果我们直接写可能会想下面这样：</p>
+<pre><code>function doSomething(...) {
+    ...
+    // 格式化代码段
+    ...
+    ...
+    // 格式化代码段[重复的代码]
+    ...
+}
+</code></pre>
+<p>我相信大多数的人应该不会像上面这么写，可能都会像下面这样：</p>
+<pre><code>function doSomething(...) {
+    ...
+    format(...);
+    ...
+    format(...);
+    ...
+}
+// 再声明一个格式花代码的函数或方法
+function format() {
+    // 格式化代码段
+    ...
+}
+</code></pre>
+<p>上面这样的写法没有任何的问题，最小单元化我们的代码片段，但是如果这个format函数或者方法只是doSomething使用呢？我通常会向下面这么写，为什么？因为我认为在这种上下文的环境中format和doSomething的一个子集。</p>
+<pre><code>function doSomething() {
+    ...
+    $package = function (...) use (...) {　// 同样use后面的参数也可以传引用
+        // 格式化代码段
+        ...
+    };
+    ...
+    package(...);
+    ...
+    package(...);
+    ...
+}
+</code></pre>
+<h2 id="实现类的懒加载和实现设计模式的最少知道原则">实现类的【懒加载】和实现设计模式的【最少知道原则】</h2>
+<p>假如有下面这段代码：</p>
+<pre><code>class One
+{
+    private $instance;
+    // 类One内部依赖了类Two
+    // 不符合设计模式的最少知道原则
+    public function __construct()
+    {  
+        $this-&gt;intance = new Two();
+    }
+    public function doSomething()
+    {
+        if (...) {
+            // 如果某种情况调用类Two的实例方法
+            $this-&gt;instance-&gt;do(...);
+        }
+        ...
+    }
+}
+...
+$instance = new One();
+$instance-&gt;doSomething();
+...
+</code></pre>
+<p>上面的写法有什么问题？</p>
+<ul>
+<li>不符合设计模式的最少知道原则,类One内部直接依赖了类Two</li>
+<li>类Two的实例不是所有的上下文都会用到，所以浪费了资源，有人说搞个单例，但是解决不了实例化了不用的尴尬</li>
+</ul>
+<p>所以我们使用匿名函数解决上面的问题，下面我们这么改写：</p>
+<pre><code>class One
+{
+    private $closure;
+    public function __construct(Closure $closure)
+    {  
+        $this-&gt;closure = $closure;
+    }
+    public function doSomething()
+    {
+        if (...) {
+            // 用的时候再实例化
+            // 实现懒加载
+            $instance = $this-&gt;closure();
+            $instance-&gt;do(...)
+        }
+        ...
+    }
+}
+...
+$instance = new One(function () {
+    // 类One内部外部依赖了类Two
+    return new Two();
+});
+$instance-&gt;doSomething();
+...</code></pre>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

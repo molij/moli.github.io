@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>markdown on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/markdown/</link>
+    <description>Recent content in markdown on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Jan 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>标准的markdown格式练习</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</link>
+      <pubDate>Fri, 30 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</guid>
+      <description>##First sublime text预览markdown效果: Ctrl+Alt+O&#xA;####文字 try something 我是斜体文本哦 我是粗文本哦 我有短代码框哦 ####引用文本&#xA;this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful&#xA;####链接 [sdgdf][1] [1]: http://www.baidu.com &amp;ldquo;baidu&amp;rdquo;&#xA;####图片 ![Aaron Swartz][p1] [p1]: http://upload-images.jianshu.io/upload_images/188518-fcb1ab53d4af226f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 &amp;ldquo;Aaron Swartz&amp;rdquo;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>安装Jekyll &middot; 莫离君的博客</title>
+  <meta name="description" content="安装Jekyll，下载地址：http://rubyinstaller.org/downloads/" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>安装Jekyll</h1>
+  <time datetime=2015-01-19T00:00:00Z class="post-date">Mon, Jan 19, 2015</time>
+  <p>##安装ruby环境
+安装Jekyll，下载地址：[http://rubyinstaller.org/downloads/][]</p>
+<p>##下载DevKit并解压
+DevKit 是 windows 平台下编译和使用本地 C/C++ 扩展包的工具。它就是用来模拟 Linux 平 台下的 make,gcc,sh 来进行编译。但是这个方法目前仅支持通过 RubyInstaller 安装的 Ruby 。
+下载地址：http://rubyinstaller.org/downloads/</p>
+<p>##git下安装Devkit</p>
+<p>###3.1</p>
+<p>git下（cmd下各种问题）进入Devkit解压的目录，执行以下命令</p>
+<p>####3.1.1</p>
+<pre><code>$ Ruby dk.rb init
+$ Ruby dk.rb install
+</code></pre>
+<p>如果config.yml有报错，找到这个文件，按里面的说明添加两行路径</p>
+<pre><code>- E:\Ruby21-x64 
+- E:\Ruby21-x64
+</code></pre>
+<p>####3.1.2</p>
+<pre><code>$ ruby -v
+</code></pre>
+<p>出现版本号，证明安装成功</p>
+<p>###3.2</p>
+<pre><code>$ Gem install Jekyll
+</code></pre>
+<p>这一步安装Jekyll，由于天朝网络的关系，可能会出现Unable to download data的错误，解决方法：</p>
+<pre><code>$ gem sources --remove https://rubygems.org/
+$ gem sources -a https://ruby.taobao.org/
+$ gem sources -l
+
+*** CURRENT SOURCES ***
+
+https://ruby.taobao.org
+（请确保只有 ruby.taobao.org）
+$ gem install rails
+</code></pre>
+<p>参考这篇文章http://ruby.taobao.org/</p>
+<p>等待安装完毕&hellip;</p>
+<p>###3.3</p>
+<pre><code>$ Jekyll –v
+</code></pre>
+<p>检查安装成功。</p>
+<p>###3.4
+安装Rdiscount</p>
+<pre><code>$ gem install rdiscount
+</code></pre>
+<p>这个是用来解析Markdown标记的解析包，如果你使用Textile的话，就需要安装Kramdown。
+###3.5</p>
+<pre><code>$ git clone git://github.com/test/test.github.com.git
+</code></pre>
+<p>将代码克隆到本地</p>
+<pre><code>$ cd test.github.com
+$ Jekyll server
+</code></pre>
+<p>进入到刚才的目录，启动Jekyll。
+访问http://localhost:4000/  就可以看到效果啦！</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

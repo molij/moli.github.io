@@ -1,0 +1,4 @@
+baseURL = 'https://gongvirgil.github.io/Blog/'
+languageCode = 'zh-CN'
+title = '莫离君的博客'
+theme = 'hyde'

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/blog/</link>
+    <description>Recent content in Blog on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 01 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用PHP&#43;Zend_Search_Lucene做全站中文搜索引擎</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-01-php-zend_search_lucene-cn-search/</link>
+      <pubDate>Tue, 01 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-01-php-zend_search_lucene-cn-search/</guid>
+      <description>1.概述 Zend_Search_Lucene是一个完全基于PHP5的通用文本搜索引擎，它将索引存储在文件系统中，不需要数据库服务器。&#xA;2. 安装Zend_Lucene 可以从这里下载: http://www.zend.com/community/downloads&#xA;也可以参考这篇文章：http://nonfu.me/p/4650.html 的下载目录去下载Zend Framework导入。&#xA;找到Zend文件夹下的Search目录，所需要的文件都在里面了。&#xA;3.创建索引 下面是创建索引的示例:&#xA;&amp;lt;?php require_once &#39;Zend/Search/Lucene.php&#39;; $articlesData = array( 0=&amp;gt;array(&#39;id&#39;=&amp;gt;1,&#39;title&#39;=&amp;gt;&#39;test&#39;,&#39;content&#39;=&amp;gt;&#39;this is a test&#39;), 1=&amp;gt;array(&#39;id&#39;=&amp;gt;2,&#39;title&#39;=&amp;gt;&#39;test php&#39;,&#39;content&#39;=&amp;gt;&#39;this is a php test&#39;), 2=&amp;gt;array(&#39;id&#39;=&amp;gt;3,&#39;title&#39;=&amp;gt;&#39;test yii&#39;,&#39;content&#39;=&amp;gt;&#39;this is a yii test&#39;), 3=&amp;gt;array(&#39;id&#39;=&amp;gt;4,&#39;title&#39;=&amp;gt;&#39;test lucene&#39;,&#39;content&#39;=&amp;gt;&#39;this is a lucene test&#39;), 4=&amp;gt;array(&#39;id&#39;=&amp;gt;5,&#39;title&#39;=&amp;gt;&#39;测试&#39;,&#39;content&#39;=&amp;gt;&#39;这是一个简单的搜索测试&#39;), 5=&amp;gt;array(&#39;id&#39;=&amp;gt;6,&#39;title&#39;=&amp;gt;&#39;测一个小试&#39;,&#39;content&#39;=&amp;gt;&#39;我们进行一个小测验吧&#39;), 6=&amp;gt;array(&#39;id&#39;=&amp;gt;6,&#39;title&#39;=&amp;gt;&#39;白色的马&#39;,&#39;content&#39;=&amp;gt;&#39;白色的小马驹&#39;) ); $index = new Zend_Search_Lucene(&#39;/path/to/index&#39;,true); $doc = new Zend_Search_Lucene_Document(); foreach ($articlesData as $article) { $doc-&amp;gt;addField(Zend_Search_Lucene_Field::keyword(&#39;id&#39;,$article[&#39;id&#39;],&#39;UTF-8&#39;)); $doc-&amp;gt;addField(Zend_Search_Lucene_Field::Text(&#39;title&#39;,$article[&#39;title&#39;],&#39;UTF-8&#39;)); $doc-&amp;gt;addField(Zend_Search_Lucene_Field::keyword(&#39;content&#39;,$article[&#39;content&#39;],&#39;UTF-8&#39;)); $index-&amp;gt;addDocument($doc); $index-&amp;gt;commit(); $index-&amp;gt;optimize(); } echo &#39;索引创建成功！&#39;; 在实际案例中，索引数据应该来自数据库，在上面的示例中，我们的所有索引数据都可以用数据库查询的结果来替代。&#xA;4.搜索索引数据 创建索引之后我们就可以通过下面的代码来搜索了:&#xA;$index = new Zend_Search_Lucene(&#39;/path/to/index&#39;); $keywords = &amp;quot;test&amp;quot;; //echo &amp;quot;Index包含{$index-&amp;gt;count()}条结果&amp;lt;br&amp;gt;&amp;quot;; $query = Zend_Search_Lucene_Search_QueryParser::parse($keywords,&#39;utf-8&#39;); $hits = $index-&amp;gt;find($query); foreach($hits as $hit){ echo $hit-&amp;gt;id.</description>
+    </item>
+    <item>
+      <title>使用Github Pages建独立博客</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-github-blog/</link>
+      <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-github-blog/</guid>
+      <description>Github很好的将代码和社区联系在了一起，于是发生了很多有趣的事情，世界也因为他美好了一点点。Github作为现在最流行的代码仓库，已经得到很多大公司和项目的青睐，比如jQuery、Twitter等。为使项目更方便的被人理解，介绍页面少不了，甚至会需要完整的文档站，Github替你想到了这一点，他提供了Github Pages的服务，不仅可以方便的为项目建立介绍站点，也可以用来建立个人博客。&#xA;Github Pages有以下几个优点：&#xA;当然他也有缺点：&#xA;使用Jekyll模板系统，相当于静态页发布，适合博客，文档介绍等。 动态程序的部分相当局限，比如没有评论，不过还好我们有解决方案。 基于Git，很多东西需要动手，不像Wordpress有强大的后台 大致介绍到此，作为个人博客来说，简洁清爽的表达自己的工作、心得，就已达目标，所以Github Pages是我认为此需求最完美的解决方案了。&#xA;购买、绑定独立域名 虽说Godaddy曾支持过SOPA，并且首页放着极其不专业的大胸美女，但是作为域名服务商他做的还不赖，选择它最重要的原因是他支持支付宝，没有信用卡有时真的很难过。&#xA;域名的购买不用多讲，注册、选域名、支付，有网购经验的都毫无压力，优惠码也遍地皆是。域名的配置需要提醒一下，因为伟大英明的GFW的存在，我们必须多做些事情。&#xA;流传Godaddy的域名解析服务器被墙掉，导致域名无法访问，后来这个事情在BeiYuu也发生了，不得已需要把域名解析服务迁移到国内比较稳定的服务商处，这个迁移对于域名来说没有什么风险，最终的控制权还是在Godaddy那里，你随时都可以改回去。&#xA;我们选择DNSPod的服务，他们的产品做得不错，易用、免费，收费版有更高端的功能，暂不需要。注册登录之后，按照DNSPod的说法，只需三步（我们插入一步）：&#xA;域名的配置部分完成，跪谢方校长。&#xA;配置和使用Github Git是版本管理的未来，他的优点我不再赘述，相关资料很多。推荐这本[Git中文教程][4]。&#xA;要使用Git，需要安装它的客户端，推荐在Linux下使用Git，会比较方便。Windows版的下载地址在这里：http://code.google.com/p/msysgit/downloads/list。其他系统的安装也可以参考官方的[安装教程][5]。&#xA;下载安装客户端之后，各个系统的配置就类似了，我们使用windows作为例子，Linux和Mac与此类似。&#xA;在Windows下，打开Git Bash，其他系统下面则打开终端（Terminal）： ###1、检查SSH keys的设置 首先我们需要检查你电脑上现有的ssh key：&#xA;$ cd ~/.ssh 如果显示“No such file or directory”，跳到第三步，否则继续。&#xA;###2、备份和移除原来的ssh key设置： 因为已经存在key文件，所以需要备份旧的数据并删除：&#xA;$ ls config&#x9;id_rsa&#x9;id_rsa.pub&#x9;known_hosts $ mkdir key_backup $ cp id_rsa* key_backup $ rm id_rsa* ###3、生成新的SSH Key： 输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。&#xA;$ ssh-keygen -t rsa -C &amp;quot;邮件地址@youremail.com&amp;quot; Generating public/private rsa key pair. Enter file in which to save the key (/Users/your_user_directory/.</description>
+    </item>
+    <item>
+      <title>安装Jekyll</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-jekyll/</link>
+      <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-01-jekyll/</guid>
+      <description>##安装ruby环境 安装Jekyll，下载地址：[http://rubyinstaller.org/downloads/][]&#xA;##下载DevKit并解压 DevKit 是 windows 平台下编译和使用本地 C/C++ 扩展包的工具。它就是用来模拟 Linux 平 台下的 make,gcc,sh 来进行编译。但是这个方法目前仅支持通过 RubyInstaller 安装的 Ruby 。 下载地址：http://rubyinstaller.org/downloads/&#xA;##git下安装Devkit&#xA;###3.1&#xA;git下（cmd下各种问题）进入Devkit解压的目录，执行以下命令&#xA;####3.1.1&#xA;$ Ruby dk.rb init $ Ruby dk.rb install 如果config.yml有报错，找到这个文件，按里面的说明添加两行路径&#xA;- E:\Ruby21-x64 - E:\Ruby21-x64 ####3.1.2&#xA;$ ruby -v 出现版本号，证明安装成功&#xA;###3.2&#xA;$ Gem install Jekyll 这一步安装Jekyll，由于天朝网络的关系，可能会出现Unable to download data的错误，解决方法：&#xA;$ gem sources --remove https://rubygems.org/ $ gem sources -a https://ruby.taobao.org/ $ gem sources -l *** CURRENT SOURCES *** https://ruby.taobao.org （请确保只有 ruby.</description>
+    </item>
+  </channel>
+</rss>

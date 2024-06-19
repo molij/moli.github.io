@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>自定义滚动条样式 &middot; 莫离君的博客</title>
+  <meta name="description" content="自定义滚动条样式" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>自定义滚动条样式</h1>
+  <time datetime=2015-02-09T00:00:00Z class="post-date">Mon, Feb 9, 2015</time>
+  <p>其中的一中方案是使用jQuery插件，jquery-custom-content-scroller。使用插件的好处是显而易见的，但是坏处也多得去了。要是您想了解jQuery-custom-content-scroller的具体使用方法，请移步到：http://manos.malihu.gr/jquery-custom-content-scroller/</p>
+<p>##webkit内核浏览器
+/* 设置滚动条的样式 <em>/
+::-webkit-scrollbar {
+height: 10px;
+width: 10px;
+}
+/</em> 滚动槽 <em>/
+::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+/</em> 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+background: rgba(0,0,0,0.1);
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+background: rgba(255,0,0,0.4);
+}
+##IE浏览器
+scrollbar-arrow-color: #f4ae21; /<em>图6,三角箭头的颜色</em>/
+scrollbar-face-color: #333; /<em>图5,立体滚动条的颜色</em>/
+scrollbar-3dlight-color: #666; /<em>图1,立体滚动条亮边的颜色</em>/
+scrollbar-highlight-color: #666; /<em>图2,滚动条空白部分的颜色</em>/
+scrollbar-shadow-color: #999; /<em>图3,立体滚动条阴影的颜色</em>/
+scrollbar-darkshadow-color: #666; /<em>图4,立体滚动条强阴影的颜色</em>/
+scrollbar-track-color: #666; /<em>图7,立体滚动条背景颜色</em>/
+scrollbar-base-color:#f8f8f8; /<em>滚动条的基本颜色</em>/
+Cursor:url(mouse.cur); /<em>自定义个性鼠标</em>/
+[1]:    {{ page.url}}  ({{ page.title }})</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

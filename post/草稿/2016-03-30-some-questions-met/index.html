@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>面试中遇到的一些问题总结 &middot; 莫离君的博客</title>
+  <meta name="description" content="面试中遇到的一些问题总结" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>面试中遇到的一些问题总结</h1>
+  <time datetime=2016-03-30T00:00:00Z class="post-date">Wed, Mar 30, 2016</time>
+  <h2 id="linux-常用的一些命令">Linux 常用的一些命令</h2>
+<h3 id="cd">cd</h3>
+<h3 id="ls">ls</h3>
+<h3 id="grep">grep</h3>
+<h3 id="find">find</h3>
+<h3 id="cpmvrm">cp/mv/rm</h3>
+<h3 id="ps">ps</h3>
+<h3 id="kill">kill</h3>
+<h3 id="file">file</h3>
+<h3 id="tar">tar</h3>
+<h3 id="cat">cat</h3>
+<h3 id="chgrpchownchmod">chgrp/chown/chmod</h3>
+<h3 id="vim">vim</h3>
+<h3 id="time">time</h3>
+<h3 id="df">df</h3>
+<h2 id="mysql-数据库的索引认知">mysql 数据库的索引认知</h2>
+<p><a href="http://www.tuicool.com/articles/ZRN3qu">http://www.tuicool.com/articles/ZRN3qu</a></p>
+<h2 id="php的mvc实现原理分析">PHP的MVC实现原理分析</h2>
+<pre><code>MVC三个字母的含义：
+
+M：Model 模型，负责数据库操作。
+V：View 视图，负责调用Model调取数据，再调用模板，展示出最终效果。
+C：Controller 控制器，程序的入口，决定改调用哪个View，并告诉View该做什么。
+</code></pre>
+<p>　　下面是一个超级简单的MVC结构实现：</p>
+<pre><code>Controller.php
+
+include 'Model.php';
+include 'View.php';
+
+class Controller {
+    private $model     = '';
+    private $view     = '';
+    
+    public function Controller(){
+        $this-&gt;model    =    new Model();
+        $this-&gt;view        =    new View();
+    }
+    
+    public function doAction( $method = 'defaultMethod', $params = array() ){
+        if( empty($method) ){
+            $this-&gt;defaultMethod();
+        }else if( method_exists($this, $method) ){
+            call_user_func(array($this, $method), $params);
+        }else{
+            $this-&gt;nonexisting_method();
+        }
+    }
+    
+    public function link_page($name = ''){
+        $links = $this-&gt;model-&gt;getLinks();
+        $this-&gt;view-&gt;display($links);
+        
+        $result = $this-&gt;model-&gt;getResult($name);
+        $this-&gt;view-&gt;display($result);
+    }
+    
+    public function defaultMethod(){
+        $this-&gt;br();
+        echo &quot;This is the default method. &quot;;
+    }
+    
+    public function nonexisting_method(){
+        $this-&gt;br();
+        echo &quot;This is the noexisting method. &quot;;
+    }
+    
+    public function br(){
+        echo &quot;&lt;br /&gt;&quot;;
+    }
+}
+
+
+$controller = new Controller();
+$controller-&gt;doAction('link_page', 'b');
+$controller-&gt;doAction();
+
+Model.php
+
+class Model {
+    private $database = array(
+        &quot;a&quot;    =&gt;    &quot;hello world&quot;,
+        &quot;b&quot;    =&gt;    &quot;ok well done&quot;,
+        &quot;c&quot;    =&gt;    &quot;good bye&quot;,
+    );
+    
+    //@TODO connect the database
+    
+    //run the query and get the result
+    public function getResult($name){
+        if( empty($name) ){
+            return FALSE;
+        }
+        
+        if( in_array($name, array_keys( $this-&gt;database ) ) ){
+            return $this-&gt;database[$name];
+        }
+    }
+
+    public function getLinks(){
+        $links = &quot;&lt;a href='#'&gt;Link A&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        $links.= &quot;&lt;a href='#'&gt;Link B&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        $links.= &quot;&lt;a href='#'&gt;Link C&lt;/a&gt;&amp;nbsp;&amp;nbsp;&quot;;
+        
+        return $links;
+    }
+}
+
+
+View.php
+
+class View {
+    
+    public function display($output){
+//        ob_start();
+        
+        echo $output;
+    }
+    
+}
+</code></pre>
+<p><a href="http://www.jb51.net/article/49498.htm">http://www.jb51.net/article/49498.htm</a></p>
+<h2 id="thinkphp框架的优劣">thinkPHP框架的优劣</h2>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

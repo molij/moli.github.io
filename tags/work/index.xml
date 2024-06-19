@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>work on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/work/</link>
+    <description>Recent content in work on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 28 Feb 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/work/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sublime Text Snippets(代码片段)功能</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</link>
+      <pubDate>Sat, 28 Feb 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</guid>
+      <description>我们在编写代码的时候，总会遇到一些需要反复使用的代码片段。这时候就需要反复的复制和黏贴，大大影响效率。我们利用Sublime Text的snippet功能，就能很好的解决这一问题。通俗的讲，就是把我们常用的代码分别保存起啦，然后通过插件的形式来反复调用。&#xA;创建方法：Tools &amp;gt; New Snippet 弹出如下示例代码：&#xA;&amp;lt;snippet&amp;gt; &amp;lt;content&amp;gt;&amp;lt;![CDATA[ Hello, ${1:this} is a ${2:snippet}. ]]&amp;gt;&amp;lt;/content&amp;gt; &amp;lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&amp;gt; &amp;lt;!-- &amp;lt;tabTrigger&amp;gt;hello&amp;lt;/tabTrigger&amp;gt; --&amp;gt; &amp;lt;!-- Optional: Set a scope to limit where the snippet will trigger --&amp;gt; &amp;lt;!-- &amp;lt;scope&amp;gt;source.python&amp;lt;/scope&amp;gt; --&amp;gt; &amp;lt;/snippet&amp;gt; 完整的结构和说明：&#xA;&amp;lt;snippet&amp;gt; &amp;lt;content&amp;gt;&amp;lt;![CDATA[ 你需要插入的代码片段${1:name} ]]&amp;gt;&amp;lt;/content&amp;gt; &amp;lt;!-- 可选：快捷键，利用Tab自动补全代码的功能 --&amp;gt; &amp;lt;tabTrigger&amp;gt;html5&amp;lt;/tabTrigger&amp;gt; &amp;lt;!-- 可选：使用范围，不填写代表对所有文件有效。附：source.css和test.html分别对应不同文件。 --&amp;gt; &amp;lt;scope&amp;gt;source.python&amp;lt;/scope&amp;gt; &amp;lt;!-- 可选：在snippet菜单中的显示说明（支持中文）。如果不定义，菜单则显示当前文件的文件名。 --&amp;gt; &amp;lt;description&amp;gt;My Fancy Snippet&amp;lt;/description&amp;gt; &amp;lt;/snippet&amp;gt; ${1:name}表示代码插入后，光标所停留的位置，可同时插入多个。其中:name为自定义参数（可选）。 ${2}表示代码插入后，按Tab键，光标会根据顺序跳转到相应位置（以此类推）。</description>
+    </item>
+  </channel>
+</rss>

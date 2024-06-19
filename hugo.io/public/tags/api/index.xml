@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>API on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/api/</link>
+    <description>Recent content in API on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Nov 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>各种API</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E5%85%B6%E4%BB%96/2015-11-02-all-api/</link>
+      <pubDate>Mon, 02 Nov 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E5%85%B6%E4%BB%96/2015-11-02-all-api/</guid>
+      <description>天气API&amp;mdash;&amp;ndash;开源免费天气预报接口API以及全国所有地区代码！！（国家气象局提供） 。&#xA;国家气象局提供的天气预报接口&#xA;接口地址：&#xA;http://www.weather.com.cn/data/sk/101010100.html&#xA;http://www.weather.com.cn/data/cityinfo/101010100.html&#xA;http://m.weather.com.cn/data/101010100.html</description>
+    </item>
+  </channel>
+</rss>

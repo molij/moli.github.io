@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ip on 莫离君的博客</title>
+    <link>https://gongvirgil.github.io/Blog/tags/ip/</link>
+    <description>Recent content in ip on 莫离君的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gongvirgil.github.io/Blog/tags/ip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>根据ip查询所在地</title>
+      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-ip-to-address/</link>
+      <pubDate>Fri, 25 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-25-ip-to-address/</guid>
+      <description>##获取IP地址&#xA;&amp;lt;?php function get_client_ip(){ if (isset($_SERVER)) { if (isset($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;])) { $realip = $_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]; } elseif (isset($_SERVER[&#39;HTTP_CLIENT_IP&#39;])) { $realip = $_SERVER[&#39;HTTP_CLIENT_IP&#39;]; } else { $realip = $_SERVER[&#39;REMOTE_ADDR&#39;]; } } else { if (getenv(&amp;quot;HTTP_X_FORWARDED_FOR&amp;quot;)) { $realip = getenv( &amp;quot;HTTP_X_FORWARDED_FOR&amp;quot;); } elseif (getenv(&amp;quot;HTTP_CLIENT_IP&amp;quot;)) { $realip = getenv(&amp;quot;HTTP_CLIENT_IP&amp;quot;); } else { $realip = getenv(&amp;quot;REMOTE_ADDR&amp;quot;); } } return $realip; } echo $ip = get_client_ip(); ?&amp;gt; ##根据ip查询所在地&#xA;###新浪接口&#xA;&amp;lt;?php $res0 = file_get_contents(&amp;quot;http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;amp;ip=$ip&amp;quot;); $res0 = json_decode($res0,true); print_r($res0); echo &amp;quot;&amp;lt;br/&amp;gt;&amp;quot;; ?</description>
+    </item>
+  </channel>
+</rss>

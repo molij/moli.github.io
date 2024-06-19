@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>css笔记 &middot; 莫离君的博客</title>
+  <meta name="description" content="css笔记" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>css笔记</h1>
+  <time datetime=2014-01-01T00:00:00Z class="post-date">Wed, Jan 1, 2014</time>
+  <p>背景渐变色：</p>
+<p>background-image: linear-gradient(to right, #fff, #000 100%);</p>
+<p>currentColor</p>
+<p>table-css</p>
+<pre><code>&lt;table class=&quot;table&quot; cellspacing=&quot;0&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th width=&quot;10%&quot;&gt;序号&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;游戏&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;区服&lt;/th&gt;
+        &lt;th width=&quot;20%&quot;&gt;卡号&lt;/th&gt;
+        &lt;th width=&quot;30%&quot;&gt;领取时间&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;volist name=&quot;mycard_list&quot; id=&quot;vo&quot; key=&quot;k&quot;&gt;
+      &lt;tr&gt;
+        &lt;td&gt;{$k}&lt;/td&gt;
+        &lt;td&gt;{$vo.gamename}&lt;/td&gt;
+        &lt;td&gt;{$vo.servername}&lt;/td&gt;
+        &lt;td&gt;{$vo.card_info}&lt;/td&gt;
+        &lt;td&gt;{$vo.get_time|date=&quot;Y-m-d H:i:s&quot;,###}&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;/volist&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+      
+.table {width: 100%;margin-bottom: 20px;text-align: center;vertical-align: middle;}
+.table th,.table td {line-height: 20px;padding: 15px 20px;text-align: center;font-size: 14px;border: 0 none;}
+.table thead th {background-color: #dfdfdf;color: #fff;}
+.table tbody td {background-color: #fff;color: #666;}
+.table tr:hover td {background-color: #dfdfdf;}
+</code></pre>
+<p>分页css</p>
+<pre><code>.listpage {width:auto;margin:0 20px;padding:10px 0 12px;text-align:center;line-height:25px;_padding-top:4px;}
+.listpage b{font-weight:normal;}
+.listpage a {display:inline-block;padding:0 10px;color:#666;border:1px solid #ccc;background:none;height:26px;margin:0 5px 10px;text-decoration:none;}
+.listpage a:hover{background:#ff6b09;color:#fff;border:1px solid #fff;text-decoration:none;}
+.listpage span{display:inline-block;padding:0 10px;background:#ff6b09;border:1px solid #ff6b09;color:#fff;margin:0 3px 10px;}
+.pages,.pages_more {width:578px;margin:0 auto;padding:10px 0 20px 0;border-top:1px dashed #1e2029;}
+.pages a{color:#53586e;}
+.pages_more {border:none;padding:0px 0 30px 0;}
+.listpage a.on{display:inline-block;padding:0 10px;background:#ff6b09;border:1px solid #ff6b09;color:#fff;margin:0 5px 10px;cursor:default;}</code></pre>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

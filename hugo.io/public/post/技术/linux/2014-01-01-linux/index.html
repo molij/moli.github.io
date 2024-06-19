@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>各种常用的Linux操作命令 &middot; 莫离君的博客</title>
+  <meta name="description" content="常用Linux操作命令" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>各种常用的Linux操作命令</h1>
+  <time datetime=2014-01-01T00:00:00Z class="post-date">Wed, Jan 1, 2014</time>
+  <p>##简单速记命令：</p>
+<ul>
+<li>查看时间： date</li>
+<li>更新Internet时间： ntpdate time.windows.com</li>
+<li>重启httpd:		 service httpd restart</li>
+<li>复制文件夹下文件  cp -r /home/aaa/* /home/sss</li>
+<li>修改权限 chmod -R 777 /home/aaa/*</li>
+<li>删除文件 rm -rf /home/aaa/*</li>
+<li>查看当前规则：cat  /etc/sysconfig/iptables</li>
+</ul>
+<p>##复杂操作笔记：</p>
+<ul>
+<li>替换字符串: [戳这里][1]</li>
+<li>linux服务器之间文件传输：[戳这里][2]</li>
+<li>打包/压缩目录：[戳这里][3]</li>
+<li>vi编辑器使用命令：[戳这里][4]</li>
+</ul>
+<p>##查找目录下的所有文件中是否含有某个字符串</p>
+<pre><code>find .| xargs grep -ri &quot;XXXX&quot; 
+</code></pre>
+<p>##查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名</p>
+<pre><code>find .| xargs grep -ri &quot;XXXX&quot; -l 
+service iptables stop
+service iptables start
+</code></pre>
+<p>##crontab定时执行任务</p>
+<ul>
+<li>
+<p>编辑：crontab -e</p>
+</li>
+<li>
+<p>列出：crontab -l</p>
+</li>
+<li>
+<p>退出编辑：ctrl+c</p>
+</li>
+<li>
+<p>保存：:wp</p>
+<p>分 时 日 月 周 命令
+0 */3 * * * wget <a href="http://www.992you.com/Auto/rebate">http://www.992you.com/Auto/rebate</a></p>
+</li>
+</ul>
+<p>[1]: {{ site.url}}/blog/2015-03-19/linux-1.html &ldquo;替换字符串&rdquo;
+[2]: {{ site.url}}/blog/2015-03-19/linux-2.html &ldquo;linux服务器之间文件传输&rdquo;
+[3]: {{ site.url}}/blog/2015-03-19/linux-3.html &ldquo;打包/压缩目录&rdquo;
+[4]: {{ site.url}}/blog/2015-04-03/linux-4.html &ldquo;vi编辑器使用命令&rdquo;</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

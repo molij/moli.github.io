@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.121.2">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>使用PHP&#43;Zend_Search_Lucene做全站中文搜索引擎 &middot; 莫离君的博客</title>
+  <meta name="description" content="使用PHP&#43;Zend_Search_Lucene做全站中文搜索引擎" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://gongvirgil.github.io/Blog/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://gongvirgil.github.io/Blog/"><h1>莫离君的博客</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://gongvirgil.github.io/Blog/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>使用PHP&#43;Zend_Search_Lucene做全站中文搜索引擎</h1>
+  <time datetime=2015-12-01T00:00:00Z class="post-date">Tue, Dec 1, 2015</time>
+  <h2 id="1概述">1.概述</h2>
+<p>Zend_Search_Lucene是一个完全基于PHP5的通用文本搜索引擎，它将索引存储在文件系统中，不需要数据库服务器。</p>
+<h2 id="2-安装zend_lucene">2. 安装Zend_Lucene</h2>
+<p>可以从这里下载:     <a href="http://www.zend.com/community/downloads">http://www.zend.com/community/downloads</a></p>
+<p>也可以参考这篇文章：<a href="http://nonfu.me/p/4650.html">http://nonfu.me/p/4650.html</a> 的下载目录去下载Zend Framework导入。</p>
+<p>找到Zend文件夹下的Search目录，所需要的文件都在里面了。</p>
+<!-- raw HTML omitted -->
+<h2 id="3创建索引">3.创建索引</h2>
+<p>下面是创建索引的示例:</p>
+<pre><code>&lt;?php
+    require_once 'Zend/Search/Lucene.php';
+    $articlesData = array(
+        0=&gt;array('id'=&gt;1,'title'=&gt;'test','content'=&gt;'this is a test'),
+        1=&gt;array('id'=&gt;2,'title'=&gt;'test php','content'=&gt;'this is a php test'),
+        2=&gt;array('id'=&gt;3,'title'=&gt;'test yii','content'=&gt;'this is a yii test'),
+        3=&gt;array('id'=&gt;4,'title'=&gt;'test lucene','content'=&gt;'this is a lucene test'),
+        4=&gt;array('id'=&gt;5,'title'=&gt;'测试','content'=&gt;'这是一个简单的搜索测试'),
+        5=&gt;array('id'=&gt;6,'title'=&gt;'测一个小试','content'=&gt;'我们进行一个小测验吧'),
+        6=&gt;array('id'=&gt;6,'title'=&gt;'白色的马','content'=&gt;'白色的小马驹')
+    );
+    $index = new Zend_Search_Lucene('/path/to/index',true);
+    $doc = new Zend_Search_Lucene_Document();
+    foreach ($articlesData as $article) {
+        $doc-&gt;addField(Zend_Search_Lucene_Field::keyword('id',$article['id'],'UTF-8'));
+        $doc-&gt;addField(Zend_Search_Lucene_Field::Text('title',$article['title'],'UTF-8'));
+        $doc-&gt;addField(Zend_Search_Lucene_Field::keyword('content',$article['content'],'UTF-8'));
+        $index-&gt;addDocument($doc);
+        $index-&gt;commit();
+        $index-&gt;optimize();
+    }
+    echo '索引创建成功！';
+</code></pre>
+<p>在实际案例中，索引数据应该来自数据库，在上面的示例中，我们的所有索引数据都可以用数据库查询的结果来替代。</p>
+<h2 id="4搜索索引数据">4.搜索索引数据</h2>
+<p>创建索引之后我们就可以通过下面的代码来搜索了:</p>
+<pre><code>$index = new Zend_Search_Lucene('/path/to/index');
+$keywords = &quot;test&quot;;
+//echo &quot;Index包含{$index-&gt;count()}条结果&lt;br&gt;&quot;;
+$query = Zend_Search_Lucene_Search_QueryParser::parse($keywords,'utf-8');
+$hits = $index-&gt;find($query);
+foreach($hits as $hit){
+    echo $hit-&gt;id.'.';
+    echo $hit-&gt;title.'&lt;br&gt;';
+    echo $hit-&gt;content;
+    echo &quot;&lt;br&gt;&lt;br&gt;&quot;;
+}
+</code></pre>
+<p>如果你想要支持多语言的文本搜索，我们可以设置属性lan的值，然后通过lan来显示不同语言的文本搜索结果。</p>
+<h2 id="5删除及更新索引">5.删除及更新索引</h2>
+<p>如果你想要更新索引，首先我们必须通过keywords找到索引所在的位置，然后删除它，之后我们需要添加一个新的文档，下面是一个更新索引的示例代码，我们删除PID为1的产品并且更新描述信息.</p>
+<pre><code>&lt;?php
+
+    require_once('Zend/Search/Lucene.php');
+    $index = new Zend_Search_Lucene('index');
+
+    //需要被更新的新数据
+    $productNewData =array(
+        &quot;PID&quot;=&gt;1,
+        &quot;url&quot;=&gt;&quot;http://nonfu.me&quot;,
+        &quot;productName&quot;=&gt;&quot;icultivator&quot;,
+        &quot;Description&quot;=&gt;&quot;update icultivator Description&quot;,
+        &quot;lan&quot;=&gt;&quot;en&quot;);
+
+    $keywords=&quot;PID:1&quot;;
+
+    $hits = $index-&gt;find($keywords);
+
+    //删除PID:1的索引
+    foreach ($hits as $hit)
+    {
+        echo 'PID: '.$hit-&gt;PID .'has been deleted &lt;br&gt;';
+        $index-&gt;delete($hit-&gt;id);
+    }
+
+    $index-&gt;commit();
+
+    //添加新数据到索引
+    $doc = new Zend_Search_Lucene_Document();
+    $doc-&gt;addField(Zend_Search_Lucene_Field::keyword('PID', $productNewData['PID'], 'UTF-8'));
+    $doc-&gt;addField(Zend_Search_Lucene_Field::Text('url', $productNewData['url'], 'UTF-8'));
+    $doc-&gt;addField(Zend_Search_Lucene_Field::Text('productName', $productNewData['productName'], 'UTF-8'));
+    $doc-&gt;addField(Zend_Search_Lucene_Field::Text('Description', $productNewData['Description'], 'UTF-8'));
+    $doc-&gt;addField(Zend_Search_Lucene_Field::unIndexed('lan', $productNewData['lan'], 'UTF-8'));
+    $index-&gt;addDocument($doc);
+    $index-&gt;commit();
+    $index-&gt;optimize();
+</code></pre>
+<h2 id="6搜索中文索引">6.搜索中文索引</h2>
+<p>默认情况下，lucene 只支持英文文本搜索，但是在本项目中，我们需要搜素英文及中文的文本，因此我们必须要改变Lucene的默认分析器。</p>
+<p>下面的代码是Lucene默认分析器的扩展:</p>
+<pre><code>&lt;?php
+
+//文件名称:chinese.php
+require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
+require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common.php';
+class CN_Lucene_Analyzer extends Zend_Search_Lucene_Analysis_Analyzer_Common
+{
+    private $_position;
+    private $_cnStopWords = array( );
+
+    public function setCnStopWords( $cnStopWords )
+    { 
+        $this-&gt;_cnStopWords = $cnStopWords;
+    }
+
+    /**
+     * Reset token stream
+     */
+    public function reset()
+    {
+        $this-&gt;_position = 0;
+        $search = array(&quot;,&quot;, &quot;/&quot;, &quot;\\&quot;, &quot;.&quot;, &quot;;&quot;, &quot;:&quot;, &quot;\&quot;&quot;, &quot;!&quot;, &quot;~&quot;, &quot;`&quot;, &quot;^&quot;, &quot;(&quot;, &quot;)&quot;, &quot;?&quot;, &quot;-&quot;, &quot;'&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &quot;$&quot;, &quot;&amp;&quot;, &quot;%&quot;, &quot;#&quot;, &quot;@&quot;, &quot;+&quot;,&quot;=&quot;, &quot;{&quot;, &quot;}&quot;, &quot;[&quot;, &quot;]&quot;, &quot;：&quot;, &quot;）&quot;, &quot;（&quot;, &quot;．&quot;, &quot;。&quot;, &quot;，&quot;, &quot;！&quot;, &quot;；&quot;, &quot;“&quot;, &quot;”&quot;, &quot;‘&quot;, &quot;’&quot;, &quot;［&quot;, &quot;］&quot;, &quot;、&quot;, &quot;—&quot;, &quot;　&quot;, &quot;《&quot;, &quot;》&quot;, &quot;－&quot;, &quot;…&quot;, &quot;【&quot;,&quot;】&quot;, &quot;？&quot;, &quot;￥&quot; );
+
+        $this-&gt;_input = str_replace( $search, '', $this-&gt;_input );
+        $this-&gt;_input = str_replace( $this-&gt;_cnStopWords, ' ', $this-&gt;_input );
+    }
+
+    /**
+     * Tokenization stream API
+     * Get next token
+     * Returns null at the end of stream
+     *
+     * @return Zend_Search_Lucene_Analysis_Token|null
+     */
+    public function nextToken()
+    {
+        if ($this-&gt;_input === null)
+        {
+            return null;
+        }
+        $len = strlen($this-&gt;_input);
+        //print &quot;Old string：&quot;.$this-&gt;_input.&quot;&lt;br /&gt;&quot;;
+        while ($this-&gt;_position &lt; $len)
+        {
+            // Delete space at the begining
+            while ($this-&gt;_position &lt; $len &amp;&amp;$this-&gt;_input[$this-&gt;_position]==' ' )
+            {
+                $this-&gt;_position++;
+            }
+
+            $termStartPosition = $this-&gt;_position;
+            $temp_char = $this-&gt;_input[$this-&gt;_position];
+            $isCnWord = false;
+
+            if(ord($temp_char)&gt;127)
+            {
+               $i = 0;
+               while( $this-&gt;_position &lt; $len &amp;&amp; ord( $this-&gt;_input[$this-&gt;_position] )&gt;127 )
+               {
+                   $this-&gt;_position = $this-&gt;_position + 3;
+                   $i ++;
+                   if($i==2)
+                   {
+                       $isCnWord = true;
+                       break;
+                   }
+               }
+
+               if($i==1) continue;
+            }
+            else{
+               while ($this-&gt;_position &lt; $len &amp;&amp; ctype_alnum( $this-&gt;_input[$this-&gt;_position] ))
+               {
+                  $this-&gt;_position++;
+               }
+
+               //echo $this-&gt;_position.&quot;:&quot;.$this-&gt;_input[$this-&gt;_position-1].&quot;\n&quot;;
+            }
+
+           if ($this-&gt;_position == $termStartPosition)
+           {
+               $this-&gt;_position++;
+               continue;
+           }
+
+           $tmp_str = substr($this-&gt;_input, $termStartPosition, $this-&gt;_position - $termStartPosition);
+           $token = new Zend_Search_Lucene_Analysis_Token( $tmp_str, $termStartPosition,$this-&gt;_position );
+           $token = $this-&gt;normalize($token);
+
+           if($isCnWord)
+           {
+              $this-&gt;_position = $this-&gt;_position - 3;
+           }
+
+           if ($token !== null)
+           {
+              return $token;
+           }
+        }
+
+       return null;
+    }
+}
+</code></pre>
+<p>在chinese.php的帮助下我们就可以在项目中进行中文搜索了。而且我们必须要在上述代码中添加如下两行代码.</p>
+<p>require_once &lsquo;chinese.php&rsquo;;
+Zend_Search_Lucene_Analysis_Analyzer::setDefault(new CN_Lucene_Analyzer());</p>
+<p>即：</p>
+<p>zen_lucene</p>
+<p>修改上述搜素文本代码中的搜索文本即可进行中文搜索了，不过我感觉其中文分词效果并不是很好。</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
