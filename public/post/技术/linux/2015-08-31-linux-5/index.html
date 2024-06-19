@@ -1,58 +1,79 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<html>
 <head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.121.2">
-
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Linux中cp直接覆盖不提示的方法 &middot; 莫离君的博客</title>
-  <meta name="description" content="cp覆盖时，无论加什么参数-f之类的还是提示是否覆盖，这在大量cp覆盖操作的时候是不能忍受的。" />
-
-  
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
-  
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>Linux中cp直接覆盖不提示的方法</title>
 </head>
 
-  <body class=" ">
-  <aside class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="https://moli.github.io/"><h1>莫离君的博客</h1></a>
-      <p class="lead">
-      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
-      </p>
-    </div>
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
 
-    <nav>
-      <ul class="sidebar-nav">
-        <li><a href="https://moli.github.io/">Home</a> </li>
-        
-      </ul>
-    </nav>
+        <main class="mdl-layout__content">
 
-    <p>&copy; 2024. All rights reserved. </p>
-  </div>
-</aside>
-
-    <main class="content container">
-    <div class="post">
-  <h1>Linux中cp直接覆盖不提示的方法</h1>
-  <time datetime=2015-08-31T00:00:00Z class="post-date">Mon, Aug 31, 2015</time>
-  <p>　　cp覆盖时，无论加什么参数-f之类的还是提示是否覆盖，这在大量cp覆盖操作的时候是不能忍受的。</p>
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Linux中cp直接覆盖不提示的方法</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Aug 31, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>　　cp覆盖时，无论加什么参数-f之类的还是提示是否覆盖，这在大量cp覆盖操作的时候是不能忍受的。</p>
 <p>　　把a目录下的文件复制到b目录</p>
 <p>　　cp –r a/* b</p>
 <p>　　执行上面的命令时，b存在的每个文件都会提示是否覆盖;</p>
@@ -66,13 +87,63 @@
 <p>　　[root@devdb ~]# vi ~/.bashrc</p>
 <p>　　在alias cp=&lsquo;cp -i&rsquo;前加上&quot;#&ldquo;注释掉这行，：wq!保存推出，然后重新登陆就可以了。</p>
 
-</div>
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/htmlcss/2015-08-20-div-float/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-09-01-git-do/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
 
-    </main>
-
-    
-      
-    
-  </body>
+</body>
 </html>
+

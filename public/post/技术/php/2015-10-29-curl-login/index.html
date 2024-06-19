@@ -1,58 +1,79 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<html>
 <head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.121.2">
-
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>curl模拟登陆 &middot; 莫离君的博客</title>
-  <meta name="description" content="curl模拟登陆" />
-
-  
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://moli.github.io/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
-  
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="My thoughts and rambles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  
+    
+    <link rel="icon" type="image/png" href="https://moli.github.io//images/favicon.ico">
+
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://moli.github.io/images/touch/chrome-touch-icon-192x192.png">
+
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    
+    <meta name="msapplication-TileImage" content="https://moli.github.io/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+    <link rel="stylesheet" href="https://moli.github.io/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.grey-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://moli.github.io/css/hmdl-style.css"/>
+
+
+
+    <title>curl模拟登陆</title>
 </head>
 
-  <body class=" ">
-  <aside class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="https://moli.github.io/"><h1>莫离君的博客</h1></a>
-      <p class="lead">
-      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
-      </p>
-    </div>
+<body style="background-image: url('/images/background.jpg');">
+    <div class="hmdl-body mdl-layout mdl-js-layout has-drawer is-upgraded">        
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Home</a>
+                <a class="mdl-navigation__link" href="/post/">Articles</a>
+                <a class="mdl-navigation__link" href="/project/">Projects</a>
+                <a class="mdl-navigation__link" href="/about/">About</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="/post/">Articles</a>
+            <a class="mdl-navigation__link" href="/project/">Projects</a>
+            <a class="mdl-navigation__link" href="/about/">About</a>
+            </nav>
+        </div>
 
-    <nav>
-      <ul class="sidebar-nav">
-        <li><a href="https://moli.github.io/">Home</a> </li>
-        
-      </ul>
-    </nav>
+        <main class="mdl-layout__content">
 
-    <p>&copy; 2024. All rights reserved. </p>
-  </div>
-</aside>
-
-    <main class="content container">
-    <div class="post">
-  <h1>curl模拟登陆</h1>
-  <time datetime=2015-10-29T00:00:00Z class="post-date">Thu, Oct 29, 2015</time>
-  <p>用PHP开发模拟浏览器的应用,首选技术是CURL函数库。但是php官方提供的技术文档资料很少，相关的示例代码也很少。<!-- raw HTML omitted --></p>
+            <div class="hmdl-page mdl-grid">
+                <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                    <div class="hmdl-page-banner mdl-card__media mdl-color-text--grey-50" style=" ">
+                        <h3 >Curl模拟登陆</h3>
+                    </div>
+                    <div class="hmdl-page-meta mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <div>
+                            <strong></strong>
+                            <span>Oct 29, 2015</span>
+                        </div>
+                        <div class="section-spacer"></div>
+                    </div>
+                    <div class="hmdl-page-content mdl-color-text--grey-700 mdl-card__supporting-text">
+                        <p>用PHP开发模拟浏览器的应用,首选技术是CURL函数库。但是php官方提供的技术文档资料很少，相关的示例代码也很少。<!-- raw HTML omitted --></p>
 <p>最 近由于项目需要，开发了一系列免费邮箱的导出用户自己联系人的功能，包括国内外知名邮 箱，163，sina，sohu,yahoo,hotmail,gmail,qq mail等。还开发了一些方便用户嵌入代码到各大博客，个人门户的应用。比如嵌入flash代码到Qzone，网易的blog，百度的个人门户等。</p>
 <p>当然，最原始的技术手段是采用fsockopen函数，然后深入去学习http协议，写出标准的http头信息，也是可以完成开发的。不过麻烦的地方就出在标准。如果对http协议标准认识不深，经常会因碰到少了一个空格或者少了一个换行符号而debug很久。</p>
 <p>OK， 还是进入正题。工欲善其事，必先利其器。要模拟浏览器访问网站，首选要学会观察浏览器是如何发送http报文的，以及网站服务器返回给浏览器 是什么样的内容。我推荐安装一个国外人开发的httpwatch的软件，最好搞个破解的版本，否则有些功能是使用不了的。这个软件安装完成之后是嵌入在 IE里的，启动Record，在地址栏输入网址后回车，它就会将浏览器和服务器之间的所有通讯扫描出来，让你一览无遗。关于这个软件的使用在本文不做介 绍。</p>
@@ -117,13 +138,63 @@ echo curl_errno($ch) . ” – ” . curl_error($ch) . ”
 // 关闭CURL会话
 curl_close($ch); </code></pre>
 
-</div>
+                    </div>
+                    <div class="hmdl-page-comments mdl-color-text--primary-contrast mdl-card__supporting-text comments"> 
+                        <a href=ZgotmplZ></a>
+                        <p></p>
+                    </div>  
+                </div>                
+                <nav class="mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                    <a href="/post/%E6%8A%80%E6%9C%AF/2015-10-27-msvcr100u-dll/">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                        <i class="icon ion-android-arrow-back"></i>
+                        </button>
+                        Older
+                    </a>
+                    <div class="section-spacer"></div>
+                    <a href="/post/%E5%85%B6%E4%BB%96/2015-11-02-all-api/">
+                        Newer
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                            <i class="icon ion-android-arrow-forward"></i>
+                        </button>
+                    </a>
+                </nav>
+ 
+            </div>        
+        </main>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">                
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="mailto:Firstname@example.com?subject=Hi">
+                    <i class="material-icons_lg icon ion-email"></i>
+                    <span class="visuallyhidden">Email</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://github.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-github"></i>
+                    <span class="visuallyhidden">Github</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://twitter.com/firstname_lastname">
+                    <i class="material-icons_lg icon ion-social-twitter "></i>
+                    <span class="visuallyhidden">Twitter</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://linkedin.com/in/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-linkedin "></i>                        
+                    <span class="visuallyhidden">LinkedIn</span>
+                </a>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-mini-footer--social-btn social-btn" href="https://facebook.com/firstname_lastname/">
+                    <i class="material-icons_lg icon ion-social-facebook "></i>                        
+                    <span class="visuallyhidden">Facebook</span>
+                </a>
+
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <span>© 2015 Firstname Lastname</span>
+            </div>
+        </footer>
+        <div class="mdl-layout__obfuscator"></div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
 
-    </main>
-
-    
-      
-    
-  </body>
+</body>
 </html>
+
