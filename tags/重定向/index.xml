@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>重定向 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+    <link>https://moli.github.io/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</link>
     <description>Recent content in 重定向 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 09 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/%E9%87%8D%E5%AE%9A%E5%90%91/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/%E9%87%8D%E5%AE%9A%E5%90%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Firefox域名重定向插件——Mason</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</link>
       <pubDate>Fri, 09 Oct 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</guid>
       <description>工具： Mason 0.3.7.9.18 https://addons.mozilla.org/zh-CN/firefox/addon/mason/&#xA;描述：Fonts.googleapis.com 包含地址：https?://fonts.googleapis.com 重定向：http://&amp;gt;*^https?://fonts.googleapis.com&amp;gt;*http://fonts.useso.com&#xA;描述：Ajax.googleapis.com 包含地址：https?://ajax.googleapis.com 重定向：http://&amp;gt;*^https?://ajax.googleapis.com&amp;gt;*http://ajax.useso.com&#xA;描述：Themes.googleusercontent.com 包含地址：https?://themes.googleusercontent.com 重定向：http://&amp;gt;*^https?://themes.googleusercontent.com&amp;gt;*http://google-themes.lug.ustc.edu.cn&#xA;描述：Fonts.gstatic.com 包含地址：https?://fonts.gstatic.com 重定向：http://&amp;gt;*^https?://fonts.gstatic.com&amp;gt;*fonts-gstatic.lug.ustc.edu.cn</description>
     </item>
   </channel>

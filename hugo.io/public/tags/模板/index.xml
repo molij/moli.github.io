@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>模板 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/%E6%A8%A1%E6%9D%BF/</link>
+    <link>https://moli.github.io/tags/%E6%A8%A1%E6%9D%BF/</link>
     <description>Recent content in 模板 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 02 Dec 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/%E6%A8%A1%E6%9D%BF/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/%E6%A8%A1%E6%9D%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>jQuery插件模板</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</link>
       <pubDate>Wed, 02 Dec 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/jquery/2015-12-02-jquery-plugin-template/</guid>
       <description>此 jQuery 插件模板出自：jQuery Plugin Boilerplate, revisited&#xA;// jQuery Plugin Boilerplate // A boilerplate for jumpstarting jQuery plugins development // version 1.1, May 14th, 2011 // by Stefan Gabos // remember to change every instance of &amp;quot;pluginName&amp;quot; to the name of your plugin! (function($) { // here we go! $.pluginName = function(element, options) { // plugin&#39;s default options // this is private property and is accessible only from inside the plugin var defaults = { foo: &#39;bar&#39;, // if your plugin is event-driven, you may provide callback capabilities // for its events.</description>
     </item>
   </channel>

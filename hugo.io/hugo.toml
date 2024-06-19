@@ -1,4 +1,4 @@
-baseURL = 'https://gongvirgil.github.io/Blog/'
+baseURL = 'https://moli.github.io/'
 languageCode = 'zh-CN'
 title = '莫离君的博客'
 theme = 'hyde'

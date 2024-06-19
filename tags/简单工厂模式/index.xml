@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>简单工厂模式 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+    <link>https://moli.github.io/tags/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
     <description>Recent content in 简单工厂模式 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PHP设计模式之简单工厂模式</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-10-simple-factory-mode/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-10-10-simple-factory-mode/</link>
       <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-10-simple-factory-mode/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-10-10-simple-factory-mode/</guid>
       <description>简单工厂模式：&#xA;①抽象基类：类中定义抽象一些方法，用以在子类中实现 ②继承自抽象基类的子类：实现基类中的抽象方法 ③工厂类：用以实例化对象 使用情景：在不确定会有多少个处理操作时应该考虑使用简单工厂模式，如针对同样的接收到的数据，处理的逻辑可能会不同，可能以后还会增加新的操作。&#xA;##采用封装方式&#xA;&amp;lt;?php class Calc{ /** * 计算结果 * * @param int|float $num1 * @param int|float $num2 * @param string $operator * @return int|float */ public function calculate($num1,$num2,$operator){ try { $result=0; switch ($operator){ case &#39;+&#39;: $result= $num1+$num2; break; case &#39;-&#39;: $result= $num1-$num2; break; case &#39;*&#39;: $result= $num1*$num2; break; case &#39;/&#39;: if ($num2==0) { throw new Exception(&amp;quot;除数不能为0&amp;quot;); } $result= $num1/$num2; break; } return $result; }catch (Exception $e){ echo &amp;quot;您输入有误:&amp;quot;.</description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mobile on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/mobile/</link>
+    <link>https://moli.github.io/tags/mobile/</link>
     <description>Recent content in mobile on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 14 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/mobile/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/mobile/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PHP 判断设备是否是手机/平板的方法</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-14-php-is-mobile/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-10-14-php-is-mobile/</link>
       <pubDate>Wed, 14 Oct 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-10-14-php-is-mobile/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-10-14-php-is-mobile/</guid>
       <description>在做WEB开发的时候经常会需要用到对移动设备的页面匹配，当然可以直接把网站做成响应式的，但如果不想这么做的话，可以使用PHP对设备类型进行判断，然后显示相应的界面和内容。今天分享一种使用 PHP 判断设备是否是手机/平板的方法，方法来源于WordPress(wp-includes/vars.php:125)，适用于大部分类型的手机/平板判断：&#xA;在做WEB开发的时候经常会需要用到对移动设备的页面匹配，当然可以直接把网站做成响应式的，但如果不想这么做的话，可以使用PHP对设备类型进行判断，然后显示相应的界面和内容。今天分享一种使用 PHP 判断设备是否是手机/平板的方法，方法来源于WordPress(wp-includes/vars.php:125)，适用于大部分类型的手机/平板判断：&#xA;/** * Test if the current browser runs on a mobile device (smart phone, tablet, etc.) * * @staticvar bool $is_mobile * * @return bool */ function wp_is_mobile() { static $is_mobile = null; if ( isset( $is_mobile ) ) { return $is_mobile; } if ( empty($_SERVER[&#39;HTTP_USER_AGENT&#39;]) ) { $is_mobile = false; } elseif ( strpos($_SERVER[&#39;HTTP_USER_AGENT&#39;], &#39;Mobile&#39;) !== false // many mobile devices (all iPhone, iPad, etc.</description>
     </item>
   </channel>

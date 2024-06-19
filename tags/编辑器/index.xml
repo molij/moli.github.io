@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>编辑器 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+    <link>https://moli.github.io/tags/%E7%BC%96%E8%BE%91%E5%99%A8/</link>
     <description>Recent content in 编辑器 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 01 Dec 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/%E7%BC%96%E8%BE%91%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/%E7%BC%96%E8%BE%91%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一行代码，浏览器变临时编辑器</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</link>
       <pubDate>Tue, 01 Dec 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2014-12-01-one-line-browser-notepad/</guid>
       <description>这是 Jose 在CoderWall 分享的一个小技巧：在浏览器地址栏中输入下面这行代码，回车即可把浏览器变临时编辑器。&#xA;data:text/html, &amp;lt;html contenteditable&amp;gt; 代码高亮编辑器&#xA;data:text/html, &amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;#e{position:absolute;top:0;right:0;bottom:0;left:0;}&amp;lt;/style&amp;gt;&amp;lt;div id=&amp;quot;e&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;quot;http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script&amp;gt;var e=ace.edit(&amp;quot;e&amp;quot;);e.setTheme(&amp;quot;ace/theme/monokai&amp;quot;);e.getSession().setMode(&amp;quot;ace/mode/ruby&amp;quot;);&amp;lt;/script&amp;gt; 改造成支持其他语言语法高亮的，可把 ace/mode/ruby 替换为： Python -&amp;gt; ace/mode/python C/C++ -&amp;gt; ace/mode/c_cpp Javscript -&amp;gt; ace/mode/javascript Java -&amp;gt; ace/mode/java Scala -&amp;gt; ace/mode/scala Markdown -&amp;gt; ace/mode/markdown CoffeeScript -&amp;gt; ace/mode/coffee 其他…… jakeonrails 语法高亮风格用的是 monokai。 如果需要换成其他风格，，可把 ace/theme/monokai 替换为： Eclipse -&amp;gt; ace/theme/eclipse TextMate -&amp;gt; ace/theme/textmate 其他…… </description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>文件夹 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/</link>
+    <link>https://moli.github.io/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/</link>
     <description>Recent content in 文件夹 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 17 Dec 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>php获取文件夹下所有文件，包含子文件夹</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-17-php-files-directory/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-17-php-files-directory/</link>
       <pubDate>Thu, 17 Dec 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/php/2015-12-17-php-files-directory/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/php/2015-12-17-php-files-directory/</guid>
       <description>/** * 获取文件夹下所有文件 * @param $directory 需要获取的文件夹 * @param bool $recursive 是否递归获取子文件夹 * @return array */ function directoryToArray($directory, $recursive = false) { $array_items = array(); if(!is_dir($directory)) return &amp;quot;$directory folder does not exist&amp;quot;; if ($handle = opendir($directory)) { while (false !== ($file = readdir($handle))) { if ($file != &amp;quot;.&amp;quot; &amp;amp;&amp;amp; $file != &amp;quot;..&amp;quot;) { if (is_dir($directory. &amp;quot;/&amp;quot; . $file)) { if($recursive) { $array_items = array_merge($array_items, directoryToArray($directory. &amp;quot;/&amp;quot; . $file, $recursive)); } $file = $directory .</description>
     </item>
   </channel>

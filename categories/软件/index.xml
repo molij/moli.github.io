@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>软件 on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/categories/%E8%BD%AF%E4%BB%B6/</link>
+    <link>https://moli.github.io/categories/%E8%BD%AF%E4%BB%B6/</link>
     <description>Recent content in 软件 on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/categories/%E8%BD%AF%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/categories/%E8%BD%AF%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>win10下80端口被PID为4的System占用问题</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</link>
       <pubDate>Wed, 16 Dec 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-12-06-win10-pid4-system/</guid>
       <description>###Windows10下80端口被PID为4的System占用导致Apache无法启动的分析与解决方案&#xA;用命令 netstat -ano|findstr 80 来查看一下到底是哪个程序占用了80端口，如图所示端口查找的结果：&#xA;system进程占用80端口&#xA;![system进程占用80端口][p1] [p1]: /images/1.png &amp;ldquo;system进程占用80端口&amp;rdquo;&#xA;![system进程占用80端口][p2] [p2]: /images/2.png &amp;ldquo;system进程占用80端口&amp;rdquo;&#xA;![当前的http服务状态][p3] [p3]: /images/3.png &amp;ldquo;当前的http服务状态&amp;rdquo;&#xA;![PID1600进程][p4] [p4]: /images/4.png &amp;ldquo;PID1600进程&amp;rdquo;&#xA;![PID1600进程所在的服务][p5] [p5]: /images/5.png &amp;ldquo;PID1600进程所在的服务&amp;rdquo;&#xA;###解决方案&#xA;![解决方案][p6] [p6]: /images/6.png &amp;ldquo;解决方案&amp;rdquo;</description>
     </item>
     <item>
       <title>Firefox域名重定向插件——Mason</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</link>
       <pubDate>Fri, 09 Oct 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-10-09-firefox-mason/</guid>
       <description>工具： Mason 0.3.7.9.18 https://addons.mozilla.org/zh-CN/firefox/addon/mason/&#xA;描述：Fonts.googleapis.com 包含地址：https?://fonts.googleapis.com 重定向：http://&amp;gt;*^https?://fonts.googleapis.com&amp;gt;*http://fonts.useso.com&#xA;描述：Ajax.googleapis.com 包含地址：https?://ajax.googleapis.com 重定向：http://&amp;gt;*^https?://ajax.googleapis.com&amp;gt;*http://ajax.useso.com&#xA;描述：Themes.googleusercontent.com 包含地址：https?://themes.googleusercontent.com 重定向：http://&amp;gt;*^https?://themes.googleusercontent.com&amp;gt;*http://google-themes.lug.ustc.edu.cn&#xA;描述：Fonts.gstatic.com 包含地址：https?://fonts.gstatic.com 重定向：http://&amp;gt;*^https?://fonts.gstatic.com&amp;gt;*fonts-gstatic.lug.ustc.edu.cn</description>
     </item>
     <item>
       <title>Sublime Text Snippets(代码片段)功能</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</link>
       <pubDate>Sat, 28 Feb 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-02-28-sublime-text/</guid>
       <description>我们在编写代码的时候，总会遇到一些需要反复使用的代码片段。这时候就需要反复的复制和黏贴，大大影响效率。我们利用Sublime Text的snippet功能，就能很好的解决这一问题。通俗的讲，就是把我们常用的代码分别保存起啦，然后通过插件的形式来反复调用。&#xA;创建方法：Tools &amp;gt; New Snippet 弹出如下示例代码：&#xA;&amp;lt;snippet&amp;gt; &amp;lt;content&amp;gt;&amp;lt;![CDATA[ Hello, ${1:this} is a ${2:snippet}. ]]&amp;gt;&amp;lt;/content&amp;gt; &amp;lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&amp;gt; &amp;lt;!-- &amp;lt;tabTrigger&amp;gt;hello&amp;lt;/tabTrigger&amp;gt; --&amp;gt; &amp;lt;!-- Optional: Set a scope to limit where the snippet will trigger --&amp;gt; &amp;lt;!-- &amp;lt;scope&amp;gt;source.python&amp;lt;/scope&amp;gt; --&amp;gt; &amp;lt;/snippet&amp;gt; 完整的结构和说明：&#xA;&amp;lt;snippet&amp;gt; &amp;lt;content&amp;gt;&amp;lt;![CDATA[ 你需要插入的代码片段${1:name} ]]&amp;gt;&amp;lt;/content&amp;gt; &amp;lt;!-- 可选：快捷键，利用Tab自动补全代码的功能 --&amp;gt; &amp;lt;tabTrigger&amp;gt;html5&amp;lt;/tabTrigger&amp;gt; &amp;lt;!-- 可选：使用范围，不填写代表对所有文件有效。附：source.css和test.html分别对应不同文件。 --&amp;gt; &amp;lt;scope&amp;gt;source.python&amp;lt;/scope&amp;gt; &amp;lt;!-- 可选：在snippet菜单中的显示说明（支持中文）。如果不定义，菜单则显示当前文件的文件名。 --&amp;gt; &amp;lt;description&amp;gt;My Fancy Snippet&amp;lt;/description&amp;gt; &amp;lt;/snippet&amp;gt; ${1:name}表示代码插入后，光标所停留的位置，可同时插入多个。其中:name为自定义参数（可选）。 ${2}表示代码插入后，按Tab键，光标会根据顺序跳转到相应位置（以此类推）。</description>
     </item>
     <item>
       <title>标准的markdown格式练习</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</link>
       <pubDate>Fri, 30 Jan 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/2015-01-30-markdown/</guid>
       <description>##First sublime text预览markdown效果: Ctrl+Alt+O&#xA;####文字 try something 我是斜体文本哦 我是粗文本哦 我有短代码框哦 ####引用文本&#xA;this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful this is a simple dialogure if you can see this article successful&#xA;####链接 [sdgdf][1] [1]: http://www.baidu.com &amp;ldquo;baidu&amp;rdquo;&#xA;####图片 ![Aaron Swartz][p1] [p1]: http://upload-images.jianshu.io/upload_images/188518-fcb1ab53d4af226f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 &amp;ldquo;Aaron Swartz&amp;rdquo;</description>
     </item>
   </channel>

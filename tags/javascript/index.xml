@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Javascript on 莫离君的博客</title>
-    <link>https://gongvirgil.github.io/Blog/tags/javascript/</link>
+    <link>https://moli.github.io/tags/javascript/</link>
     <description>Recent content in Javascript on 莫离君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 18 Dec 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://gongvirgil.github.io/Blog/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://moli.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Javascript各种数组方法</title>
-      <link>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/javascript/2015-12-18-javascript-array-function/</link>
+      <link>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/javascript/2015-12-18-javascript-array-function/</link>
       <pubDate>Fri, 18 Dec 2015 00:00:00 +0000</pubDate>
-      <guid>https://gongvirgil.github.io/Blog/post/%E6%8A%80%E6%9C%AF/javascript/2015-12-18-javascript-array-function/</guid>
+      <guid>https://moli.github.io/post/%E6%8A%80%E6%9C%AF/javascript/2015-12-18-javascript-array-function/</guid>
       <description>##数组的基本方法如下&#xA;####1. concat()&#xA;该方法用于连接2个或者多个数组。该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。&#xA;语法：arrayObject.concat(array1,array2,....arrayx);&#xA;连接多个数组，使用逗号隔开；&#xA;比如如下代码演示：&#xA;var arr1 = [1,2,3], arr2 = [4,5,6], arr3 = [7,8,9,1,2,3]; console.log(arr1.concat(arr2,arr3)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3] console.log(arr1); // [1,2,3] console.log(arr2); // [4,5,6] console.log(arr3); // [7,8,9,1,2,3] ####2. join()&#xA;该方法是把数组中的所有元素放入一个字符串中，元素通过指定的分隔符进行分割的。&#xA;语法如下：arrayObject.join(separator);&#xA;separator: 指定分隔符对数组中的元素进行分割，如果省略该参数，则会使用逗号作为分隔符。如下代码演示：&#xA;var arrs = []; arrs[0] = &amp;quot;aa&amp;quot;; arrs[1] = &amp;quot;bb&amp;quot;; arrs[2] = &amp;quot;cc&amp;quot;; console.log(arrs.join()); // aa,bb,cc console.log(arrs.join(&amp;quot;/&amp;quot;)); // aa/bb/cc console.log(arrs.join(&amp;quot;-&amp;quot;)); // aa-bb-cc ####3.pop()&#xA;该方法删除数组的最后一个元素，把数组的长度减1，并且返回它被删除元素的值，如果数组变为空，则该方法不改变数组，返回undefine值。如下代码演示：</description>
     </item>
   </channel>
